@@ -28,16 +28,16 @@
 
 
 
-      <div *ngIf="loggedIn()" class="btn-group">
-        <button type="button" class="btn btn-warning dropdown-toggle" data-toggle="dropdown" >
-          Welcome {{ authService.normalizedToken?.unique_name | titlecase}}
+      <div dropdown *ngIf="loggedIn()" class="btn-group" >
+        <button type="button" class="btn btn-warning dropdown-toggle" data-toggle="dropdown"  dropdownToggle >
+          Welcome {{ authService.normalizedToken?.unique_name | titlecase }}
         </button>
-        <div class="dropdown-menu">
+        <div class="dropdown-menu" *dropdownMenu >
           <a class="dropdown-item" href="#">My Profile</a>
           <a class="dropdown-item" href="#">Orders</a>
           <a class="dropdown-item" href="#">Settings</a>
           <div class="dropdown-divider"></div>
-          <a class="dropdown-item btn btn-danger" href="#">Logout link</a>
+          <a class="dropdown-item btn text-danger" (click)="logout()">Logout</a>
         </div>
       </div>
 

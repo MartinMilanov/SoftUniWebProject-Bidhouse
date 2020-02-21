@@ -24,11 +24,11 @@ export class NavbarComponent implements OnInit {
   login(){
     this.authService.login(this.model).subscribe((response)=>{
       this.alertify.success("You have successfully logged in ! ")
-      this.currentUsername = this.authService.normalizedToken.unique_name
     },error=>{
       this.alertify.error("Cannot find username and password combination")
     });
-
+    
+    this.currentUsername = this.authService.normalizedToken.unique_name
   }
 
   loggedIn(){
