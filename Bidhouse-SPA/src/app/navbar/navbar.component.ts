@@ -3,6 +3,7 @@ import { LoginInputModel } from 'src/viewModels/loginInputModel';
 
 import { FormControl, FormGroup,ReactiveFormsModule, Validators } from '@angular/forms';
 import { AuthService } from '../_services/auth.service';
+import { AlertifyService } from '../_services/alertify.service';
 
 @Component({
   selector: 'app-navbar',
@@ -15,16 +16,16 @@ export class NavbarComponent implements OnInit {
   
   loginInputModel :LoginInputModel;
 
-  constructor(private authService:AuthService) { }
+  constructor(private authService:AuthService,private alertify:AlertifyService) { }
 
   ngOnInit() {
   }
 
   login(){
     this.authService.login(this.model).subscribe((response)=>{
-      console.log('Login successfull !')
+      this.alertify.success("You have successfully logged in ! ")
     },error=>{
-      console.log(error)
+      this.alertify.error("Cannot find username and password combination")
     });
   }
 
