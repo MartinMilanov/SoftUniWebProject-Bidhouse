@@ -45,6 +45,7 @@ namespace Bidhouse.Controllers
         [HttpPost("login")]
         public async Task<IActionResult> Login(LoginInputModel input)
         {
+
             User userReturned = await this.authService.Login(input.Username.ToLower(), input.Password);
 
             if (userReturned == null)
