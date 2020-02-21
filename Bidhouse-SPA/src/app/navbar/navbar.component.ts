@@ -12,8 +12,8 @@ import { AlertifyService } from '../_services/alertify.service';
 })
 export class NavbarComponent implements OnInit {
  
- model:any = {};
-  
+  model:any = {};
+  currentUsername:any;
   loginInputModel :LoginInputModel;
 
   constructor(private authService:AuthService,private alertify:AlertifyService) { }
@@ -24,9 +24,11 @@ export class NavbarComponent implements OnInit {
   login(){
     this.authService.login(this.model).subscribe((response)=>{
       this.alertify.success("You have successfully logged in ! ")
+      this.currentUsername = this.authService.normalizedToken.unique_name
     },error=>{
       this.alertify.error("Cannot find username and password combination")
     });
+
   }
 
   loggedIn(){
