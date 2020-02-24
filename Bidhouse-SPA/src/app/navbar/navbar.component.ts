@@ -4,6 +4,7 @@ import { LoginInputModel } from 'src/viewModels/loginInputModel';
 import { FormControl, FormGroup,ReactiveFormsModule, Validators } from '@angular/forms';
 import { AuthService } from '../_services/auth.service';
 import { AlertifyService } from '../_services/alertify.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-navbar',
@@ -16,7 +17,7 @@ export class NavbarComponent implements OnInit {
   currentUsername:any;
   loginInputModel :LoginInputModel;
 
-  constructor(private authService:AuthService,private alertify:AlertifyService) { }
+  constructor(private authService:AuthService,private alertify:AlertifyService,private router:Router) { }
 
   ngOnInit() {
   }
@@ -24,6 +25,7 @@ export class NavbarComponent implements OnInit {
   login(){
     this.authService.login(this.model).subscribe((response)=>{
       this.alertify.success("You have successfully logged in ! ")
+      this.router.navigate(['/posts']);
     },error=>{
       this.alertify.error("Cannot find username and password combination")
     });
@@ -37,5 +39,6 @@ export class NavbarComponent implements OnInit {
 
   logout(){
     this.authService.logout();
+    this.router.navigate(['/home']);
   }
 }
