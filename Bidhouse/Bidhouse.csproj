@@ -5,6 +5,21 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Migrations\20200224090853_Third.cs" />
+    <Compile Remove="Migrations\20200224090853_Third.Designer.cs" />
+    <Compile Remove="Migrations\20200224091140_Second.cs" />
+    <Compile Remove="Migrations\20200224091140_Second.Designer.cs" />
+    <Compile Remove="Migrations\20200224091319_Second.cs" />
+    <Compile Remove="Migrations\20200224091319_Second.Designer.cs" />
+    <Compile Remove="Migrations\20200224101135_Added Entities.cs" />
+    <Compile Remove="Migrations\20200224101135_Added Entities.Designer.cs" />
+    <Compile Remove="Migrations\20200224101209_Added Entities.cs" />
+    <Compile Remove="Migrations\20200224101209_Added Entities.Designer.cs" />
+    <Compile Remove="Migrations\20200224103648_FixedForeignKeys.cs" />
+    <Compile Remove="Migrations\20200224103648_FixedForeignKeys.Designer.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="3.1.2" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="3.1.2" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="3.1.2">
