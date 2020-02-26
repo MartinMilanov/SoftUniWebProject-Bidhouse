@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import {  map } from 'rxjs/operators'; 
 import {  JwtHelperService } from '@auth0/angular-jwt'
+import { ChangePasswordInputModel } from 'src/viewModels/ChangePasswordInputModel';
 @Injectable({
   providedIn: 'root'
 })
@@ -38,5 +39,10 @@ logout(){
 register(model:any){
   return this.http.post(this.baseUrl+'register',model);
 }
+
+changePassword(id:string,input:ChangePasswordInputModel){
+  return this.http.put(this.baseUrl+id,input);
+}
+
 
 }

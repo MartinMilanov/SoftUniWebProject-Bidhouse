@@ -36,7 +36,9 @@ namespace Bidhouse.Controllers
                 return BadRequest("Username already exists");
             }
             var user = new User() {
-                Username = input.Username
+                Username = input.Username,
+                WorkPosition = input.JobPosition,
+                City = input.City
             };
             var createdUser = await this.authService.Register(user, input.Password);
             return StatusCode(201);
@@ -80,7 +82,26 @@ namespace Bidhouse.Controllers
             });
         }
 
+        [HttpPut("{id}")]
+        public async Task<IActionResult> ChangePassword(string id, [FromBody]ChangePasswordInputModel input)
+        {
+            if (id != this.User.FindFirst(ClaimTypes.NameIdentifier).Value)
+            {
+                return Unauthorized();
+            }
+            if (input.NewPassword != input.ConfirmPassword)
+            {
+                return BadRequest("Passwords must match");
+            }
+            if (input.NewPassword.Length < 4 || input.NewPassword.Length > 8)
+            {
+                return BadRequest("Password must be between 4 and 8 characters");
+            }
 
+            var result = await this.authService.ChangePassword(id, input);
+
+            return Ok();
+        }
 
 
     }

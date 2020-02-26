@@ -12,12 +12,20 @@ import { HomeComponent } from './home/home.component';
 import { RegisterComponent } from './register/register.component';
 import { ErrorInterceptorProvider } from './_services/error.interceptor';
 import { AlertifyService } from './_services/alertify.service';
-import { BsDropdownModule } from 'ngx-bootstrap';
+import { BsDropdownModule, TabsModule } from 'ngx-bootstrap';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { PostsListComponent } from './posts-list/posts-list.component';
 import { RouterModule } from '@angular/router';
 import { appRoutes } from './app.routes';
 import { AuthGuard } from './_guards/auth.guard';
+import { UserService } from './_services/user.service';
+import { UserComponent } from './user/user.component';
+import { JwtModule } from '@auth0/angular-jwt';
+
+export function tokenGetter(){
+   return localStorage.getItem('token');
+}
+
 
 @NgModule({
    declarations: [
@@ -26,7 +34,8 @@ import { AuthGuard } from './_guards/auth.guard';
       NavbarComponent,
       HomeComponent,
       RegisterComponent,
-      PostsListComponent
+      PostsListComponent,
+      UserComponent
    ],
    imports: [
       BrowserModule,
@@ -34,14 +43,22 @@ import { AuthGuard } from './_guards/auth.guard';
       ReactiveFormsModule,
       FormsModule,
       BrowserAnimationsModule,
+      TabsModule.forRoot(),
       BsDropdownModule.forRoot(),
-      RouterModule.forRoot(appRoutes)
+      RouterModule.forRoot(appRoutes),
+      JwtModule.forRoot({
+         config:{
+            tokenGetter:tokenGetter,
+            whitelistedDomains:['localhost:5001']
+         }
+      })
    ],
    providers: [
       AuthService,
       ErrorInterceptorProvider,
       AlertifyService,
-      AuthGuard
+      AuthGuard,
+      UserService
    ],
    bootstrap: [
       AppComponent

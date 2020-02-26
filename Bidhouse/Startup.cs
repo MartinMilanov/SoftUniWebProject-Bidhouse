@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Bidhouse.Helpers;
 using Bidhouse.Services;
+using Bidhouse.Services.Users;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Diagnostics;
@@ -37,7 +38,10 @@ namespace Bidhouse
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(
                     Configuration.GetConnectionString("DefaultConnection")));
+
             services.AddScoped<IAuthService, AuthService>();
+            services.AddScoped<IUserService,UserService>();
+
             services.AddControllers();
             services.AddCors();
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)

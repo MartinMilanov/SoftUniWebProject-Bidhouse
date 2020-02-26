@@ -1,4 +1,5 @@
 ﻿using Bidhouse.Models;
+using Bidhouse.ViewModels.AuthModels;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -17,6 +18,20 @@ namespace Bidhouse.Services
         {
             this.db = db;
         }
+
+        public async Task<bool> ChangePassword(string id, ChangePasswordInputModel input)
+        {
+            var user = await this.db.Users.FirstOrDefaultAsync(x => x.Id == id);
+            if (user == null)
+            {
+                return false;
+            }
+            user.Password = this.Hash(input.NewPassword);
+            this.db.Users.Update(user);
+            this.db.SaveChanges();
+            return true;
+        }
+
         public async Task<User> Login(string username, string password)
         {
             User user = await db.Users.FirstOrDefaultAsync(x => x.Username == username);

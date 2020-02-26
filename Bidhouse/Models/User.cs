@@ -16,6 +16,7 @@ namespace Bidhouse.Models
         public string Password { get; set; }
         public string WorkPosition { get; set; }
         public string Description { get; set; }
+        public string City { get; set; }
         public ICollection<Bid> BidsSent { get; set; }
         public ICollection<Bid> BidsReceived { get; set; }
         public ICollection<Review> ReviewsGotten { get; set; }
