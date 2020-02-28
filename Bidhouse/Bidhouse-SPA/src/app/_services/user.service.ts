@@ -15,7 +15,7 @@ constructor(private http:HttpClient) { }
 getUser(id:string){
   return this.http.get(this.baseUrl+id);
 }
-updateUser(id:string,input:UserUpdateModel){
-  return this.http.put(this.baseUrl+id,input);
+updateUser(id:string,input:UserUpdateModel,formData:any){
+  return this.http.post(this.baseUrl+id,formData);
 }
 }

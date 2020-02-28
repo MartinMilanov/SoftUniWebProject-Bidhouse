@@ -1,0 +1,14 @@
+{
+  "version": "1.0",
+  "defaultProvider": "filesystem",
+  "libraries": [
+    {
+      "library": "Resources/",
+      "destination": "lib/Resources/"
+    },
+    {
+      "library": "Resources/Images/",
+      "destination": "lib/Images/"
+    }
+  ]
+}

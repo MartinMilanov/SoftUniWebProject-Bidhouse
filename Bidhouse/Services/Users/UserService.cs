@@ -32,6 +32,7 @@ namespace Bidhouse.Services.Users
                 WorkPosition = query.WorkPosition,
                 Description = query.Description,
                 City = query.City,
+                ImageUrl = query.ImageUrl,
                 Posts = query.Posts.Select(x => new UserPostDetailViewModel
                 {
                     Id = x.Id,
@@ -74,12 +75,13 @@ namespace Bidhouse.Services.Users
             throw new NotImplementedException();
         }
 
-        public async Task<bool> UpdateUser(string id,UserUpdateModel input)
+        public async Task<bool> UpdateUser(string id,UserUpdateModel input,string imageUrl)
         {
             var user = await this.db.Users.FirstOrDefaultAsync(x => x.Id == id);
             user.WorkPosition = input.JobPosition;
             user.City = input.City;
             user.Description = input.Description;
+            user.ImageUrl = imageUrl;
 
            this.db.Users.Update(user);
            await this.db.SaveChangesAsync();

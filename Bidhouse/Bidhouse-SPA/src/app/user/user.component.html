@@ -93,14 +93,17 @@
             </div>
           </main>
         
-        </tab>
-      <tab heading="Bids"></tab>
-      <tab heading="Posts">Basic content 2</tab>
+      </tab>
+      <tab heading="Bids">
+      </tab>
+      <tab heading="Posts">Basic content 2
+
+      </tab>
       <tab heading="My Profile">
         <div class="container-fluid">
           <div class="row profile-top">
             <div class="col-md-2 profile-image"  >
-              <div style="width:180px;height:180px;border-radius: 560px;background-image: url('https://ichef.bbci.co.uk/news/1024/cpsprodpb/7727/production/_103330503_musk3.jpg');background-size: cover;background-position: center;"></div>
+              <div [ngStyle]="{'background-image':'url('+user?.imageUrl+')'}" style="width:180px;height:180px;border-radius: 560px;background-size: cover;background-position: center;"></div>
             </div>
             <div class="col-md-8 profile-titles">
               <h1>{{ user?.username | titlecase}}</h1>
@@ -194,7 +197,40 @@
 
             </tab>
             <tab heading="Information Change">
-   
+
+                <form [formGroup]="myForm" (ngSubmit)="updateDetails()" style="margin-top:50px;align-items: center;justify-content: center;" >
+                  <div class="form-row" style="justify-content: center;">
+                    <div class="form-group col-md-6">
+                      <label for="Image">Image</label>
+                      <input formControlName="image" name="Image" type="file" class="form-control" 
+                      (change)="onFileChange($event)">
+                    </div>
+                  </div>
+                  <div class="form-row" style="justify-content: center;">
+                    <div class="form-group col-md-6">
+                      <label for="JobPosition">Job Position</label>
+                      <input formControlName="jobPosition" name="JobPosition" type="text" class="form-control" placeholder="Job Position" >
+                    </div>
+                  </div>
+                  <div class="form-row" style="justify-content: center;">
+                    <div class="form-group col-md-6">
+                      <label for="City">City</label>
+                      <input formControlName="city" name="City" type="text" class="form-control" placeholder="City">
+                    </div>
+                  </div>
+                  <div class="form-row" style="justify-content: center;">
+                    <div class="form-group col-md-6">
+                      <label for="Description">Description</label>
+                      <textarea formControlName="description" name="Description" type="text" class="form-control" placeholder="Description"> </textarea>
+                    </div>
+                  </div>
+                  <div  class="form-row" style="justify-content: center;">
+
+                    <button type="submit" class="btn btn-info btn-circle btn-xl"><i class="fa fa-check"></i>
+                    </button>
+                  </div>
+                </form>
+
                 <form  #detailsForm = "ngForm" (ngSubmit)="updateDetails()" style="margin-top:50px;align-items: center;justify-content: center;" action="">
                   <div class="form-row" style="justify-content: center;">
                     <div class="form-group col-md-6">
@@ -230,5 +266,6 @@
           
         </div>
       </tab>
+
     </tabset>
   </div>

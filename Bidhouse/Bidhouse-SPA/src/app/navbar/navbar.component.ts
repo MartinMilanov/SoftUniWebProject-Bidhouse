@@ -30,7 +30,7 @@ export class NavbarComponent implements OnInit {
       this.alertify.error("Cannot find username and password combination")
     });
     
-    this.currentUsername = this.authService.normalizedToken.unique_name
+   // this.currentUsername = this.authService.normalizedToken.unique_name
   }
 
   loggedIn(){

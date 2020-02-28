@@ -12,6 +12,6 @@ namespace Bidhouse.Services.Users
         public Task<ICollection<UserDetailsModel>> GetUsers();
         public Task<UserDetailsModel> GetUser(string id);
 
-        public Task<bool> UpdateUser(string id, UserUpdateModel input);
+        public Task<bool> UpdateUser(string id, UserUpdateModel input,string imageUrl);
     }
 }

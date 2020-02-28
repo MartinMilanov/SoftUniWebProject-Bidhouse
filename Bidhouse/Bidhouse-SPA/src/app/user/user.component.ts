@@ -5,6 +5,7 @@ import { AlertifyService } from '../_services/alertify.service';
 import { ChangePasswordInputModel } from 'src/viewModels/ChangePasswordInputModel';
 import { Router } from '@angular/router';
 import { UserUpdateModel } from 'src/viewModels/UserUpdateModel';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-user',
@@ -12,10 +13,19 @@ import { UserUpdateModel } from 'src/viewModels/UserUpdateModel';
   styleUrls: ['./user.component.css']
 })
 export class UserComponent implements OnInit {
-  
+filePath= "C:\Users\Marto\source\repos\Bidhouse\Bidhouse\Resources\Images\New Project (7).png";
 
+  user:any;
+
+  myForm = new FormGroup({
+    city: new FormControl(''),
+    jobPosition:new FormControl(''),
+    description:new FormControl(''),
+    image: new FormControl(''),
+    imageSource: new FormControl('')
+  });
+  preview:string;
   model:any={};
-  user;
 
   constructor(private userService:UserService,private authService:AuthService,private alertify:AlertifyService,private router:Router) { 
   }
@@ -24,12 +34,16 @@ export class UserComponent implements OnInit {
   ngOnInit() {
    this.userService.getUser(this.authService.normalizedToken.nameid).subscribe((result)=>{
      this.user = result;
+     console.log(result);
    })
+
+  
   }
 
   changePassword(obj:any){
     if(this.model.newPassword != this.model.confirmPassword){
       this.alertify.error("Passwords must match ! ");
+      
     }
     if(this.model.newPassword.length < 4 || this.model.newPassword.length > 8)
     {
@@ -46,9 +60,45 @@ export class UserComponent implements OnInit {
     }
   }
 
+  onFileChange(event:any) {
+  
+    if (event.target.files.length > 0) {
+      const file = event.target.files[0];
+      this.myForm.patchValue({
+        imageSource: file
+      });
+
+      this.myForm.get('imageSource').updateValueAndValidity()
+
+    // File Preview
+    const reader = new FileReader();
+    reader.onload = () => {
+      this.preview = reader.result as string;
+    }
+    reader.readAsDataURL(file)
+    }
+  }
+
   updateDetails(){
-    console.log(this.model);
-    let input = new UserUpdateModel(this.model.JobPosition,this.model.City,this.model.Description);
+      let input = new UserUpdateModel(this.myForm.get('jobPosition').value,this.myForm.get('city').value,this.myForm.get('description').value);
+      const formData = new FormData();
+      formData.append('file',this.myForm.get('imageSource').value,this.myForm.get('imageSource').value.name);
+      formData.append("JobPosition",input.JobPosition);
+      formData.append("City",input.City);
+      formData.append("Description",input.Description);
+
+       this.userService.updateUser(this.user.id,input,formData).subscribe((result)=>{
+        this.alertify.success("You've successfully updated your profile !");
+        this.router.routeReuseStrategy.shouldReuseRoute = () => false;
+        this.router.onSameUrlNavigation = 'reload';
+        this.router.navigate(['/user']);
+      },error=>{
+        this.alertify.error('Error!');
+      })
+
+
+
+   /* console.log(this.model);
     this.userService.updateUser(this.user.id,input).subscribe((result)=>{
       this.alertify.success("You've upated ! ")
       this.router.routeReuseStrategy.shouldReuseRoute = () => false;
@@ -57,6 +107,6 @@ export class UserComponent implements OnInit {
     },error=>{
       this.alertify.error("Something went wrong !");
     });
-
+*/
   }
 }
