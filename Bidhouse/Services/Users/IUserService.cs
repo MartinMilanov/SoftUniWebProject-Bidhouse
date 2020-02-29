@@ -9,7 +9,7 @@ namespace Bidhouse.Services.Users
     public interface IUserService
     {
         public Task<bool> UserExists(string id);
-        public Task<ICollection<UserDetailsModel>> GetUsers();
+        public Task<ICollection<UserListModel>> GetUsers();
         public Task<UserDetailsModel> GetUser(string id);
 
         public Task<bool> UpdateUser(string id, UserUpdateModel input,string imageUrl);

@@ -24,6 +24,7 @@ filePath= "C:\Users\Marto\source\repos\Bidhouse\Bidhouse\Resources\Images\New Pr
     image: new FormControl(''),
     imageSource: new FormControl('')
   });
+
   preview:string;
   model:any={};
 
@@ -87,7 +88,7 @@ filePath= "C:\Users\Marto\source\repos\Bidhouse\Bidhouse\Resources\Images\New Pr
       formData.append("City",input.City);
       formData.append("Description",input.Description);
 
-       this.userService.updateUser(this.user.id,input,formData).subscribe((result)=>{
+        this.userService.updateUser(this.user.id,input,formData).subscribe((result)=>{
         this.alertify.success("You've successfully updated your profile !");
         this.router.routeReuseStrategy.shouldReuseRoute = () => false;
         this.router.onSameUrlNavigation = 'reload';
@@ -98,15 +99,6 @@ filePath= "C:\Users\Marto\source\repos\Bidhouse\Bidhouse\Resources\Images\New Pr
 
 
 
-   /* console.log(this.model);
-    this.userService.updateUser(this.user.id,input).subscribe((result)=>{
-      this.alertify.success("You've upated ! ")
-      this.router.routeReuseStrategy.shouldReuseRoute = () => false;
-      this.router.onSameUrlNavigation = 'reload';
-      this.router.navigate(['/user']);
-    },error=>{
-      this.alertify.error("Something went wrong !");
-    });
-*/
+   
   }
 }

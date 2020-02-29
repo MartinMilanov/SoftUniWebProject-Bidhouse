@@ -70,9 +70,19 @@ namespace Bidhouse.Services.Users
             return user;
         }
 
-        public Task<ICollection<UserDetailsModel>> GetUsers()
+        public async Task<ICollection<UserListModel>> GetUsers()
         {
-            throw new NotImplementedException();
+            var users = await this.db.Users.Select(x => new UserListModel
+            {
+                Id = x.Id,
+                Name = x.Username,
+                City = x.City,
+                ImageUrl = x.ImageUrl,
+                Rating = (x.ReviewsGotten.Count != 0) ? x.ReviewsGotten.Sum(r => r.Rating) / x.ReviewsGotten.Count : 0,
+                NumberOfPosts = x.Posts.Count
+            }).ToListAsync();
+
+            return users;
         }
 
         public async Task<bool> UpdateUser(string id,UserUpdateModel input,string imageUrl)

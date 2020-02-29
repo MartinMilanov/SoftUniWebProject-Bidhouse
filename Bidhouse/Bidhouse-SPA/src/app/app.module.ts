@@ -21,6 +21,7 @@ import { AuthGuard } from './_guards/auth.guard';
 import { UserService } from './_services/user.service';
 import { UserComponent } from './user/user.component';
 import { JwtModule } from '@auth0/angular-jwt';
+import { UserListComponent } from './user-list/user-list.component';
 
 export function tokenGetter(){
    return localStorage.getItem('token');
@@ -35,7 +36,8 @@ export function tokenGetter(){
       HomeComponent,
       RegisterComponent,
       PostsListComponent,
-      UserComponent
+      UserComponent,
+      UserListComponent
    ],
    imports: [
       BrowserModule,
@@ -47,11 +49,12 @@ export function tokenGetter(){
       BsDropdownModule.forRoot(),
       RouterModule.forRoot(appRoutes),
       JwtModule.forRoot({
-         config:{
-            tokenGetter:tokenGetter,
-            whitelistedDomains:['localhost:5001']
+         config: {
+           tokenGetter: tokenGetter,
+           whitelistedDomains: ['localhost:5001']
          }
-      })
+       })
+   
    ],
    providers: [
       AuthService,

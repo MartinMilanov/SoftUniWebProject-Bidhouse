@@ -230,35 +230,6 @@
                     </button>
                   </div>
                 </form>
-
-                <form  #detailsForm = "ngForm" (ngSubmit)="updateDetails()" style="margin-top:50px;align-items: center;justify-content: center;" action="">
-                  <div class="form-row" style="justify-content: center;">
-                    <div class="form-group col-md-6">
-                      <label>Job Position</label>
-                      <input name="JobPosition" type="text" class="form-control" placeholder="Job Position"
-                      [(ngModel)]="model.JobPosition" required #jobPosition="ngModel">
-                    </div>
-                  </div>
-                  <div class="form-row" style="justify-content: center;">
-                    <div class="form-group col-md-6">
-                      <label>City</label>
-                      <input name="City" type="text" class="form-control" placeholder="City"
-                        [(ngModel)]="model.City" required #city="ngModel">
-                    </div>
-                  </div>
-                  <div class="form-row" style="justify-content: center;">
-                    <div class="form-group col-md-6">
-                      <label for="inputEmail4">Description</label>
-                      <textarea name="Description" type="text" class="form-control" id="inputEmail4" placeholder="Description"
-                      [(ngModel)]="model.Description" required #description="ngModel"> </textarea>
-                    </div>
-                  </div>
-                  <div  class="form-row" style="justify-content: center;">
-
-                    <button type="submit" class="btn btn-info btn-circle btn-xl"><i class="fa fa-check"></i>
-                    </button>
-                  </div>
-                </form>
              
             </tab>
             <tab heading="Other">Long Labeled Justified content</tab>

@@ -33,10 +33,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Resources\Images\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <None Include="wwwroot\images\n.png" />
     <None Include="wwwroot\images\New Project %287%29.png" />
     <None Include="wwwroot\images\plasmon.jpg" />

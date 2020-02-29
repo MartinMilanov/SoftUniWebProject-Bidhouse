@@ -1,0 +1,95 @@
+.title{
+    padding-left:40px;
+    padding-top:15px;
+}
+.user-search-bar{
+    margin-bottom: 20px;
+    padding-left:40px;
+}
+.test{
+    width:50%;
+}
+
+.title h2{
+    font-family: 'Hind Madurai' ;
+    font-weight: bold;
+    font-size: 43px;
+
+}
+.filter-tabs{
+    background-color: rgba(220, 220, 220, 0.2);
+    padding-left:27px;
+    padding-top:10px;
+    padding-bottom: 10px;
+}
+
+
+.filter-action:link,
+.filter-action:visited{
+    color:rgb(22, 22, 22);
+    text-decoration: none;
+    border-bottom: 2px solid transparent;
+     transition:border-bottom 0.2s;
+}
+.filter-action:hover,
+.filter-action:active{
+   border-bottom: 2px solid #cf6d17;
+}
+
+.user-details{
+    padding-top:40px;
+    padding-left:40px;
+    padding-right: 40px;
+    padding-bottom: 10px;
+}
+.user-details h6{
+    color:gray;
+    font-weight: 400;
+}
+
+.user-image{
+    background-image: url('/images/default-user-photo.png');
+    width:80px;
+    height:80px;
+    border-radius: 560px;
+    background-size: cover;
+    background-position: center;
+}
+
+.user-titles{
+    padding-top:10px;
+}
+
+.user-posts-count{
+    padding-top:30px;
+
+}
+.user-posts-count h5{
+    
+    font-family: 'Hind Madurai' ;
+    font-weight: bold;
+}
+.user-ratings i{
+    padding-top:15px;
+    padding-left:5px;
+    color:rgb(246, 195, 8);
+    
+    font-size:25px;
+}
+.user-ratings h5{
+
+    font-family: 'Hind Madurai' ;
+    font-weight: bold;
+    font-size: 25px;
+}
+.no-rating-text{
+    padding-top:30px;
+    font-size: 19px;
+    font-family: 'Hind Madurai' ;
+    font-weight: bold;
+}
+
+
+
+
+

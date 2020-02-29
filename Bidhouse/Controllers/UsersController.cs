@@ -41,6 +41,18 @@ namespace Bidhouse.Controllers
             return Ok(user);
         }
 
+        [HttpGet]
+        public async Task<IActionResult> GetUsers()
+        {
+            var users = await this.userService.GetUsers();
+            if (users == null)
+            {
+                return BadRequest("No users");
+            }
+
+            return Ok(users);
+        }
+
         [HttpPost("{id}")]
         public async Task<IActionResult> UpdateUser(string id,[FromForm]UserUpdateModel input)
         {
