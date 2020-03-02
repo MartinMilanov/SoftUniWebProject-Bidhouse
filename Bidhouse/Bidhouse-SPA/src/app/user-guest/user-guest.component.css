@@ -1,0 +1,35 @@
+.profile-top{
+    height:250px;
+    background-color: #272727;
+    color:beige;
+}
+.profile-image{
+    padding:20px;
+}
+.profile-titles{
+    padding-top:40px;
+}
+.rating-star{
+    padding-top:90px;
+    font-size: 40px;
+    color:gold;
+}
+.rating-points{
+    padding-top:35px;
+    padding-left: 10px;
+    font-size: 90px;
+    font-weight: 700;
+}
+.profile-descripion{
+    height:700px;
+    box-shadow: gray 5px;
+}
+.description-title{
+    font-weight: 700;
+    padding-top:10px;
+    padding-left:10px;
+}
+.description-text{
+    padding-left:10px;
+    padding-right: 10px;
+}

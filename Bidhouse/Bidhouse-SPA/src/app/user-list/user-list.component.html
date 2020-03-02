@@ -43,7 +43,7 @@
   </div>
   <div class="col user-titles">
     <div class="row">
-      <h4>{{ user?.name | titlecase}}</h4>
+      <h4  [routerLink]="['/user',user?.name,user?.id]" >{{ user?.name | titlecase}}</h4>
     </div>
     <div class="row">
       <h6>{{ user?.city}}</h6>
