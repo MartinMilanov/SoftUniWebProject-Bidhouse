@@ -16,8 +16,13 @@ getUser(id:string){
   return this.http.get(this.baseUrl+id);
 }
 
-getUsers(){
-  return this.http.get(this.baseUrl);
+getUsers(startAt, count?){
+  return this.http.get(this.baseUrl+"getUsers",{
+    params: {
+      startAt: startAt,
+      count:count
+    }
+  });
 }
 
 updateUser(id:string,input:UserUpdateModel,formData:any){

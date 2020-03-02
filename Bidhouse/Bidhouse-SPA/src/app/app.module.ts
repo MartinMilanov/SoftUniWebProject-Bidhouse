@@ -14,6 +14,8 @@ import { ErrorInterceptorProvider } from './_services/error.interceptor';
 import { AlertifyService } from './_services/alertify.service';
 import { BsDropdownModule, TabsModule } from 'ngx-bootstrap';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { InfiniteScrollModule } from 'ngx-infinite-scroll'
+
 import { PostsListComponent } from './posts-list/posts-list.component';
 import { RouterModule } from '@angular/router';
 import { appRoutes } from './app.routes';
@@ -45,6 +47,7 @@ export function tokenGetter(){
       ReactiveFormsModule,
       FormsModule,
       BrowserAnimationsModule,
+      InfiniteScrollModule,
       TabsModule.forRoot(),
       BsDropdownModule.forRoot(),
       RouterModule.forRoot(appRoutes),

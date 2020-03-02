@@ -70,8 +70,11 @@ namespace Bidhouse.Services.Users
             return user;
         }
 
-        public async Task<ICollection<UserListModel>> GetUsers()
+        public async Task<ICollection<UserListModel>> GetUsers(int startAt, int count)
         {
+            var query = await this.db.Users.ToListAsync();
+
+
             var users = await this.db.Users.Select(x => new UserListModel
             {
                 Id = x.Id,
@@ -82,6 +85,20 @@ namespace Bidhouse.Services.Users
                 NumberOfPosts = x.Posts.Count
             }).ToListAsync();
 
+            // 5 3 2     trqbva da vidq dali counta mi e kolkoto 
+            if (users.Count - startAt <= 0)
+            {
+                return null;
+            }
+            else if (users.Count - startAt < count)
+            {
+                users = users.GetRange(startAt, users.Count - startAt);
+            }
+            else
+            {
+
+                users = users.GetRange(startAt, count);
+            }
             return users;
         }
 

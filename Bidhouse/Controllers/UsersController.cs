@@ -41,13 +41,13 @@ namespace Bidhouse.Controllers
             return Ok(user);
         }
 
-        [HttpGet]
-        public async Task<IActionResult> GetUsers()
+        [HttpGet("getUsers")]
+        public async Task<IActionResult> GetUsers(int startAt, int count)
         {
-            var users = await this.userService.GetUsers();
+            var users = await this.userService.GetUsers(startAt, count);
             if (users == null)
             {
-                return BadRequest("No users");
+                return Ok(users);
             }
 
             return Ok(users);

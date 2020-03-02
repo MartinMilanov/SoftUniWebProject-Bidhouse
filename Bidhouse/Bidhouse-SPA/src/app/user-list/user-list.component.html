@@ -1,58 +1,77 @@
 <div style="margin-top: 70px;" class="container-fluid">
-<div class="row title">
-  <h2>Bidders</h2>
-</div>
-<div class="row user-search-bar">
-
-  <form class="test form-inline d-flex  md-form form-sm mt-0" (keydown)="textFilter($event)">
-    <i class="fa fa-search active" aria-hidden="true"></i>
-    <input class="form-control form-control-sm ml-3 w-75" type="text" placeholder="Search" aria-label="Search">
-  </form>
-</div>
-
-<div class="row filter-tabs">
-<div class="col-lg-3 col-md-3 col-sm-3 filter-tab">
-    <a class="filter-action" href=""> Sort by Rating</a>
-</div>
-<div class="col-lg-3 col-md-3 col-sm-3 filter-tab">
-  <a class="filter-action" href=""> Sort by Number of Posts</a>
+  <div class="row title">
+    <h2>Bidders</h2>
+  </div>
+  <!-- <div class="row user-search-bar">
+  
+    <form class="test form-inline d-flex  md-form form-sm mt-0" (keydown)="textFilter($event)">
+      <i class="fa fa-search active" aria-hidden="true"></i>
+      <input class="form-control form-control-sm ml-3 w-75" type="text" placeholder="Search" aria-label="Search">
+    </form>
+  </div> -->
+  
+  <div class="row filter-tabs">
+  <div class="col-lg-3 col-md-3 col-sm-3 filter-tab">
+      <a class="filter-action" href=""> Sort by Rating</a>
   </div>
   <div class="col-lg-3 col-md-3 col-sm-3 filter-tab">
-    <a class="filter-action" href=""> Sort by Name</a>
+    <a class="filter-action" href=""> Sort by Number of Posts</a>
     </div>
     <div class="col-lg-3 col-md-3 col-sm-3 filter-tab">
-      <a class="filter-action" href=""> Sort by City</a>
+      <a class="filter-action" href=""> Sort by Name</a>
       </div>
-</div>
-
- <div *ngFor="let user of userList"  class="row user-details">
-<div class="col-1">
-  <div *ngIf="user?.imageUrl == '' || user?.imageUrl == null"  class="user-image"></div>
-
-  <div *ngIf="user?.imageUrl != '' || user?.imageUrl != null" [ngStyle]="{'background-image':'url('+ user?.imageUrl +')'}" class="user-image"></div>
-</div>
-<div class="col user-titles">
-  <div class="row">
-    <h4>{{ user?.name | titlecase}}</h4>
+      <div class="col-lg-3 col-md-3 col-sm-3 filter-tab">
+        <a class="filter-action" href=""> Sort by City</a>
+        </div>
   </div>
-  <div class="row">
-    <h6>{{ user?.city}}</h6>
+  
+  
+  
+  
+  
+  
+  
+    <div *ngFor='let user of userList'  class="row user-details">
+  <div class="col-1">
+    <div *ngIf="user?.imageUrl == null"  class="user-image-without-image"></div>
+  
+    <div *ngIf="user?.imageUrl != null" [ngStyle]="{'background-image':'url('+ user?.imageUrl +')'}" class="user-image-with-image"></div>
   </div>
-</div>
-<div class="col user-posts-count">
-  <h5>{{ user?.numberOfPosts}} posts</h5>
-</div>
-<div *ngIf="user?.rating != 0" class="col user-ratings ">
-      <i class="fa fa-star"></i>
-      <h5>{{ user?.rating }}</h5>
-</div>
-<div *ngIf="user?.rating == 0" class="col ">
-  <h5 class="no-rating-text">No rating yet.</h5>
-</div>
-
-<hr>
-</div> 
-
-
-
-</div>
+  <div class="col user-titles">
+    <div class="row">
+      <h4>{{ user?.name | titlecase}}</h4>
+    </div>
+    <div class="row">
+      <h6>{{ user?.city}}</h6>
+    </div>
+  </div>
+  <div class="col user-posts-count">
+    <h5>{{ user?.numberOfPosts}} posts</h5>
+  </div>
+  <div *ngIf="user?.rating != 0" class="col user-ratings ">
+        <i class="fa fa-star"></i>
+        <h5>{{ user?.rating }}</h5>
+  </div>
+  <div *ngIf="user?.rating == 0" class="col ">
+    <h5 class="no-rating-text">No rating yet.</h5>
+  </div>
+  
+  </div> 
+  <!-- 
+  <div *ngIf = 'loader == true' class="d-flex justify-content-center">
+    <div class="spinner-border" role="status">
+      <span class="sr-only">Loading...</span>
+    </div>
+  </div> -->
+  
+  <div
+  class="row search-results"
+  infiniteScroll
+  [infiniteScrollDistance]="2"
+  [infiniteScrollThrottle]="50"
+  (scrolled)="onScroll()"
+  >
+  </div>
+  
+  <div class="badge-success justify-content-center">No more users to show</div>
+  </div>
