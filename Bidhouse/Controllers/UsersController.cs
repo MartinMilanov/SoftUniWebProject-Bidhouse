@@ -42,9 +42,9 @@ namespace Bidhouse.Controllers
         }
 
         [HttpGet("getUsers")]
-        public async Task<IActionResult> GetUsers(int startAt, int count)
+        public async Task<IActionResult> GetUsers(GetUsersInputModel input)
         {
-            var users = await this.userService.GetUsers(startAt, count);
+            var users = await this.userService.GetUsers(input);
             if (users == null)
             {
                 return Ok(users);

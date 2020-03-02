@@ -2,15 +2,16 @@
   <div class="row title">
     <h2>Bidders</h2>
   </div>
-  <!-- <div class="row user-search-bar">
   
-    <form class="test form-inline d-flex  md-form form-sm mt-0" (keydown)="textFilter($event)">
+  <div class="row user-search-bar">
+  
+    <form class="test form-inline d-flex  md-form form-sm mt-0">
       <i class="fa fa-search active" aria-hidden="true"></i>
-      <input class="form-control form-control-sm ml-3 w-75" type="text" placeholder="Search" aria-label="Search">
+      <input class="form-control form-control-sm ml-3 w-75" type="text" placeholder="Search" aria-label="Search" #value (keyup.enter)="addFilter(value)">
     </form>
-  </div> -->
+  </div>
   
-  <div class="row filter-tabs">
+  <!-- <div class="row filter-tabs">
   <div class="col-lg-3 col-md-3 col-sm-3 filter-tab">
       <a class="filter-action" href=""> Sort by Rating</a>
   </div>
@@ -23,6 +24,9 @@
       <div class="col-lg-3 col-md-3 col-sm-3 filter-tab">
         <a class="filter-action" href=""> Sort by City</a>
         </div>
+  </div> -->
+  <div *ngIf="query.SearchInput != null && query.SearchInput != ''" class="row">
+    <h2 class="search-result-title">Search results for : "{{ query.SearchInput }}"</h2>
   </div>
   
   
@@ -57,12 +61,14 @@
   </div>
   
   </div> 
-  <!-- 
+  
   <div *ngIf = 'loader == true' class="d-flex justify-content-center">
     <div class="spinner-border" role="status">
       <span class="sr-only">Loading...</span>
     </div>
-  </div> -->
+  </div> 
+  
+  
   
   <div
   class="row search-results"
@@ -73,5 +79,9 @@
   >
   </div>
   
-  <div class="badge-success justify-content-center">No more users to show</div>
+  <div class="row final-message"> 
+    <p>---- We found no more users to load ----</p>
+   
+  
+  </div>
   </div>

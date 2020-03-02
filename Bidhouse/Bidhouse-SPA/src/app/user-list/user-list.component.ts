@@ -1,6 +1,7 @@
 import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { UserService } from '../_services/user.service';
 import { AlertifyService } from '../_services/alertify.service';
+import { GetUserQueryInput } from 'src/viewModels/GetUserQueryInput';
 
 @Component({
   selector: 'app-user-list',
@@ -8,11 +9,12 @@ import { AlertifyService } from '../_services/alertify.service';
   styleUrls: ['./user-list.component.css']
 })
 export class UserListComponent implements OnInit {
+ 
+  query = new GetUserQueryInput(0,6,null);
   userList:any[];
-  startAt = 0;
-  count = 6;
   finished = false;
   loader=false;
+  searchActive = false;
   arrayToAdd;
 
   constructor(private userService:UserService,private alertify:AlertifyService,private changeDetection: ChangeDetectorRef) { }
@@ -20,10 +22,11 @@ export class UserListComponent implements OnInit {
 
 
   ngOnInit() {
-    
-    this.userService.getUsers(this.startAt,this.count).subscribe(result=>{
-    
+    this.loader = true;
+    this.userService.getUsers(this.query).subscribe(result=>{
+      
       this.userList = result as Array<Object>
+      this.loader = false;
     },error=>{
       this.finished = true;
 
@@ -31,20 +34,34 @@ export class UserListComponent implements OnInit {
     
   }
 
+  addFilter(event:any){
+    this.query.SearchInput = event.value;
+    this.query.StartAt = 0;
+    this.query.Count = 6;
+    
+    this.loader = true;
+    this.finished = false;
+    this.searchActive = true;
+    this.userService.getUsers(this.query).subscribe(result=>{
+        this.loader = false;
+        this.userList = result as Array<Object>;
+        
+     })
 
+  }
 
   onScroll(){
     if(this.finished == false){
       this.loader = true;
+      this.alertify.message("Loading...");
       this.finished = true;
 
-      this.startAt+=6;
+      this.query.StartAt+=6;
 
-      this.userService.getUsers(this.startAt,this.count).subscribe(result =>{
+      this.userService.getUsers(this.query).subscribe(result =>{
         
         if (result == null) {
           this.loader = false;
-          this.alertify.message('reached the end of the line there buddy!')
         }
         else{
 

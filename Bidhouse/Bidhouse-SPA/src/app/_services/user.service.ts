@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { ChangePasswordInputModel } from 'src/viewModels/ChangePasswordInputModel';
 import { UserUpdateModel } from 'src/viewModels/UserUpdateModel';
+import { GetUserQueryInput } from 'src/viewModels/GetUserQueryInput';
 
 @Injectable({
   providedIn: 'root'
@@ -16,14 +17,16 @@ getUser(id:string){
   return this.http.get(this.baseUrl+id);
 }
 
-getUsers(startAt, count?){
+getUsers(input:GetUserQueryInput){
   return this.http.get(this.baseUrl+"getUsers",{
     params: {
-      startAt: startAt,
-      count:count
+      startAt:input.StartAt,
+      count:input.Count,
+      searchInput: input.SearchInput
     }
   });
 }
+
 
 updateUser(id:string,input:UserUpdateModel,formData:any){
   return this.http.post(this.baseUrl+id,formData);

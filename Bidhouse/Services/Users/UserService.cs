@@ -70,12 +70,21 @@ namespace Bidhouse.Services.Users
             return user;
         }
 
-        public async Task<ICollection<UserListModel>> GetUsers(int startAt, int count)
+        public async Task<ICollection<UserListModel>> GetUsers(GetUsersInputModel input)
         {
-            var query = await this.db.Users.ToListAsync();
+            var query = await this.db.Users.Include(x => x.Posts).Include(x => x.ReviewsGotten).ToListAsync();
+
+            if (input.SearchInput != null && input.SearchInput != "null")
+            {
+                query = query.Where(x => x.Username.ToLower().Contains(input.SearchInput.ToLower())).ToList();
+                if (query == null || query.Count <= 0)
+                {
+                    return null;
+                }
+            }
 
 
-            var users = await this.db.Users.Select(x => new UserListModel
+            var users = query.Select(x => new UserListModel
             {
                 Id = x.Id,
                 Name = x.Username,
@@ -83,24 +92,24 @@ namespace Bidhouse.Services.Users
                 ImageUrl = x.ImageUrl,
                 Rating = (x.ReviewsGotten.Count != 0) ? x.ReviewsGotten.Sum(r => r.Rating) / x.ReviewsGotten.Count : 0,
                 NumberOfPosts = x.Posts.Count
-            }).ToListAsync();
+            }).ToList();
 
-            // 5 3 2     trqbva da vidq dali counta mi e kolkoto 
-            if (users.Count - startAt <= 0)
+            if (users.Count - input.StartAt <= 0)
             {
                 return null;
             }
-            else if (users.Count - startAt < count)
+            else if (users.Count - input.StartAt < input.Count)
             {
-                users = users.GetRange(startAt, users.Count - startAt);
+                users = users.GetRange(input.StartAt, users.Count - input.StartAt);
             }
             else
             {
 
-                users = users.GetRange(startAt, count);
+                users = users.GetRange(input.StartAt, input.Count);
             }
             return users;
         }
+
 
         public async Task<bool> UpdateUser(string id,UserUpdateModel input,string imageUrl)
         {
