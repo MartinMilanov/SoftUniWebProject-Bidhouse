@@ -35,5 +35,20 @@ namespace Bidhouse.Controllers
 
             return Ok(true);
         }
+
+        [HttpGet]
+        public async Task<IActionResult> GetPost(string id)
+        {
+            return Ok();
+        }
+
+        [HttpDelete]
+        public async Task<IActionResult> DeletePost(string id)
+        {
+            await this.postService.DeletePost(id);
+
+            return Ok();
+        }
+
     }
 }

@@ -10,5 +10,6 @@ namespace Bidhouse.ViewModels.UserModels
         public string Id { get; set; }
         public decimal Price { get; set; }
         public string Name { get; set; }
+        public DateTime CreatedOn { get; set; }
     }
 }

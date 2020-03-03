@@ -9,5 +9,6 @@ namespace Bidhouse.Services.Posts
     public interface IPostService
     {
         public Task<string> CreatePost(CreatePostInputModel input, string id);
+        public Task<bool> DeletePost(string id);
     }
 }

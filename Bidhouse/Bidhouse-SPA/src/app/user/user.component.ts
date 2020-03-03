@@ -1,4 +1,4 @@
-import { Component, OnInit} from '@angular/core';
+import { Component, OnInit, TemplateRef} from '@angular/core';
 import { UserService } from '../_services/user.service';
 import { AuthService } from '../_services/auth.service';
 import { AlertifyService } from '../_services/alertify.service';
@@ -6,6 +6,8 @@ import { ChangePasswordInputModel } from 'src/viewModels/ChangePasswordInputMode
 import { Router } from '@angular/router';
 import { UserUpdateModel } from 'src/viewModels/UserUpdateModel';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { BsModalService, BsModalRef } from 'ngx-bootstrap';
+import { PostService } from '../_services/post.service';
 
 @Component({
   selector: 'app-user',
@@ -13,9 +15,8 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
   styleUrls: ['./user.component.css']
 })
 export class UserComponent implements OnInit {
-filePath= "C:\Users\Marto\source\repos\Bidhouse\Bidhouse\Resources\Images\New Project (7).png";
-
-  user:any;
+user:any;
+postsArray:object[];
 
   myForm = new FormGroup({
     city: new FormControl(''),
@@ -25,17 +26,20 @@ filePath= "C:\Users\Marto\source\repos\Bidhouse\Bidhouse\Resources\Images\New Pr
     imageSource: new FormControl('')
   });
 
+  modalRef: BsModalRef;
   preview:string;
   model:any={};
 
-  constructor(private userService:UserService,private authService:AuthService,private alertify:AlertifyService,private router:Router) { 
+  constructor(private userService:UserService,private authService:AuthService,private alertify:AlertifyService,
+    private router:Router,private modalService: BsModalService,private postService:PostService) { 
   }
   
   
   ngOnInit() {
    this.userService.getUser(this.authService.normalizedToken.nameid).subscribe((result)=>{
      this.user = result;
-     console.log(result);
+     this.postsArray = this.user.posts as Array<Object>;
+     console.log(this.postsArray)
    })
 
   
@@ -100,5 +104,26 @@ filePath= "C:\Users\Marto\source\repos\Bidhouse\Bidhouse\Resources\Images\New Pr
 
 
    
+  }
+
+
+  openModal(template: TemplateRef<any>) {
+    this.modalRef = this.modalService.show(template, {class: 'modal-sm'});
+  }
+  
+  confirm(post:any): void {
+    this.postsArray.splice(this.postsArray.indexOf(post),1);
+    this.postService.deletePost(post.id).subscribe(result=>{
+
+      this.alertify.success('You have deleted '+ post.name);
+    },error=>{
+      this.alertify.error("Something went wrong, please alert support !")
+    }
+    );
+    this.modalRef.hide();
+  }
+ 
+  decline(): void {
+    this.modalRef.hide();
   }
 }

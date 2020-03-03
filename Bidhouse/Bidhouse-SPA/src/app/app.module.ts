@@ -15,6 +15,7 @@ import { AlertifyService } from './_services/alertify.service';
 import { BsDropdownModule, TabsModule } from 'ngx-bootstrap';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll'
+import { ModalModule } from 'ngx-bootstrap';
 
 import { PostsListComponent } from './posts-list/posts-list.component';
 import { RouterModule } from '@angular/router';
@@ -55,6 +56,7 @@ export function tokenGetter(){
       InfiniteScrollModule,
       TabsModule.forRoot(),
       BsDropdownModule.forRoot(),
+      ModalModule.forRoot(),
       RouterModule.forRoot(appRoutes),
       JwtModule.forRoot({
          config: {
