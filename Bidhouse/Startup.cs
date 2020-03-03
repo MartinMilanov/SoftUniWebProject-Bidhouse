@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using Bidhouse.Helpers;
 using Bidhouse.Services;
 using Bidhouse.Services.Files;
+using Bidhouse.Services.Posts;
 using Bidhouse.Services.Users;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
@@ -45,6 +46,7 @@ namespace Bidhouse
             services.AddScoped<IAuthService, AuthService>();
             services.AddScoped<IUserService,UserService>();
             services.AddScoped<IFileService, FileService>();
+            services.AddScoped<IPostService, PostService>();
 
             services.AddControllers();
             services.AddCors();

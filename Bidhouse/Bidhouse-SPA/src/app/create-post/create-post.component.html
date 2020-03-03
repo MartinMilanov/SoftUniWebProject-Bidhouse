@@ -1,0 +1,46 @@
+<div style="margin-top: 70px" class="container-fluid">
+    <div class="card">
+        <div class="card-body">
+ 
+            <div class="row">
+                
+                <h1 class="title">What service are you looking for ?</h1>
+            </div>
+            <form [formGroup]="form" (ngSubmit)="createPost()" style="margin-top:10px;align-items: center;justify-content: center;" >
+               
+                <div class="form-row" style="justify-content: center;">
+                  <div class="form-group col-md-6">
+                    <label for="Name">Give a short name of your needs</label>
+                    <input maxlength="70" formControlName="name" name="Name" type="text" class="form-control"
+                     placeholder="I need a mechanic that can fix my fridge !" >
+                  </div>
+                </div>
+               
+                <div class="form-row" style="justify-content: center;">
+                    <div class="form-group col-md-6">
+                      <label for="Description">Give a detailed description of what you need</label>
+                      <textarea maxlength="270" formControlName="description" name="Description" type="text" class="form-control"
+                       placeholder="My fridge is broken and can't start , but the lighting is working and it makes weird sounds. Plus if you can fix the wheels it will be splendid"></textarea>
+                    </div>
+                  </div>
+         
+                <div class="form-row" style="justify-content: center;">
+                  <div class="form-group col-md-6">
+                    <label for="Price">What's the most you would pay for this service ?</label>
+                    <input formControlName="price" name="Price" type="number" class="form-control" placeholder="80">
+                  </div>
+                </div>
+               
+                <div  class="form-row" style="justify-content: center;">
+         
+                  <button type="submit" class="btn btn-info btn-circle btn-xl"><i class="fa fa-check"></i>
+                  </button>
+                </div>
+              </form>
+ 
+        </div>
+    </div>
+    
+    
+ </div>
+ 

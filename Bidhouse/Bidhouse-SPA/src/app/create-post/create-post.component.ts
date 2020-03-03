@@ -1,0 +1,49 @@
+import { Component, OnInit } from '@angular/core';
+import { AlertifyService } from '../_services/alertify.service';
+import { FormGroup, FormControl } from '@angular/forms';
+import { CreatePostInputModel } from 'src/viewModels/CreatePostInputModel';
+import { PostService } from '../_services/post.service';
+
+@Component({
+  selector: 'app-create-post',
+  templateUrl: './create-post.component.html',
+  styleUrls: ['./create-post.component.css']
+})
+export class CreatePostComponent implements OnInit {
+
+  form = new FormGroup({
+    name: new FormControl(''),
+    description: new FormControl(''),
+    price:new FormControl('')
+  })
+
+  constructor(private alertify:AlertifyService,private postService:PostService) { }
+
+  ngOnInit() {
+  }
+
+  createPost(){
+    if (this.form.value.name.length < 10 || this.form.value.name.length >70 ) {
+      this.alertify.error("Your post title must be between 10 and 70 characters")
+    }
+    if (this.form.value.description.length < 10 || this.form.value.description.length > 270) {
+      this.alertify.error("Your description must be between 10 and 270 characters")
+    }
+    if (this.form.value.price <= 0) {
+      this.alertify.error("You must add a price");
+    }
+    else{
+
+      let input = new CreatePostInputModel(this.form.value.name,this.form.value.description,this.form.value.price);
+  
+      this.postService.createPost(input).subscribe(result=>{
+        this.alertify.success("Congratulations, you have successfully created your post !");
+      },error=>{
+        this.alertify.error("Something went wrong , please contact support for further help");
+      });
+  
+
+
+    }
+  }
+}

@@ -4,3 +4,6 @@
 @import '../node_modules/alertifyjs/build/css/themes/bootstrap.css';
 @import '../node_modules/alertifyjs/build/css/alertify.min.css';
 @import url('https://fonts.googleapis.com/css?family=Hind+Madurai:500,700&display=swap');
+*{
+    font-family: 'Hind Madurai' ;
+}

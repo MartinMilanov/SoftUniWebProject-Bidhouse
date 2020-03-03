@@ -23,6 +23,8 @@
           Welcome {{ authService?.normalizedToken?.unique_name | titlecase }}
         </button>
         <div class="dropdown-menu" *dropdownMenu >
+          <a class="dropdown-item"  [routerLink]="['/user/create-post']" href="#">Create a Post</a>
+          <div class="dropdown-divider"></div>
           <a class="dropdown-item" [routerLink]="['/user']" href="#">My Profile</a>
           <a class="dropdown-item" href="#">Orders</a>
           <a class="dropdown-item" href="#">Settings</a>

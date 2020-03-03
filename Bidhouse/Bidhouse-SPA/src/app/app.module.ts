@@ -25,6 +25,8 @@ import { UserComponent } from './user/user.component';
 import { JwtModule } from '@auth0/angular-jwt';
 import { UserListComponent } from './user-list/user-list.component';
 import { UserGuestComponent } from './user-guest/user-guest.component';
+import { CreatePostComponent } from './create-post/create-post.component';
+import { PostService } from './_services/post.service';
 
 export function tokenGetter(){
    return localStorage.getItem('token');
@@ -41,7 +43,8 @@ export function tokenGetter(){
       PostsListComponent,
       UserComponent,
       UserListComponent,
-      UserGuestComponent
+      UserGuestComponent,
+      CreatePostComponent
    ],
    imports: [
       BrowserModule,
@@ -66,7 +69,8 @@ export function tokenGetter(){
       ErrorInterceptorProvider,
       AlertifyService,
       AuthGuard,
-      UserService
+      UserService,
+      PostService
    ],
    bootstrap: [
       AppComponent
