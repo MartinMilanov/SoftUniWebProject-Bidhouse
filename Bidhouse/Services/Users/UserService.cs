@@ -37,7 +37,7 @@ namespace Bidhouse.Services.Users
                 {
                     Id = x.Id,
                     Name = x.Name,
-                    Price = x.RoofPrice
+                    Price = x.Price
                 }).ToList(),
                 ReviewsSent = query.ReviewsSent.Select(x => new UserReviewSentViewModel
                 {

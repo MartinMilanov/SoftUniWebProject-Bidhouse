@@ -14,12 +14,11 @@ namespace Bidhouse.Models
         public string Name { get; set; }
         public string CreatorId { get; set; }
         public User Creator { get; set; }
-        public PostType PostType { get; set; }
         public string Description { get; set; }
+        public DateTime CreatedOn { get; set; }
+
         [Column(TypeName = "decimal(18,2)")]
-        public decimal LowPrice { get; set; }
-        [Column(TypeName = "decimal(18,2)")]
-        public decimal RoofPrice { get; set; }
+        public decimal Price { get; set; }
         public ICollection<Bid> Bids { get; set; }
         public ICollection<Report> Reports { get; set; }
     }
