@@ -49,34 +49,37 @@
               </div>
         </div>
 
-        <div *ngIf="" class="col-12">
-            <div class="card bid-form">
+        <div class="col-12 bid-form-col">
+            <div   *ngIf="this.canBid == true" class="card bid-form">
                 <div class="card-title">
                     <h3 class="bid-create-title"> Place your own bid !</h3>
                 </div>
                 <hr>
-                <form action="" class="form">
+                <form [formGroup]="bidForm" (ngSubmit)="placeBid()" action="" class="form">
                     <div class="form-row">
                         <div class="form-group col-md-6">
                           <label> Type how many days you think it will take you</label>
-                          <input type="number" class="form-control"  placeholder="14">
+                          <input formControlName="days" name="Days" type="number" class="form-control"  placeholder="14">
                         </div>
                         <div class="form-group col-md-6">
                           <label> Type in your best price</label>
-                          <input type="number" class="form-control"  placeholder="$15000">
+                          <input formControlName="price" name="Price" type="number" class="form-control"  placeholder="$15000">
                         </div>
                       </div>
                       <div class="form-group">
                         <label> Tell the job offerer why you are the best candidate.</label>
-                        <textarea type="text" class="form-control" style="height:140px;" placeholder="You should hire me because ..."></textarea>
+                        <textarea formControlName="description" name="Description" type="text" class="form-control" style="height:140px;" placeholder="You should hire me because ..."></textarea>
                       </div>
                    
                       
                       
                       
                    
-                      <button type="submit" class="btn btn-success">Place bid</button>
+                      <button type="submit" class="btn btn-success" >Place bid</button>
                 </form>
+            </div>
+            <div *ngIf="this.canBid == false && this.isCreator == false" class="alert alert-warning alert-message">
+                You have already bid !
             </div>
         </div>
         
@@ -88,16 +91,16 @@
             <div class="row bid-list">
                 <div class="col-12">
                     <div class="list-group">
-                        <a href="#" class="list-group-item list-group-item-action flex-column align-items-start">
+                        <a *ngFor="let bid of post.bids" href="#" class="list-group-item list-group-item-action flex-column align-items-start">
                           
                             <ul class="bidder-info-list">
                                 <li>
-                                    <div class="bidder-image"></div>
+                                    <div [ngStyle]="{'background-image':'url('+bid.bidder.imageUrl+')'}" class="bidder-image"></div>
                                     
                                 </li>
                                 <li>
                                     <div class="bidder-name">
-                                        <p>Jordan Belfort </p>
+                                        <p>{{ bid.bidder.name }}</p>
                                     </div>
             
                                 </li>
@@ -116,24 +119,24 @@
                                 <li>
             
                                     <div class="bidder-rating-points">
-                                        <span>(4.2)</span>
+                                        <span>({{ bid.bidder.rating }})</span>
                                     </div>
                                 </li>
                                 <li class="bidder-date">
-                                    <small>3 days ago</small>
+                                    <small>{{ bid.createdOn | date}}</small>
                                 </li>
                             </ul>
 
                           <div class="d-flex w-100 justify-content-between">
                             
-                              <p class="mb-1">us blandit.s blandit.s blandit.s blandit.s blandit.s blandit.s blandit.s blandit.s blandit.s blandit.s blandit.s blandit.s blandit.s blandit.s blandit.</p>
+                              <p class="mb-1">{{ bid.description }}</p>
                               <ul class="details">
                                   <li>
-                                      <h4>$1500</h4>
+                                      <h4>${{ bid.price }}</h4>
 
                                   </li>
                                   <li class="days">
-                                      <h5>9 days</h5>
+                                      <h5>{{ bid.days }} days</h5>
                                   </li>
                               </ul>
         
@@ -141,100 +144,15 @@
                          
                         </a>
                        
-                        <a href="#" class="list-group-item list-group-item-action flex-column align-items-start">
-                            <ul class="bidder-info-list">
-                                <li>
-                                    <div class="bidder-image"></div>
-                                    
-                                </li>
-                                <li>
-                                    <div class="bidder-name">
-                                        <p>Jordan Belfort </p>
-                                    </div>
-            
-                                </li>
-                                <li>
-                                    <div>
-                                        <ul class="bidder-rating justify-content-start">
-                                            <li class="star"><i class="fa fa-star"></i></li>
-                                            <li class="star"><i class="fa fa-star"></i></li>
-                                            <li class="star"><i class="fa fa-star"></i></li>
-                                            <li class="star"><i class="fa fa-star"></i></li>
-                                            <li class="star"><i class="fa fa-star"></i></li>
-                                        </ul>
-                                    </div>
-            
-                                </li>
-                                <li>
-            
-                                    <div class="bidder-rating-points">
-                                        <span>(4.2)</span>
-                                    </div>
-                                </li>
-                                <li class="bidder-date">
-                                    <small>3 days ago</small>
-                                </li>
-                            </ul>
-
-                          <div class="d-flex w-100 justify-content-between">
-                            
-                              <p  style="padding-right:70px;" class="mb-1">us blandit.s blandit.s blandit.s blandit.s blandit.s blandit.s blandit.s blandit.s blandit.s blandit.s blandit.s blandit.s blandit.s blandit.s blandit.</p>
-                              <h4>$1500</h4>
-        
-                          </div>
-                        </a>
                        
-
-                        <a href="#" class="list-group-item list-group-item-action flex-column align-items-start">
-                            <ul class="bidder-info-list">
-                                <li>
-                                    <div class="bidder-image"></div>
-                                    
-                                </li>
-                                <li>
-                                    <div class="bidder-name">
-                                        <p>Jordan Belfort </p>
-                                    </div>
-            
-                                </li>
-                                <li>
-                                    <div>
-                                        <ul class="bidder-rating justify-content-start">
-                                            <li class="star"><i class="fa fa-star"></i></li>
-                                            <li class="star"><i class="fa fa-star"></i></li>
-                                            <li class="star"><i class="fa fa-star"></i></li>
-                                            <li class="star"><i class="fa fa-star"></i></li>
-                                            <li class="star"><i class="fa fa-star"></i></li>
-                                        </ul>
-                                    </div>
-            
-                                </li>
-                                <li>
-            
-                                    <div class="bidder-rating-points">
-                                        <span>(4.2)</span>
-                                    </div>
-                                </li>
-                                <li class="bidder-date">
-                                    <small>3 days ago</small>
-                                </li>
-                            </ul>
-
-                          <div class="d-flex w-100 justify-content-between">
-                            
-                              <p  style="padding-right:70px;" class="mb-1">us blandit.s blandit.s blandit.s blandit.s blandit.s blandit.s blandit.s blandit.s blandit.s blandit.s blandit.s blandit.s blandit.s blandit.s blandit.</p>
-                              <h4>$1500</h4>
-        
-                          </div>
-                        </a>
                        
                       </div>
                 </div>
             </div>
         </div>
 
-        <div   *ngIf="post?.bids == null "class="col-12">
-            <p> No bids yet...</p>
+        <div *ngIf="post?.bids == null "class="col-12 no-bids">
+            <div class="alert alert-info alert-message"> No bids yet...</div>
         </div>
     </div>
 

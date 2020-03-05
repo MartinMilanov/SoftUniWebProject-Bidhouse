@@ -7,6 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Bidhouse.Helpers;
 using Bidhouse.Services;
+using Bidhouse.Services.Bids;
 using Bidhouse.Services.Files;
 using Bidhouse.Services.Posts;
 using Bidhouse.Services.Users;
@@ -47,6 +48,7 @@ namespace Bidhouse
             services.AddScoped<IUserService,UserService>();
             services.AddScoped<IFileService, FileService>();
             services.AddScoped<IPostService, PostService>();
+            services.AddScoped<IBidService, BidService>();
 
             services.AddControllers();
             services.AddCors();
