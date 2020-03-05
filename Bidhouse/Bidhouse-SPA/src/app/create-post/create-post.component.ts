@@ -14,6 +14,8 @@ export class CreatePostComponent implements OnInit {
   form = new FormGroup({
     name: new FormControl(''),
     description: new FormControl(''),
+    location:new FormControl(''),
+    time:new FormControl(''),
     price:new FormControl('')
   })
 
@@ -32,10 +34,13 @@ export class CreatePostComponent implements OnInit {
     if (this.form.value.price <= 0) {
       this.alertify.error("You must add a price");
     }
+    if (this.form.value.time == null || this.form.value.time <= Date.now()){
+      this.alertify.error("You must add days to your inqury");
+    }
     else{
 
-      let input = new CreatePostInputModel(this.form.value.name,this.form.value.description,this.form.value.price);
-  
+      let input = new CreatePostInputModel(this.form.value.name,this.form.value.description,this.form.value.location,this.form.value.time,this.form.value.price);
+      console.log(input);
       this.postService.createPost(input).subscribe(result=>{
         this.alertify.success("Congratulations, you have successfully created your post !");
       },error=>{

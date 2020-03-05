@@ -23,7 +23,8 @@ namespace Bidhouse.Services.Users
                 .Include(x => x.BidsSent)
                 .Include(x => x.ReviewsGotten)
                 .Include(x => x.ReviewsSent)
-                .Include(x => x.Posts).FirstOrDefaultAsync(x => x.Id == id);
+                .Include(x => x.Posts)
+                .FirstOrDefaultAsync(x => x.Id == id);
 
             var user = new UserDetailsModel()
             {

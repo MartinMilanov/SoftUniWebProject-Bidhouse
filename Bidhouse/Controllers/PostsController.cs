@@ -39,7 +39,9 @@ namespace Bidhouse.Controllers
         [HttpGet]
         public async Task<IActionResult> GetPost(string id)
         {
-            return Ok();
+            var post = await this.postService.GetPost(id);
+
+            return Ok(post);
         }
 
         [HttpDelete]

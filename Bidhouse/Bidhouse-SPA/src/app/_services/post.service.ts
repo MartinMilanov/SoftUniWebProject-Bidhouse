@@ -10,6 +10,14 @@ export class PostService {
   
   constructor(private http:HttpClient) { }
   
+  getPost(id:string){
+    return this.http.get(this.baseUrl,{
+      params:{
+        id:id
+      }
+    })
+  }
+
   createPost(input:CreatePostInputModel){
    return this.http.post(this.baseUrl,input);
   }

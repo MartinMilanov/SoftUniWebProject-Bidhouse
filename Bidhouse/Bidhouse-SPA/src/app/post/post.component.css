@@ -1,0 +1,137 @@
+*{
+    box-sizing: border-box;
+}
+ul{
+    margin:0px;
+    padding:0px;
+}
+.titles{
+    padding-left:140px;
+    padding-top:30px;
+    padding-left:14%;
+}
+.titles h1{
+    font-size: 25px;
+    font-weight: bold;
+    color:rgb(32, 32, 32);
+}
+.user-details{
+    padding-left:15px;
+}
+.profile-image{
+    width:120px;
+    padding:0px;
+    padding-left:10px;
+    padding-top:10px;
+}
+.image{
+    width:40px;
+    height:40px;
+    border-radius: 560px;
+    background-size: cover;
+    background-position: center;
+    margin:0px;
+}
+
+.rating{
+    padding-top:10px;
+    list-style: none;
+   
+}
+.rating li{
+    margin-left:4px;
+    display: inline;
+    
+}
+.rating-points{
+    padding-top:9px;
+}
+
+
+.description{
+    margin-top:5px;
+    width: 50vw;
+}
+.star{
+    color:rgb(255, 200, 0);
+}
+
+.post-description{
+    color:gray;
+}
+
+.bid-form{
+    margin-top:10px;
+    width: 50vw;
+}
+
+.form{
+    padding:20px;
+}
+.bid-create-title{
+    font-size: 21px;
+    font-weight: bold;
+    color:rgb(32, 32, 32);
+    padding-left:20px;
+    padding-top:20px;
+}
+
+.bids-title h4{
+    padding-left:10px;
+    font-size: 21px;
+    font-weight: bold;
+    color:rgb(32, 32, 32);
+    padding-left:20px;
+    padding-top:20px;
+}
+
+.bid-list{
+    width:52vw;
+   
+}
+
+
+.bidder-image{
+    width:40px;
+    height:40px;
+    border-radius: 560px;
+    background-size: cover;
+    background-position: center;
+    background-image: url('https://i.insider.com/52a22d6e6da8112419a704c4?width=750&format=jpeg&auto=webp');
+    margin:0px;
+}
+
+.bidder-rating{
+    padding-top:10px;
+    list-style: none;
+    padding-left:0px;
+}
+.bidder-rating li{
+    margin-left:4px;
+    display: inline-block;
+    
+}
+
+.bidder-info-list{
+    list-style: none;
+}
+.bidder-info-list li{
+    display:inline-block;
+    height:40px;
+}
+.bidder-info-list li .bidder-image{
+    margin-top:15px;
+    margin-right:10px;
+}
+
+.bidder-date{
+    float:right;
+}
+
+.details{
+    list-style: none;
+}
+
+.days{
+    margin-top:20px;
+}

@@ -14,7 +14,11 @@ namespace Bidhouse.ViewModels.PostModels
         [Required]
         [StringLength(270, MinimumLength = 10, ErrorMessage = "Name length must be between 10 and 270 characters")]
         public string Description { get; set; }
+        
+        public string Location { get; set; }
         [Required]
         public decimal Price { get; set; }
+        [Required]
+        public DateTime Time { get; set; }
     }
 }

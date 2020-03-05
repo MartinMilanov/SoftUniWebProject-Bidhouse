@@ -16,7 +16,7 @@ import { PostService } from '../_services/post.service';
 })
 export class UserComponent implements OnInit {
 user:any;
-postsArray:object[];
+postsArray:any[];
 
   myForm = new FormGroup({
     city: new FormControl(''),

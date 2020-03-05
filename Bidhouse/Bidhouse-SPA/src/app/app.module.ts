@@ -28,6 +28,7 @@ import { UserListComponent } from './user-list/user-list.component';
 import { UserGuestComponent } from './user-guest/user-guest.component';
 import { CreatePostComponent } from './create-post/create-post.component';
 import { PostService } from './_services/post.service';
+import { PostComponent } from './post/post.component';
 
 export function tokenGetter(){
    return localStorage.getItem('token');
@@ -45,7 +46,8 @@ export function tokenGetter(){
       UserComponent,
       UserListComponent,
       UserGuestComponent,
-      CreatePostComponent
+      CreatePostComponent,
+      PostComponent
    ],
    imports: [
       BrowserModule,

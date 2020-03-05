@@ -21,7 +21,9 @@ namespace Bidhouse.Models
         public User Receiver { get; set; }
         [Column(TypeName = "decimal(18,2)")]
         public decimal Price { get; set; }
+        public int Days { get; set; }
         public string Description { get; set; }
         public Status StatusOfBid { get; set; }
+        public DateTime CreatedOn { get; set; }
     }
 }

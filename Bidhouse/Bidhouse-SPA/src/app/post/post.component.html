@@ -1,0 +1,243 @@
+<div style="padding-top:100px;" class="container-fluid">
+    <div class="row titles">
+        <div class="col-12">
+            
+            <h1>{{ post?.name }}</h1>
+        </div>
+        <div class="col-12">
+            <div class="row user-details">
+                <div *ngIf='post?.creator.imageUrl != null' [ngStyle]="{'background-image':'url('+post?.creator?.imageUrl+')'}" class="image"></div>
+
+                <div class="profile-image">
+                    <p>{{ post?.creator.name | titlecase }}</p>
+                </div>
+                <div>
+                    <ul class="rating">
+                        <li class="star"><i class="fa fa-star"></i></li>
+                        <li class="star"><i class="fa fa-star"></i></li>
+                        <li class="star"><i class="fa fa-star"></i></li>
+                        <li class="star"><i class="fa fa-star"></i></li>
+                        <li class="star"><i class="fa fa-star"></i></li>
+                    </ul>
+                </div>
+                <div class="rating-points">
+                    <span>( {{post?.creator.rating}} )</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-12">
+            <div class="card description">
+                <div class="card-body">
+                    <div class="card-title post-description"> Description </div>
+                    
+                    <p class="card-text">{{ post?.description }}</p>
+                    <hr>
+                    <div class="card-title post-description"> Location </div>
+                    
+                    <p class="card-text ">
+                        {{ post?.location }}
+                    </p>
+                    <hr>
+                    <div class="card-title post-description"> Should be finished by </div>
+                    
+                    <p class="card-text">
+                        {{ post?.timeDue | date}}
+                    </p>
+                    
+                </div>
+              </div>
+        </div>
+
+        <div class="col-12">
+            <div class="card bid-form">
+                <div class="card-title">
+                    <h3 class="bid-create-title"> Place your own bid !</h3>
+                </div>
+                <hr>
+                <form action="" class="form">
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                          <label> Type how many days you think it will take you</label>
+                          <input type="number" class="form-control"  placeholder="14">
+                        </div>
+                        <div class="form-group col-md-6">
+                          <label> Type in your best price</label>
+                          <input type="number" class="form-control"  placeholder="$15000">
+                        </div>
+                      </div>
+                      <div class="form-group">
+                        <label> Tell the job offerer why you are the best candidate.</label>
+                        <textarea type="text" class="form-control" style="height:140px;" placeholder="You should hire me because ..."></textarea>
+                      </div>
+                   
+                      
+                      
+                      
+                   
+                      <button type="submit" class="btn btn-success">Place bid</button>
+                </form>
+            </div>
+        </div>
+        
+        <div  *ngIf="post?.bids != null " class="col-12">
+            <div class="row bids-title">
+                <h4>Bids Stack</h4>
+            </div>
+           
+            <div class="row bid-list">
+                <div class="col-12">
+                    <div class="list-group">
+                        <a href="#" class="list-group-item list-group-item-action flex-column align-items-start">
+                          
+                            <ul class="bidder-info-list">
+                                <li>
+                                    <div class="bidder-image"></div>
+                                    
+                                </li>
+                                <li>
+                                    <div class="bidder-name">
+                                        <p>Jordan Belfort </p>
+                                    </div>
+            
+                                </li>
+                                <li>
+                                    <div>
+                                        <ul class="bidder-rating justify-content-start">
+                                            <li class="star"><i class="fa fa-star"></i></li>
+                                            <li class="star"><i class="fa fa-star"></i></li>
+                                            <li class="star"><i class="fa fa-star"></i></li>
+                                            <li class="star"><i class="fa fa-star"></i></li>
+                                            <li class="star"><i class="fa fa-star"></i></li>
+                                        </ul>
+                                    </div>
+            
+                                </li>
+                                <li>
+            
+                                    <div class="bidder-rating-points">
+                                        <span>(4.2)</span>
+                                    </div>
+                                </li>
+                                <li class="bidder-date">
+                                    <small>3 days ago</small>
+                                </li>
+                            </ul>
+
+                          <div class="d-flex w-100 justify-content-between">
+                            
+                              <p class="mb-1">us blandit.s blandit.s blandit.s blandit.s blandit.s blandit.s blandit.s blandit.s blandit.s blandit.s blandit.s blandit.s blandit.s blandit.s blandit.</p>
+                              <ul class="details">
+                                  <li>
+                                      <h4>$1500</h4>
+
+                                  </li>
+                                  <li class="days">
+                                      <h5>9 days</h5>
+                                  </li>
+                              </ul>
+        
+                          </div>
+                         
+                        </a>
+                       
+                        <a href="#" class="list-group-item list-group-item-action flex-column align-items-start">
+                            <ul class="bidder-info-list">
+                                <li>
+                                    <div class="bidder-image"></div>
+                                    
+                                </li>
+                                <li>
+                                    <div class="bidder-name">
+                                        <p>Jordan Belfort </p>
+                                    </div>
+            
+                                </li>
+                                <li>
+                                    <div>
+                                        <ul class="bidder-rating justify-content-start">
+                                            <li class="star"><i class="fa fa-star"></i></li>
+                                            <li class="star"><i class="fa fa-star"></i></li>
+                                            <li class="star"><i class="fa fa-star"></i></li>
+                                            <li class="star"><i class="fa fa-star"></i></li>
+                                            <li class="star"><i class="fa fa-star"></i></li>
+                                        </ul>
+                                    </div>
+            
+                                </li>
+                                <li>
+            
+                                    <div class="bidder-rating-points">
+                                        <span>(4.2)</span>
+                                    </div>
+                                </li>
+                                <li class="bidder-date">
+                                    <small>3 days ago</small>
+                                </li>
+                            </ul>
+
+                          <div class="d-flex w-100 justify-content-between">
+                            
+                              <p  style="padding-right:70px;" class="mb-1">us blandit.s blandit.s blandit.s blandit.s blandit.s blandit.s blandit.s blandit.s blandit.s blandit.s blandit.s blandit.s blandit.s blandit.s blandit.</p>
+                              <h4>$1500</h4>
+        
+                          </div>
+                        </a>
+                       
+
+                        <a href="#" class="list-group-item list-group-item-action flex-column align-items-start">
+                            <ul class="bidder-info-list">
+                                <li>
+                                    <div class="bidder-image"></div>
+                                    
+                                </li>
+                                <li>
+                                    <div class="bidder-name">
+                                        <p>Jordan Belfort </p>
+                                    </div>
+            
+                                </li>
+                                <li>
+                                    <div>
+                                        <ul class="bidder-rating justify-content-start">
+                                            <li class="star"><i class="fa fa-star"></i></li>
+                                            <li class="star"><i class="fa fa-star"></i></li>
+                                            <li class="star"><i class="fa fa-star"></i></li>
+                                            <li class="star"><i class="fa fa-star"></i></li>
+                                            <li class="star"><i class="fa fa-star"></i></li>
+                                        </ul>
+                                    </div>
+            
+                                </li>
+                                <li>
+            
+                                    <div class="bidder-rating-points">
+                                        <span>(4.2)</span>
+                                    </div>
+                                </li>
+                                <li class="bidder-date">
+                                    <small>3 days ago</small>
+                                </li>
+                            </ul>
+
+                          <div class="d-flex w-100 justify-content-between">
+                            
+                              <p  style="padding-right:70px;" class="mb-1">us blandit.s blandit.s blandit.s blandit.s blandit.s blandit.s blandit.s blandit.s blandit.s blandit.s blandit.s blandit.s blandit.s blandit.s blandit.</p>
+                              <h4>$1500</h4>
+        
+                          </div>
+                        </a>
+                       
+                      </div>
+                </div>
+            </div>
+        </div>
+
+        <div   *ngIf="post?.bids == null "class="col-12">
+            <p> No bids yet...</p>
+        </div>
+    </div>
+
+
+    
+</div>

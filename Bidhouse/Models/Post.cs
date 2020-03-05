@@ -12,9 +12,12 @@ namespace Bidhouse.Models
         }
         public string Id { get; set; }
         public string Name { get; set; }
+        public string Location { get; set; }
         public string CreatorId { get; set; }
         public User Creator { get; set; }
+
         public string Description { get; set; }
+        public DateTime TimeDue { get; set; }
         public DateTime CreatedOn { get; set; }
 
         [Column(TypeName = "decimal(18,2)")]
