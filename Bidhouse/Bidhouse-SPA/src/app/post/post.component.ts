@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { PostService } from '../_services/post.service';
+import { AuthService } from '../_services/auth.service';
 
 @Component({
   selector: 'app-post',
@@ -9,14 +10,16 @@ import { PostService } from '../_services/post.service';
 })
 export class PostComponent implements OnInit {
   post:any;
-
-  constructor(private route:ActivatedRoute,private postService:PostService) { }
+  userId;
+  constructor(private route:ActivatedRoute,private postService:PostService,private authService:AuthService) { }
 
   ngOnInit() {
     let id = this.route.snapshot.paramMap.get('id');
     this.postService.getPost(id).subscribe(result=>{
       this.post = result;
     })
+
+    this.userId = this.authService.normalizedToken.nameid;
   }
  
 }

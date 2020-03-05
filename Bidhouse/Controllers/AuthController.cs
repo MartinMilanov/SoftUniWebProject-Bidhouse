@@ -38,7 +38,8 @@ namespace Bidhouse.Controllers
             var user = new User() {
                 Username = input.Username,
                 WorkPosition = input.JobPosition,
-                City = input.City
+                City = input.City,
+                ImageUrl = "/images/default-user-photo.png"
             };
             var createdUser = await this.authService.Register(user, input.Password);
             return StatusCode(201);
