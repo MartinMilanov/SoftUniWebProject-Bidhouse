@@ -25,7 +25,7 @@ namespace Bidhouse.Services.Bids
                 .ThenInclude(x=>x.Bidder)
                 .FirstOrDefaultAsync(x => x.Id == postId);
 
-            var result = post.Bids.FirstOrDefault(x => x.BidderId == postId) == null ? false : true;
+            var result = post.Bids.FirstOrDefault(x => x.BidderId == bidderId) == null ? false : true;
 
             return result;
         }
