@@ -12,5 +12,7 @@ namespace Bidhouse.Services.Bids
         public Task<BidListViewModel> PlaceBid(BidInputModel input,string bidderId);
 
         public Task<bool> HasBid(string postId,string bidderId);
+
+        public Task<bool> ApproveBid(string bidId,string postId);
     }
 }

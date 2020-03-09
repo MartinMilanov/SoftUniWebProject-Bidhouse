@@ -49,8 +49,8 @@
               </div>
         </div>
 
-        <div class="col-12 bid-form-col">
-            <div   *ngIf="this.canBid == true" class="card bid-form">
+        <div  *ngIf="post?.status == 'InSearch'" class="col-12 bid-form-col">
+            <div  *ngIf="this.canBid == true" class="card bid-form">
                 <div class="card-title">
                     <h3 class="bid-create-title"> Place your own bid !</h3>
                 </div>
@@ -83,24 +83,83 @@
             </div>
         </div>
         
-        <div  *ngIf="post?.bids != null " class="col-12">
+        <div  *ngIf="post?.status == 'Closed'" class="col-12">
+           
+            <h5 style="padding-top:20px;font-weight: bold;"><i class="fa fa-flag winner-flag"></i>    Bid Winner </h5>
+                <a class="bid-winner list-group-item list-group-item-action flex-column align-items-start">
+                    <ul class="bidder-info-list">
+                       <li>
+                         <div [ngStyle]="{'background-image':'url('+this.approvedBid.bidder.imageUrl+')'}" class="bidder-image"></div>
+                           
+                       </li>
+                       <li>
+                           <div class="bidder-name">
+                            <p>{{ approvedBid.bidder.name | titlecase }}</p>
+                           </div>
+    
+                       </li>
+                       <li>
+                           <div>
+                               <ul class="bidder-rating justify-content-start">
+                                   <li class="star"><i class="fa fa-star"></i></li>
+                                   <li class="star"><i class="fa fa-star"></i></li>
+                                   <li class="star"><i class="fa fa-star"></i></li>
+                                   <li class="star"><i class="fa fa-star"></i></li>
+                                   <li class="star"><i class="fa fa-star"></i></li>
+                               </ul>
+                           </div>
+    
+                       </li>
+                       <li>
+    
+                           <div class="bidder-rating-points">
+                              <span>({{ approvedBid.bidder.rating }})</span>
+                           </div>
+                       </li>
+                       <li class="bidder-date">
+                           <small>{{ approvedBid.createdOn | date}}</small>
+                       </li>
+                   </ul>
+    
+                 <div class="d-flex w-100 justify-content-between">
+                   
+                      <p class="mb-1">{{ approvedBid.description }}</p>
+                     <ul class="details">
+                         <li>
+                             <h4>${{ approvedBid.price }}</h4>
+    
+                         </li>
+                         <li class="days">
+                             <h5>{{ approvedBid.days }} days</h5>
+                         </li>
+                     </ul>
+    
+                 </div>
+            
+               </a>
+
+          
+        </div>
+
+        <div  *ngIf="post?.bids != null && post?.status == 'InSearch'" class="col-12">
             <div class="row bids-title">
                 <h4>Bids Stack</h4>
             </div>
            
             <div class="row bid-list">
                 <div class="col-12">
+                    
                     <div class="list-group">
-                        <a *ngFor="let bid of post.bids" href="#" class="list-group-item list-group-item-action flex-column align-items-start">
-                          
-                            <ul class="bidder-info-list">
+
+                        <a *ngFor="let bid of post.bids" (click)="openModal(template)"  class="list-group-item list-group-item-action flex-column align-items-start">
+                             <ul class="bidder-info-list">
                                 <li>
                                     <div [ngStyle]="{'background-image':'url('+bid.bidder.imageUrl+')'}" class="bidder-image"></div>
                                     
                                 </li>
                                 <li>
                                     <div class="bidder-name">
-                                        <p>{{ bid.bidder.name }}</p>
+                                        <p>{{ bid.bidder.name | titlecase }}</p>
                                     </div>
             
                                 </li>
@@ -142,8 +201,49 @@
         
                           </div>
                          
+                          <ng-template #template>
+                              <div class="modal-header">
+                                  <div class="modal-title pull-left">
+
+                                      <h4 > {{ bid.bidder.name | titlecase}}'s Bid</h4>
+                                      <small >{{ bid.createdOn | date}}</small>
+                                  </div>
+                                <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+                                  <span aria-hidden="true">&times;</span>
+                                </button>
+                              </div>
+                              <div class="modal-body">
+                                <div>
+                                    <h6 class="modal-bid-title">Description</h6>
+                                    {{ bid.description }}
+                                
+                                </div>
+                                <hr>
+                                <div>
+                                    <h6 class="modal-bid-title">Price</h6>
+                                    ${{ bid.price }}
+                                
+                                </div>
+                                <hr>
+                                <div>
+                                    <h6 class="modal-bid-title">Work will be done in</h6>
+                                    {{ bid.days }} days
+                                
+                                </div>
+                                <hr>
+                                <div>
+                                    
+                                    <button type="button" class="btn btn-success btn-circle btn-lg pull-left" (click)='approveBid(bid.id)'><i class="fa fa-check"></i>
+                                    </button>
+                                    
+                                    <button type="button" class="btn btn-danger btn-circle pull-right"(click)='modalRef.hide()'><i class="fa fa-times"></i>
+                                    </button>
+
+                                </div>
+                              </div>
+
+                            </ng-template>
                         </a>
-                       
                        
                        
                       </div>

@@ -12,5 +12,7 @@ namespace Bidhouse.Services.Posts
         public Task<string> CreatePost(CreatePostInputModel input, string id);
         public Task<bool> DeletePost(string id);
 
+        public Task<bool> IsClosed(string id);
+
     }
 }

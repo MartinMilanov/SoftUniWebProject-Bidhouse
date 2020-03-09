@@ -38,6 +38,7 @@ namespace Bidhouse.Services.Posts
                 Location = query.Location,
                 TimeDue = query.TimeDue,
                 CreatedOn = query.CreatedOn,
+                Status = query.Status.ToString(),
                 Creator = new UserListModel
                 {
                     Id = query.Creator.Id,
@@ -52,6 +53,7 @@ namespace Bidhouse.Services.Posts
                     Description = x.Description,
                     Price = x.Price,
                     Days = x.Days,
+                    Status = x.StatusOfBid.ToString(),
                     CreatedOn = x.CreatedOn,
                     Bidder = new UserListModel
                     {
@@ -96,5 +98,15 @@ namespace Bidhouse.Services.Posts
 
         }
 
+        public async Task<bool> IsClosed(string id)
+        {
+            if (String.IsNullOrEmpty(id))
+            {
+                throw new Exception("Id is null");
+            }
+            var result = (await this.db.Posts.FirstOrDefaultAsync(x => x.Id == id)).Status == Status.Closed ? true : false;
+
+            return result;
+        }
     }
 }

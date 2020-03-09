@@ -61,8 +61,8 @@ namespace Bidhouse.Services.Users
                 BidsSent = query.BidsSent.Select(x=> new UserBidsViewModel
                 {
                     Id = x.Id,
-                    PostId = x.PostId,
-                    PostName = x.Post.Name,
+                    PostId = db.Bids.Include(b=>b.Post).FirstOrDefault(b=>b.Id == x.Id).PostId,
+                    PostName = db.Bids.Include(b => b.Post).FirstOrDefault(b => b.Id == x.Id).Post.Name,
                     Status = (Status)Enum.Parse(typeof(Status),x.StatusOfBid.ToString()),
                     Price = x.Price
 

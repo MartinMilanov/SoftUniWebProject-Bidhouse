@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { BidInputModel } from 'src/viewModels/BidInputModel';
 import { HttpClient } from '@angular/common/http';
+import { BidApproveInputModel } from 'src/viewModels/BidApproveInputModel';
 
 @Injectable({
   providedIn: 'root'
@@ -15,5 +16,16 @@ placeBid(input:BidInputModel){
   return this.http.post(this.baseUrl,input);
 }
 
+approveBid(bidId:string,postId:string){
+  let queryData = new BidApproveInputModel(bidId,postId);
+  
+   return this.http.post(this.baseUrl+"approveBid",
+     queryData
+    
+   );
 }
+
+}
+
+
 

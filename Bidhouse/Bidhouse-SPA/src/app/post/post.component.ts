@@ -6,6 +6,7 @@ import { FormGroup, FormControl } from '@angular/forms';
 import { BidInputModel } from 'src/viewModels/BidInputModel';
 import { BidService } from '../_services/bid.service';
 import { AlertifyService } from '../_services/alertify.service';
+import { BsModalService, BsModalRef } from 'ngx-bootstrap';
 
 @Component({
   selector: 'app-post',
@@ -13,6 +14,10 @@ import { AlertifyService } from '../_services/alertify.service';
   styleUrls: ['./post.component.css']
 })
 export class PostComponent implements OnInit {
+  modalRef: BsModalRef;
+ 
+  approvedBid:any;
+
   post:any;
   postId:any;
 
@@ -27,7 +32,7 @@ export class PostComponent implements OnInit {
 
   constructor(private route:ActivatedRoute,private postService:PostService,
               private authService:AuthService,private bidService:BidService,
-              private alertify:AlertifyService) { }
+              private alertify:AlertifyService,private modalService: BsModalService) { }
 
   ngOnInit() {
     this.postId = this.route.snapshot.paramMap.get('id');
@@ -35,13 +40,26 @@ export class PostComponent implements OnInit {
 
     this.postService.getPost(this.postId).subscribe(result=>{
       this.post = result;
-      console.log(this.post);
-
+      
       this.isCreator = this.post.creator.id == userId ? true : false;
+
+      if(this.post.bids != null){
+
+        this.approvedBid = this.post.bids.filter(x=>x.status == 'Approved')[0];
+      
+
       if(this.isCreator == false){
         this.canBid  = this.post.bids.find(x=>x.bidder.id == userId) ? false : true;
         
       }
+    }
+    else{
+      if(this.isCreator == false){
+       
+        this.canBid = true;
+      }
+    }
+
     })
     
     
@@ -63,7 +81,14 @@ export class PostComponent implements OnInit {
       let input = new BidInputModel(this.bidForm.value.days,this.bidForm.value.price,this.bidForm.value.description,this.postId,this.post.creator.id);
   
         this.bidService.placeBid(input).subscribe(result=>{
-          (this.post.bids as Array<any>).push(result);
+          if(this.post.bids !=null){
+
+            (this.post.bids as Array<any>).push(result);
+          }
+          else{
+            this.post.bids = new Array<any>();
+            (this.post.bids as Array<any>).push(result);
+          }
           this.canBid = false;
         },error=>{
           console.log(error);
@@ -74,5 +99,20 @@ export class PostComponent implements OnInit {
 
 
   }
- 
+
+  openModal(template:any){
+    if(this.isCreator == true){
+      this.modalRef.hide()
+      this.modalRef = this.modalService.show(template);
+    }
+  }
+
+  approveBid(bidId:string){
+    this.bidService.approveBid(bidId,this.postId).subscribe(result=>{
+      this.post.bids.find(x=>x.id == bidId).status="Approved";
+      this.approvedBid = this.post.bids.find(x=>x.id == bidId);
+       this.post.status = "Closed";
+    })
+  }
+
 }

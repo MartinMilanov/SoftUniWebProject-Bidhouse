@@ -39,7 +39,6 @@ postsArray:any[];
    this.userService.getUser(this.authService.normalizedToken.nameid).subscribe((result)=>{
      this.user = result;
      this.postsArray = this.user.posts as Array<Object>;
-     console.log(this.postsArray)
    })
 
   

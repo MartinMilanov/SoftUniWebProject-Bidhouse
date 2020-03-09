@@ -15,9 +15,8 @@ export class UserGuestComponent implements OnInit {
     let id = this.route.snapshot.paramMap.get('id');
     this.userService.getUser(id).subscribe(result=>{
       this.user = result;
-      console.log(this.user);
     },error=>{
-      console.log('oops');
+      console.log('Something went wrong');
     })
 
   }

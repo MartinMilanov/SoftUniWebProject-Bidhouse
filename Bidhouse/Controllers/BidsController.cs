@@ -58,5 +58,26 @@ namespace Bidhouse.Controllers
                 return BadRequest("Something went terribly wrong !");
             }
         }
+
+        [HttpPost("approveBid")]
+        public async Task<IActionResult> ApproveBid([FromBody]BidApproveInputModel input)
+        {
+            if (String.IsNullOrEmpty(input.BidId) || String.IsNullOrEmpty(input.PostId))
+            {
+                return BadRequest("The id of the bid cannot be null or empty.");
+            }
+            if (await postService.IsClosed(input.PostId))
+            {
+                return BadRequest("The post is closed and cannot be bid on");
+            }
+            var result = await this.bidService.ApproveBid(input.BidId,input.PostId);
+
+            if (result == false)
+            {
+                return BadRequest("Something went wrong");
+            }
+            
+            return Ok();
+        }
     }
 }

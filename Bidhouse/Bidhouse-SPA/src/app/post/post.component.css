@@ -145,3 +145,43 @@ ul{
     
     width:50vw;
 }
+
+.modal-bid-title{
+    color:gray;
+}
+
+.btn-circle.btn-xl {
+    width: 100px;
+    height: 100px;
+    padding: 10px 16px;
+    border-radius: 35px;
+    font-size: 24px;
+    line-height: 1.33;
+}
+
+.btn-circle {
+    width: 70px;
+    height: 70px;
+    padding: 6px 0px;
+    border-radius: 35px;
+    text-align: center;
+    font-size: 22px;
+    line-height: 1.42857;
+}
+
+.approved{
+    color:green;
+}
+.not-approved{
+    visibility: hidden;
+}
+
+.bid-winner{
+    width: 50vw;
+    border-color: green;
+    background-color: rgba(0, 128, 0, 0.145);
+}
+
+.winner-flag{
+    color:green;
+}

@@ -85,7 +85,7 @@
       <tab heading="Bids">
       </tab>
       <tab heading="Posts">
-        <div class="container-fluid">
+        <div *ngIf = 'user?.posts?.length > 0 && user?.posts != null' class="container-fluid">
           <div class="list-group user-posts">
             <div class="row user-posts-title">
               <h2>Your posts page.</h2>

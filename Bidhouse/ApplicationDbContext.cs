@@ -24,13 +24,19 @@ namespace Bidhouse
         {
             base.OnModelCreating(modelBuilder);
 
+            modelBuilder.Entity<Post>()
+                .HasMany(p => p.Bids)
+                .WithOne(b => b.Post)
+                .HasForeignKey(b => b.PostId)
+                .OnDelete(DeleteBehavior.Cascade);
+
             modelBuilder.Entity<User>()
                 .HasMany(u => u.BidsSent)
                 .WithOne(b => b.Bidder).HasForeignKey(o => o.BidderId).OnDelete(DeleteBehavior.Restrict);
 
             modelBuilder.Entity<User>()
                 .HasMany(u => u.BidsReceived)
-                .WithOne(o => o.Receiver).HasForeignKey(o => o.ReceiverId).OnDelete(DeleteBehavior.Restrict);
+                .WithOne(o => o.Receiver).HasForeignKey(o => o.ReceiverId).OnDelete(DeleteBehavior.Restrict).IsRequired();
 
             modelBuilder.Entity<Review>()
                 .HasOne(r => r.Reviewer)

@@ -1,4 +1,5 @@
-﻿using Bidhouse.ViewModels.BidModels;
+﻿using Bidhouse.Models;
+using Bidhouse.ViewModels.BidModels;
 using Bidhouse.ViewModels.UserModels;
 using System;
 using System.Collections.Generic;
@@ -15,7 +16,7 @@ namespace Bidhouse.ViewModels.PostModels
         public DateTime TimeDue { get; set; }
         public DateTime CreatedOn { get; set; }
         public UserListModel Creator { get; set; }
-
+        public string Status { get; set; }
         public ICollection<BidListViewModel> Bids { get; set; }
 
     }

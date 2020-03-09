@@ -18,6 +18,34 @@ namespace Bidhouse.Services.Bids
             this.db = db;
         }
 
+        public async Task<bool> ApproveBid(string bidId,string postId)
+        {
+            var bid = await this.db.Bids.FirstOrDefaultAsync(x => x.Id == bidId);
+            if (bid == null)
+            {
+                return false;
+            }
+            if (bid.StatusOfBid == Status.Waiting)
+            {
+                bid.StatusOfBid = Status.Approved;
+                var postUpdated = await this.db.Posts.FirstOrDefaultAsync(x => x.Id == postId);
+                postUpdated.Status = Status.Closed;
+                
+                this.db.Bids.Update(bid);
+                this.db.Posts.Update(postUpdated);
+
+                await this.db.SaveChangesAsync();
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+
+
+            
+        }
+
         public async Task<bool> HasBid(string postId,string bidderId)
         {
             var post = await this.db.Posts

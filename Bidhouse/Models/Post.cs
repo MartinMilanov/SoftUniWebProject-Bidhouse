@@ -9,6 +9,7 @@ namespace Bidhouse.Models
         public Post()
         {
             this.Id = Guid.NewGuid().ToString();
+            this.Status = Status.InSearch;
         }
         public string Id { get; set; }
         public string Name { get; set; }
@@ -17,6 +18,7 @@ namespace Bidhouse.Models
         public User Creator { get; set; }
 
         public string Description { get; set; }
+        public Status Status { get; set; }
         public DateTime TimeDue { get; set; }
         public DateTime CreatedOn { get; set; }
 
