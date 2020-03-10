@@ -20,7 +20,11 @@ namespace Bidhouse.Services.Users
         {
             var query = await this.db.Users
                 .Include(x => x.BidsReceived)
+                .ThenInclude(x=>x.Bidder)
+                .Include(x => x.BidsReceived)
+                .ThenInclude(x => x.Post)
                 .Include(x => x.BidsSent)
+                .ThenInclude(x=>x.Post)
                 .Include(x => x.ReviewsGotten)
                 .Include(x => x.ReviewsSent)
                 .Include(x => x.Posts)
@@ -41,13 +45,6 @@ namespace Bidhouse.Services.Users
                     Price = x.Price,
                     CreatedOn = x.CreatedOn
                 }).ToList(),
-                ReviewsSent = query.ReviewsSent.Select(x => new UserReviewSentViewModel
-                {
-                    Id = x.Id,
-                    Rating = x.Rating,
-                    Description = x.Description,
-                    ReviewedUser = x.ReviewedUser.Username
-                }).ToList(),
                 ReviewsGotten = query.ReviewsGotten.Select(x=> new UserReviewGottenViewModel
                 {
                     Id = x.Id,
@@ -58,12 +55,24 @@ namespace Bidhouse.Services.Users
                     
                     
                 }).ToList(),
+                BidsReceived = query.BidsReceived.Select(x => new UserBidsViewModel
+                {
+                    Id = x.Id,
+                    PostId = x.Post.Id,
+                    PostName = x.Post.Name,
+                    Status = x.StatusOfBid.ToString(),
+                    Description = x.Description,
+                    Price = x.Price,
+                    BidderImage = x.Bidder.ImageUrl,
+                    BidderName = x.Bidder.Username
+
+                }).ToList(),
                 BidsSent = query.BidsSent.Select(x=> new UserBidsViewModel
                 {
                     Id = x.Id,
-                    PostId = db.Bids.Include(b=>b.Post).FirstOrDefault(b=>b.Id == x.Id).PostId,
-                    PostName = db.Bids.Include(b => b.Post).FirstOrDefault(b => b.Id == x.Id).Post.Name,
-                    Status = (Status)Enum.Parse(typeof(Status),x.StatusOfBid.ToString()),
+                    PostId = x.Post.Id,
+                    PostName = x.Post.Name,
+                    Status = x.StatusOfBid.ToString(),
                     Price = x.Price
 
                 }).ToList()

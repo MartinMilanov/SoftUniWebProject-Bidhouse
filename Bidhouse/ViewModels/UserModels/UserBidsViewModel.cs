@@ -11,8 +11,11 @@ namespace Bidhouse.ViewModels.UserModels
         public string Id { get; set; }
         public string PostId { get; set; }
         public string PostName { get; set; }
-        public Status Status { get; set; }
+        public string Status { get; set; }
+        public string Description { get; set; }
         public decimal Price { get; set; }
 
+        public string BidderImage { get; set; }
+        public string BidderName { get; set; }
     }
 }

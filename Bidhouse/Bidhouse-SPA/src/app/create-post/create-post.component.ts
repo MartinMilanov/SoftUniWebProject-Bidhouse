@@ -3,6 +3,7 @@ import { AlertifyService } from '../_services/alertify.service';
 import { FormGroup, FormControl } from '@angular/forms';
 import { CreatePostInputModel } from 'src/viewModels/CreatePostInputModel';
 import { PostService } from '../_services/post.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-create-post',
@@ -19,7 +20,7 @@ export class CreatePostComponent implements OnInit {
     price:new FormControl('')
   })
 
-  constructor(private alertify:AlertifyService,private postService:PostService) { }
+  constructor(private alertify:AlertifyService,private postService:PostService,private router:Router) { }
 
   ngOnInit() {
   }
@@ -43,6 +44,9 @@ export class CreatePostComponent implements OnInit {
       console.log(input);
       this.postService.createPost(input).subscribe(result=>{
         this.alertify.success("Congratulations, you have successfully created your post !");
+        this.router.routeReuseStrategy.shouldReuseRoute = () => false;
+        this.router.onSameUrlNavigation = 'reload';
+        this.router.navigate(['/user']);
       },error=>{
         this.alertify.error("Something went wrong , please contact support for further help");
       });

@@ -102,7 +102,6 @@ export class PostComponent implements OnInit {
 
   openModal(template:any){
     if(this.isCreator == true){
-      this.modalRef.hide()
       this.modalRef = this.modalService.show(template);
     }
   }
@@ -112,6 +111,7 @@ export class PostComponent implements OnInit {
       this.post.bids.find(x=>x.id == bidId).status="Approved";
       this.approvedBid = this.post.bids.find(x=>x.id == bidId);
        this.post.status = "Closed";
+      this.modalRef.hide();
     })
   }
 

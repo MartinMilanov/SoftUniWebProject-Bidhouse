@@ -1,4 +1,4 @@
-import { Component, OnInit, TemplateRef} from '@angular/core';
+import { Component, OnInit, TemplateRef, ViewChild} from '@angular/core';
 import { UserService } from '../_services/user.service';
 import { AuthService } from '../_services/auth.service';
 import { AlertifyService } from '../_services/alertify.service';
@@ -6,7 +6,7 @@ import { ChangePasswordInputModel } from 'src/viewModels/ChangePasswordInputMode
 import { Router } from '@angular/router';
 import { UserUpdateModel } from 'src/viewModels/UserUpdateModel';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { BsModalService, BsModalRef } from 'ngx-bootstrap';
+import { BsModalService, BsModalRef, TabsetComponent } from 'ngx-bootstrap';
 import { PostService } from '../_services/post.service';
 
 @Component({
@@ -15,6 +15,9 @@ import { PostService } from '../_services/post.service';
   styleUrls: ['./user.component.css']
 })
 export class UserComponent implements OnInit {
+@ViewChild('staticTabs', { static: false }) staticTabs: TabsetComponent;
+loader:boolean = true;
+
 user:any;
 postsArray:any[];
 
@@ -38,9 +41,11 @@ postsArray:any[];
   ngOnInit() {
    this.userService.getUser(this.authService.normalizedToken.nameid).subscribe((result)=>{
      this.user = result;
-     this.postsArray = this.user.posts as Array<Object>;
-   })
-
+     console.log(result)
+     this.postsArray = this.user.posts as Array<any>;
+     this.loader = false;
+    })
+    
   
   }
 
@@ -115,6 +120,9 @@ postsArray:any[];
     this.postService.deletePost(post.id).subscribe(result=>{
 
       this.alertify.success('You have deleted '+ post.name);
+      this.router.routeReuseStrategy.shouldReuseRoute = () => false;
+      this.router.onSameUrlNavigation = 'reload';
+      this.router.navigate(['/user']);
     },error=>{
       this.alertify.error("Something went wrong, please alert support !")
     }
@@ -124,5 +132,10 @@ postsArray:any[];
  
   decline(): void {
     this.modalRef.hide();
+  }
+
+
+  selectTab(tabId: number) {
+    this.staticTabs.tabs[tabId].active = true;
   }
 }

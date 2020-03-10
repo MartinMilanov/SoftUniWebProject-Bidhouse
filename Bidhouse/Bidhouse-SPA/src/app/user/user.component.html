@@ -1,89 +1,145 @@
 
-  <div style="margin-top:50px">
-    <tabset>
+  <div  style="margin-top:50px">
+    <!-- user content -->
+    <tabset *ngIf="loader == false" #staticTabs>
       <tab heading="Dashboard" id="tab1">
          
           <main role="main" class="container-fluid" >
         
         
            
-            <div class="d-flex align-items-center p-3 my-3 text-white-50 bg-purple rounded shadow-sm">
-              <img class="mr-3"  alt="" width="48" height="48">
-              <div class="lh-100">
-                <h6 class="mb-0 text-white lh-100">Bootstrap</h6>
-                <small>Since 2011</small>
-              </div>
-            </div>
           
             <div class="my-3 p-3 bg-white rounded shadow-sm">
-              <h6 class="border-bottom border-gray pb-2 mb-0">Recent updates</h6>
-              <div class="media text-muted pt-3">
+              
+              <h6 class="border-bottom border-gray pb-2 mb-0">Recent reviews</h6>
+              <div *ngFor="let review of user?.reviewsGotten" class="media text-muted pt-3">
                 <svg class="bd-placeholder-img mr-2 rounded" width="32" height="32" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" focusable="false" role="img" aria-label="Placeholder: 32x32"><title>Placeholder</title><rect width="100%" height="100%" fill="#007bff"/><text x="50%" y="50%" fill="#007bff" dy=".3em">32x32</text></svg>
                 <p class="media-body pb-3 mb-0 small lh-125 border-bottom border-gray">
                   <strong class="d-block text-gray-dark">@username</strong>
                   Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus.
                 </p>
               </div>
-              <div class="media text-muted pt-3">
-                <svg class="bd-placeholder-img mr-2 rounded" width="32" height="32" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" focusable="false" role="img" aria-label="Placeholder: 32x32"><title>Placeholder</title><rect width="100%" height="100%" fill="#e83e8c"/><text x="50%" y="50%" fill="#e83e8c" dy=".3em">32x32</text></svg>
-                <p class="media-body pb-3 mb-0 small lh-125 border-bottom border-gray">
-                  <strong class="d-block text-gray-dark">@username</strong>
-                  Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus.
-                </p>
-              </div>
-              <div class="media text-muted pt-3">
-                <svg class="bd-placeholder-img mr-2 rounded" width="32" height="32" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" focusable="false" role="img" aria-label="Placeholder: 32x32"><title>Placeholder</title><rect width="100%" height="100%" fill="#6f42c1"/><text x="50%" y="50%" fill="#6f42c1" dy=".3em">32x32</text></svg>
-                <p class="media-body pb-3 mb-0 small lh-125 border-bottom border-gray">
-                  <strong class="d-block text-gray-dark">@username</strong>
-                  Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus.
-                </p>
-              </div>
+           
               <small class="d-block text-right mt-3">
-                <a href="#">All updates</a>
+                <a>All reviews</a>
               </small>
+
             </div>
+                <div *ngIf="user?.reviewsGotten.length<=0" class="alert alert-info my-4  pt-3">
+                  <h6>You have no reviews yet !</h6>
+                </div>
           
-            <div class="my-3 p-3 bg-white rounded shadow-sm">
-              <h6 class="border-bottom border-gray pb-2 mb-0">Suggestions</h6>
-              <div class="media text-muted pt-3">
-                <svg class="bd-placeholder-img mr-2 rounded" width="32" height="32" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" focusable="false" role="img" aria-label="Placeholder: 32x32"><title>Placeholder</title><rect width="100%" height="100%" fill="#007bff"/><text x="50%" y="50%" fill="#007bff" dy=".3em">32x32</text></svg>
-                <div class="media-body pb-3 mb-0 small lh-125 border-bottom border-gray">
-                  <div class="d-flex justify-content-between align-items-center w-100">
-                    <strong class="text-gray-dark">Full Name</strong>
-                    <a href="#">Follow</a>
+                <div class="my-3 p-3 bg-white rounded shadow-sm">
+              
+                  <h6 class="border-bottom border-gray pb-2 mb-0">Recent bids</h6>
+                  <div *ngFor="let bid of user?.bidsReceived" class="media text-muted pt-3">
+                    <img class="bd-placeholder-img mr-2 rounded" width="32" height="32" [src]="bid?.bidderImage" alt="">
+                    <!-- <svg class="bd-placeholder-img mr-2 rounded" width="32" height="32" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" focusable="false" role="img" aria-label="Placeholder: 32x32"><title>Placeholder</title><rect width="100%" height="100%" fill="#007bff"/><text x="50%" y="50%" fill="#007bff" dy=".3em">32x32</text></svg> -->
+                    <p class="media-body pb-3 mb-0 small lh-125 border-bottom border-gray">
+                      <strong class="d-block text-gray-dark">{{ bid?.bidderName | titlecase}}</strong>
+                      {{ bid.postName}}
+                    </p>
                   </div>
-                  <span class="d-block">@username</span>
+               
+                  <small class="d-block text-right mt-3">
+                    <a (click)="selectTab(1)" >All bids</a>
+                  </small>
+    
                 </div>
-              </div>
-              <div class="media text-muted pt-3">
-                <svg class="bd-placeholder-img mr-2 rounded" width="32" height="32" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" focusable="false" role="img" aria-label="Placeholder: 32x32"><title>Placeholder</title><rect width="100%" height="100%" fill="#007bff"/><text x="50%" y="50%" fill="#007bff" dy=".3em">32x32</text></svg>
-                <div class="media-body pb-3 mb-0 small lh-125 border-bottom border-gray">
-                  <div class="d-flex justify-content-between align-items-center w-100">
-                    <strong class="text-gray-dark">Full Name</strong>
-                    <a href="#">Follow</a>
-                  </div>
-                  <span class="d-block">@username</span>
-                </div>
-              </div>
-              <div class="media text-muted pt-3">
-                <svg class="bd-placeholder-img mr-2 rounded" width="32" height="32" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" focusable="false" role="img" aria-label="Placeholder: 32x32"><title>Placeholder</title><rect width="100%" height="100%" fill="#007bff"/><text x="50%" y="50%" fill="#007bff" dy=".3em">32x32</text></svg>
-                <div class="media-body pb-3 mb-0 small lh-125 border-bottom border-gray">
-                  <div class="d-flex justify-content-between align-items-center w-100">
-                    <strong class="text-gray-dark">Full Name</strong>
-                    <a href="#">Follow</a>
-                  </div>
-                  <span class="d-block">@username</span>
-                </div>
-              </div>
-              <small class="d-block text-right mt-3">
-                <a href="#">All suggestions</a>
-              </small>
-            </div>
+                    <div *ngIf="user?.bidsReceived.length <= 0" class="alert alert-info my-4  pt-3">
+                      <h6>You have no bids yet !</h6>
+                    </div>
+
+
           </main>
         
       </tab>
       <tab heading="Bids">
+        <tabset [justified]="true">
+          <tab heading="Bids Received">
+            <div *ngIf="user?.bidsReceived.length<=0" class="alert alert-info m-4 pt-3">
+              <h6>You have no received bids yet !</h6>
+            </div>
+
+            <div class="container-fluid">
+              <div style="margin-top:30px;" class="row">
+
+                <div [routerLink]="['/post',bid.postName,bid.postId]"  *ngFor="let bid of user?.bidsReceived" class="card mb-3 col-lg-4 col-sm-12" style="max-width: 540px;">
+                  <div class="row no-gutters">
+                    <div class="col-md-3 card-bid-img" [ngStyle]="{'background-image':'url('+bid?.bidderImage+')'}">
+                     
+                    </div>
+                    <div class="col-md-8 col-sm-11 col-lg-8">
+                      <div class="card-body">
+                        <h5 class="card-title">
+                          <ul class="card-bid-titles">
+                            <li>
+                                {{ bid?.bidderName | titlecase}}
+                            </li>
+                            <li class="card-bid-price">
+                                ${{ bid?.price}}
+                            </li>
+                          </ul>
+                        </h5>
+                        <p class="card-text">{{ bid?.description }}</p>
+                        <p class="card-text"><small class="text-muted">{{ bid?.postName}}</small></p>
+                      </div>
+                    </div>
+
+                    <div [style.backgroundColor]="bid.status == 'Waiting' ? 'rgb(243, 223, 42)' : bid.status == 'Declined' ? 'red' : 'green' " class="col-md-1 col-sm-1 col-lg-1 card-bid-status">
+
+                    </div>
+                  </div>
+                </div>
+  
+              </div>
+            </div>
+
+
+            
+           </tab>
+          <tab heading="Bids Sent">
+            <div *ngIf="user?.bidsSent.length<=0" class="alert alert-info m-4 pt-3">
+              <h6>You have no sent bids yet !</h6>
+            </div>
+
+            <div class="container-fluid">
+              <div style="margin-top:30px;" class="row">
+
+                <div [routerLink]="['/post',bid.postName,bid.postId]"  *ngFor="let bid of user?.bidsSent" class="card mb-3 col-lg-4 col-sm-12" style="max-width: 540px;">
+                  <div class="row no-gutters">
+                    <div class="col-md-3 card-bid-img" [ngStyle]="{'background-image':'url('+user?.imageUrl+')'}">
+                     
+                    </div>
+                    <div class="col-md-8 col-sm-11 col-lg-8">
+                      <div class="card-body">
+                        <h5 class="card-title">
+                          <ul class="card-bid-titles">
+                            <li>
+                                {{ user?.username | titlecase}}
+                            </li>
+                            <li class="card-bid-price">
+                                ${{ bid?.price}}
+                            </li>
+                          </ul>
+                        </h5>
+                        <p class="card-text">{{ bid?.description }}</p>
+                        <p class="card-text"><small class="text-muted">{{ bid?.postName}}</small></p>
+                      </div>
+                    </div>
+
+                    <div [style.backgroundColor]="bid.status == 'Waiting' ? 'rgb(243, 223, 42)' : bid.status == 'Declined' ? 'red' : 'green' " class="col-md-1 col-sm-1 col-lg-1 card-bid-status">
+
+                    </div>
+                  </div>
+                </div>
+  
+              </div>
+            </div>
+          </tab>
+        </tabset>
       </tab>
+
       <tab heading="Posts">
         <div *ngIf = 'user?.posts?.length > 0 && user?.posts != null' class="container-fluid">
           <div class="list-group user-posts">
@@ -116,6 +172,10 @@
 
           </div>
         </div>
+
+        <div *ngIf="user?.posts.length<=0" class="alert alert-info m-4 pt-3">
+          <h6>You haven't made any posts yet...</h6>
+        </div>
       </tab>
       <tab heading="My Profile">
         <div class="container-fluid">
@@ -132,7 +192,7 @@
               <div class="row">
                 <div class="col-md-2"><i class="fa fa-star rating-star"></i></div>
                 <div class="col-md-10">
-                  <h2 class="rating-points">4.5</h2>
+                  <h2 class="rating-points">{{ user.rating }}</h2>
                 </div>
               </div>
             </div>
@@ -250,11 +310,22 @@
                 </form>
              
             </tab>
-            <tab heading="Other">Long Labeled Justified content</tab>
           </tabset>
           
         </div>
       </tab>
 
     </tabset>
+
+    <!-- spinner -->
+    <div style="padding-top: 120px;" *ngIf="loader == true" class="container">
+      <div class="d-flex justify-content-center">
+        <div class="spinner-border" role="status">
+          <span class="sr-only">Loading...</span>
+        </div>
+      </div>
+    </div>
+
   </div>
+
+
