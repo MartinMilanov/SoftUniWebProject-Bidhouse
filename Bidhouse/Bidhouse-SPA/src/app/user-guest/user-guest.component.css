@@ -10,8 +10,8 @@
     padding-top:40px;
 }
 .rating-star{
-    padding-top:90px;
-    font-size: 40px;
+    padding-top:70px;
+    font-size: 35px;
     color:gold;
 }
 .rating-points{
@@ -27,13 +27,16 @@
 .description-title{
     font-weight: 700;
     padding-top:10px;
-    padding-left:10px;
+    padding-left:30px;
+    color: rgb(92, 92, 92);
 }
 .description-text{
-    padding-left:10px;
+    padding-left:30px;
     padding-right: 10px;
 }
-
+.description{
+    border-right: rgb(217, 217, 217) 1px solid;
+}
 
 
 
@@ -72,4 +75,20 @@
     font-weight: bold;
     color:rgb(22, 22, 22);
     text-decoration: none;
+}
+
+
+
+.review-rate{
+    list-style: none;
+}
+.review-rate li{
+    display: inline;
+    margin-right:8px;
+    padding-top: 20px;
+}
+
+.review-rate li i {
+    margin-top:15px;
+    color: rgb(255, 200, 0);
 }

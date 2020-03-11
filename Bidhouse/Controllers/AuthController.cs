@@ -28,7 +28,7 @@ namespace Bidhouse.Controllers
         }
 
         [HttpPost("register")]
-        public async Task<IActionResult> Register(RegisterInputModel input)
+        public async Task<ActionResult> Register([FromBody]RegisterInputModel input)
         {
             input.Username = input.Username.ToLower();
             if (await authService.UserExists(input.Username) == true)
@@ -46,7 +46,7 @@ namespace Bidhouse.Controllers
         }
 
         [HttpPost("login")]
-        public async Task<IActionResult> Login(LoginInputModel input)
+        public async Task<ActionResult> Login([FromBody]LoginInputModel input)
         {
 
             User userReturned = await this.authService.Login(input.Username.ToLower(), input.Password);
@@ -84,7 +84,7 @@ namespace Bidhouse.Controllers
         }
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> ChangePassword(string id, [FromBody]ChangePasswordInputModel input)
+        public async Task<ActionResult<string>> ChangePassword(string id, [FromBody]ChangePasswordInputModel input)
         {
             if (id != this.User.FindFirst(ClaimTypes.NameIdentifier).Value)
             {
@@ -94,12 +94,14 @@ namespace Bidhouse.Controllers
             {
                 return BadRequest("Passwords must match");
             }
-            if (input.NewPassword.Length < 4 || input.NewPassword.Length > 8)
-            {
-                return BadRequest("Password must be between 4 and 8 characters");
-            }
+          
 
             var result = await this.authService.ChangePassword(id, input);
+
+            if (result == null)
+            {
+                return NotFound();
+            }
 
             return Ok();
         }

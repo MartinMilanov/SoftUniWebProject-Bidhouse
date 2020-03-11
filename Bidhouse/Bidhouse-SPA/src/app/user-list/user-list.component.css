@@ -82,19 +82,26 @@
     font-family: 'Hind Madurai' ;
     font-weight: bold;
 }
-.user-ratings i{
-    padding-top:15px;
-    padding-left:5px;
+.user-ratings ul li i{
+    font-size: 20px;
     color:rgb(246, 195, 8);
+    padding-top:3px;
     
-    font-size:25px;
 }
-.user-ratings h5{
-
-    font-family: 'Hind Madurai' ;
+.user-ratings ul{
+    padding-top:30px;
+    list-style: none;
+}
+.user-ratings ul li{
+    display: inline;
+    margin-right:10px;
+}
+.user-ratings ul li h5{
+     font-family: 'Hind Madurai' ;
     font-weight: bold;
-    font-size: 25px;
+    font-size: 24px;
 }
+
 .no-rating-text{
     padding-top:30px;
     font-size: 19px;

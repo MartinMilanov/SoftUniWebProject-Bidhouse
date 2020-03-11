@@ -1,4 +1,5 @@
 ﻿using Bidhouse.Models;
+using Bidhouse.ViewModels.ReviewModels;
 using Bidhouse.ViewModels.UserModels;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -26,6 +27,7 @@ namespace Bidhouse.Services.Users
                 .Include(x => x.BidsSent)
                 .ThenInclude(x=>x.Post)
                 .Include(x => x.ReviewsGotten)
+                .ThenInclude(x=>x.Reviewer)
                 .Include(x => x.ReviewsSent)
                 .Include(x => x.Posts)
                 .FirstOrDefaultAsync(x => x.Id == id);
@@ -38,6 +40,7 @@ namespace Bidhouse.Services.Users
                 Description = query.Description,
                 City = query.City,
                 ImageUrl = query.ImageUrl,
+                Rating = query.ReviewsGotten.Count == 0 ? 0 : query.ReviewsGotten.Sum(x=>x.Rating)/query.ReviewsGotten.Count,
                 Posts = query.Posts.Select(x => new UserPostDetailViewModel
                 {
                     Id = x.Id,
@@ -45,13 +48,14 @@ namespace Bidhouse.Services.Users
                     Price = x.Price,
                     CreatedOn = x.CreatedOn
                 }).ToList(),
-                ReviewsGotten = query.ReviewsGotten.Select(x=> new UserReviewGottenViewModel
+                ReviewsGotten = query.ReviewsGotten.Select(x=> new ReviewViewModel
                 {
                     Id = x.Id,
                     Description = x.Description,
                     Rating = x.Rating,
                     ReviewerId = x.ReviewerId,
-                    ReviewerName = x.Reviewer.Username
+                    ReviewerName = x.Reviewer.Username,
+                    ReviewerImg = x.Reviewer.ImageUrl
                     
                     
                 }).ToList(),

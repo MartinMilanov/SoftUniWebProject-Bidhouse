@@ -19,17 +19,17 @@ namespace Bidhouse.Services
             this.db = db;
         }
 
-        public async Task<bool> ChangePassword(string id, ChangePasswordInputModel input)
+        public async Task<string> ChangePassword(string id, ChangePasswordInputModel input)
         {
             var user = await this.db.Users.FirstOrDefaultAsync(x => x.Id == id);
             if (user == null)
             {
-                return false;
+                return null;
             }
             user.Password = this.Hash(input.NewPassword);
             this.db.Users.Update(user);
             this.db.SaveChanges();
-            return true;
+            return user.Password;
         }
 
         public async Task<User> Login(string username, string password)

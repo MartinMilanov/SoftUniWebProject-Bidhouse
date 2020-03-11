@@ -11,6 +11,7 @@ using System.Threading.Tasks;
 namespace Bidhouse.Controllers
 {
     [Authorize]
+    [ApiController]
     [Route("api/[controller]")]
     public class PostsController:ControllerBase
     {
@@ -22,7 +23,7 @@ namespace Bidhouse.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> CreatePost([FromBody]CreatePostInputModel input)
+        public async Task<ActionResult<string>> CreatePost([FromBody]CreatePostInputModel input)
         {
             if (!this.ModelState.IsValid)
             {
@@ -33,11 +34,11 @@ namespace Bidhouse.Controllers
             var id = this.User.FindFirst(ClaimTypes.NameIdentifier).Value;
             var result = await this.postService.CreatePost(input, id);
 
-            return Ok(true);
+            return this.StatusCode(201);
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetPost(string id)
+        public async Task<ActionResult<PostDetailViewModel>> GetPost(string id)
         {
             var post = await this.postService.GetPost(id);
 
@@ -45,7 +46,7 @@ namespace Bidhouse.Controllers
         }
 
         [HttpDelete]
-        public async Task<IActionResult> DeletePost(string id)
+        public async Task<ActionResult> DeletePost(string id)
         {
             await this.postService.DeletePost(id);
 

@@ -10,7 +10,7 @@ import { GetUserQueryInput } from 'src/viewModels/GetUserQueryInput';
 })
 export class UserListComponent implements OnInit {
  
-  query = new GetUserQueryInput(0,6,null);
+  query = new GetUserQueryInput(0,6,"");
   userList:any[];
   finished = false;
   loader=false;

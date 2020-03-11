@@ -53,8 +53,10 @@
     <h5>{{ user?.numberOfPosts}} posts</h5>
   </div>
   <div *ngIf="user?.rating != 0" class="col user-ratings ">
-        <i class="fa fa-star"></i>
-        <h5>{{ user?.rating }}</h5>
+        <ul class="row">
+          <li><i class="fa fa-star"></i></li>
+          <li><h5>{{ user?.rating }}</h5></li>
+        </ul>
   </div>
   <div *ngIf="user?.rating == 0" class="col ">
     <h5 class="no-rating-text">No rating yet.</h5>

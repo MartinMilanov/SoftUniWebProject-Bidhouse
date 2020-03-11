@@ -9,7 +9,7 @@ namespace Bidhouse.Services
 {
     public interface IAuthService
     {
-        public Task<bool> ChangePassword(string id,ChangePasswordInputModel input);
+        public Task<string> ChangePassword(string id,ChangePasswordInputModel input);
         public Task<User> Login(string username, string password);
         public Task<User> Register(User user, string password);
         public Task<bool> UserExists(string username);

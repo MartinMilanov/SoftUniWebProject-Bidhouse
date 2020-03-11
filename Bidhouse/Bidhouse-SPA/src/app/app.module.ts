@@ -16,6 +16,7 @@ import { BsDropdownModule, TabsModule } from 'ngx-bootstrap';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll'
 import { ModalModule } from 'ngx-bootstrap';
+import { RatingModule } from 'ngx-bootstrap';
 
 import { PostsListComponent } from './posts-list/posts-list.component';
 import { RouterModule } from '@angular/router';
@@ -29,6 +30,7 @@ import { UserGuestComponent } from './user-guest/user-guest.component';
 import { CreatePostComponent } from './create-post/create-post.component';
 import { PostService } from './_services/post.service';
 import { PostComponent } from './post/post.component';
+import { RateComponent } from './rate/rate.component';
 
 export function tokenGetter(){
    return localStorage.getItem('token');
@@ -47,7 +49,8 @@ export function tokenGetter(){
       UserListComponent,
       UserGuestComponent,
       CreatePostComponent,
-      PostComponent
+      PostComponent,
+      RateComponent
    ],
    imports: [
       BrowserModule,
@@ -59,6 +62,7 @@ export function tokenGetter(){
       TabsModule.forRoot(),
       BsDropdownModule.forRoot(),
       ModalModule.forRoot(),
+      RatingModule.forRoot(),
       RouterModule.forRoot(appRoutes),
       JwtModule.forRoot({
          config: {

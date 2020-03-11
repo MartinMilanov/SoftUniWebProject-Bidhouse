@@ -7,6 +7,7 @@ namespace Bidhouse.ViewModels.UserModels
 {
     public class UserUpdateModel
     {
+        
         public string JobPosition { get; set; }
         public string City { get; set; }
         public string Description { get; set; }

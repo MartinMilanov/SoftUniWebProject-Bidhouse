@@ -54,7 +54,7 @@ postsArray:any[];
       this.alertify.error("Passwords must match ! ");
       
     }
-    if(this.model.newPassword.length < 4 || this.model.newPassword.length > 8)
+    if(this.model.newPassword.length < 4 || this.model.newPassword.length > 20)
     {
       this.alertify.error("Password must be longer than 4 and shorter than 8");
     }
@@ -64,7 +64,7 @@ postsArray:any[];
         this.alertify.success("You have changed your password !");
        
       },error=>{
-        this.alertify.error("Something went wrong");
+        console.log(error);
       });
     }
   }

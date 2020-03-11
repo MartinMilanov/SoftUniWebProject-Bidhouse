@@ -1,0 +1,13 @@
+.review-rate{
+    list-style: none;
+}
+.review-rate li{
+    display: inline;
+    margin-right:8px;
+    padding-top: 20px;
+}
+
+.review-rate li i {
+    margin-top:15px;
+    color: rgb(255, 200, 0);
+}

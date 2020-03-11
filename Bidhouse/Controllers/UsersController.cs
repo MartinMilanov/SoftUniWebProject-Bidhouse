@@ -17,6 +17,7 @@ namespace Bidhouse.Controllers
 {
     [Authorize]
     [Route("api/[controller]")]
+    [ApiController]
     public class UsersController:ControllerBase
     {
         private readonly IUserService userService;
@@ -31,7 +32,7 @@ namespace Bidhouse.Controllers
         }
       
         [HttpGet("{id}")]
-        public async Task<IActionResult> GetUser(string id)
+        public async Task<ActionResult<UserDetailsModel>> GetUser(string id)
         {
             var user = await this.userService.GetUser(id);
             if (user == null)
@@ -42,19 +43,16 @@ namespace Bidhouse.Controllers
         }
 
         [HttpGet("getUsers")]
-        public async Task<IActionResult> GetUsers(GetUsersInputModel input)
+        public async Task<ActionResult<ICollection<UserListModel>>> GetUsers(GetUsersInputModel input)
         {
             var users = await this.userService.GetUsers(input);
-            if (users == null)
-            {
-                return Ok(users);
-            }
+           
 
             return Ok(users);
         }
 
         [HttpPost("{id}")]
-        public async Task<IActionResult> UpdateUser(string id,[FromForm]UserUpdateModel input)
+        public async Task<ActionResult> UpdateUser(string id,[FromForm]UserUpdateModel input)
         {
             if (id != this.User.FindFirst(ClaimTypes.NameIdentifier).Value)
             {

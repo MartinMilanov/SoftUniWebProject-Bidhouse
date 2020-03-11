@@ -1,0 +1,52 @@
+<div *ngIf='canReview == true' class="row">
+
+
+<form  class="row" [formGroup]="form" (ngSubmit)="writeReview()" style="margin-bottom:40px;">
+    
+   
+    <div class="col-lg-12 col-sm-12 col-md-12">
+      <label>Write a review</label>
+      <textarea formControlName="description" name="description" type="text" style="height: 120px;" class="form-control" placeholder="Great guy , good employee . Works fast and without remorse"></textarea>
+    </div>
+    
+  
+
+    <div style="padding-top:10px;" class="col-lg-12 col-sm-12 col-md-12">
+      <rating [max]="6" formControlName="rating" name="rating" [customTemplate]="tt"></rating>
+     
+      <ng-template #tt let-i="index" let-v="value">
+        <button type="button" class="btn btn-{{i < v ? 'warning' : 'default'}}">
+          {{i < v ? '&#9733;' : '&#9734;'}}
+        </button>
+      </ng-template>
+    </div>
+
+    <div style="padding-right:20px;" class="col-sm-12 col-md-11 col-lg-1">
+      <button type="submit" class="btn btn-secondary">Review</button>
+    </div>
+    
+    
+ 
+  </form>
+</div>
+<div *ngIf="reviews?.length>0" class="row">
+
+  <h6   class="border-bottom border-gray pb-2 mb-0 col-12">Recent reviews</h6>
+    <div  *ngFor='let review of reviewSummary' class="media text-muted pt-3 col-12"  style="width:50vw" >
+      <img class="bd-placeholder-img mr-2 rounded" width="32" height="32" [src]="review?.reviewerImg" alt="">
+      <p class="media-body pb-3 mb-0 small lh-125 border-bottom border-gray">
+        <strong class="d-block text-gray-dark ">{{ review?.reviewerName }}</strong>
+          {{ review?.description }}
+      </p>
+      <ul class="review-rate">
+        <li><i class="fa fa-star"></i></li>
+        <li>{{ review?.rating }}</li>
+      </ul>
+    </div>
+
+</div>
+
+<div *ngIf="reviews?.length<=0" class="row" style="width: 100%;">
+  <h6 class="border-bottom border-gray pb-2 mb-0 col-12">Recent reviews</h6>
+  <div class="alert alert-info col-12" style="margin-top:10px">No reviews yet</div>
+</div>

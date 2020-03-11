@@ -12,6 +12,7 @@ using System.Threading.Tasks;
 namespace Bidhouse.Controllers
 {
     [Authorize]
+    [ApiController]
     [Route("api/[controller]")]
     public class BidsController:ControllerBase
     {
@@ -24,14 +25,9 @@ namespace Bidhouse.Controllers
             this.postService = postService;
         }
         [HttpPost]
-        public async Task<IActionResult> PlaceBid([FromBody]BidInputModel input)
+        public async Task<ActionResult> PlaceBid([FromBody]BidInputModel input)
         {
 
-
-            if (!this.ModelState.IsValid)
-            {
-                return BadRequest("Values are not compatible");
-            }
             var receiverId = input.ReceiverId;
             var userId = this.User.FindFirst(ClaimTypes.NameIdentifier).Value;
 
@@ -55,12 +51,12 @@ namespace Bidhouse.Controllers
             }
             else
             {
-                return BadRequest("Something went terribly wrong !");
+                return BadRequest("Something went wrong ");
             }
         }
 
         [HttpPost("approveBid")]
-        public async Task<IActionResult> ApproveBid([FromBody]BidApproveInputModel input)
+        public async Task<ActionResult> ApproveBid([FromBody]BidApproveInputModel input)
         {
             if (String.IsNullOrEmpty(input.BidId) || String.IsNullOrEmpty(input.PostId))
             {

@@ -10,6 +10,7 @@ using Bidhouse.Services;
 using Bidhouse.Services.Bids;
 using Bidhouse.Services.Files;
 using Bidhouse.Services.Posts;
+using Bidhouse.Services.Reviews;
 using Bidhouse.Services.Users;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
@@ -45,13 +46,36 @@ namespace Bidhouse
                     Configuration.GetConnectionString("DefaultConnection")));
 
             services.AddScoped<IAuthService, AuthService>();
-            services.AddScoped<IUserService,UserService>();
+            services.AddScoped<IUserService, UserService>();
             services.AddScoped<IFileService, FileService>();
             services.AddScoped<IPostService, PostService>();
             services.AddScoped<IBidService, BidService>();
+            services.AddScoped<IReviewService, ReviewService>();
 
-            services.AddControllers();
-            services.AddCors();
+            services.AddCors(o => o.AddPolicy("MyPolicy", builder =>
+            {
+                builder
+
+                    .AllowAnyOrigin()
+                    .AllowAnyMethod()
+                    .AllowAnyHeader();
+
+            }
+            ));
+
+            services.AddControllersWithViews()
+               .ConfigureApiBehaviorOptions(options =>
+               {
+                   // Suppress Multipart/form-data inference
+                   options.SuppressConsumesConstraintForFormFileParameters = true;
+                   // Suppress binding source attributes
+                   options.SuppressInferBindingSourcesForParameters = true;
+                   // Suppress automatic HTTP 400 errors
+                   options.SuppressModelStateInvalidFilter = true;
+                   // Suppress problem details responses
+                   options.SuppressMapClientErrors = true;          // ...
+               });
+
 
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                 .AddJwtBearer(opt => opt.TokenValidationParameters = new TokenValidationParameters
@@ -85,7 +109,7 @@ namespace Bidhouse
                 {
                     builder.Run(async context =>
                     {
-                        
+
                         context.Response.StatusCode = (int)HttpStatusCode.InternalServerError;
 
                         var error = context.Features.Get<IExceptionHandlerFeature>();
@@ -99,17 +123,17 @@ namespace Bidhouse
                     });
                 });
             }
-            app.UseCors(x=>x.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
+            app.UseCors("MyPolicy");
             app.UseStaticFiles();
-         
-         
+
+
             app.UseAuthentication();
             app.UseHttpsRedirection();
 
             app.UseRouting();
 
             app.UseAuthorization();
-            
+
 
             app.UseEndpoints(endpoints =>
             {
