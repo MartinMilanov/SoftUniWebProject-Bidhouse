@@ -13,7 +13,7 @@ namespace Bidhouse.Controllers
     [Authorize]
     [ApiController]
     [Route("api/[controller]")]
-    public class PostsController:ControllerBase
+    public class PostsController : ControllerBase
     {
         private readonly IPostService postService;
 
@@ -53,5 +53,26 @@ namespace Bidhouse.Controllers
             return Ok();
         }
 
+        [HttpGet("getPosts")]
+        public async Task<ActionResult<ICollection<PostListViewModel>>> GetPosts()
+        {
+            var posts = await this.postService.GetPosts();
+
+            return Ok(posts);
+
+        }
+        [HttpGet("getPostsById")]
+        public async Task<ActionResult<ICollection<PostListViewModel>>> GetPostsById(string id)
+        {
+            if (String.IsNullOrEmpty(id))
+            {
+                return BadRequest("You should specify an id !");
+            }
+            var posts = await this.postService.GetPostsById(id);
+
+
+            return Ok(posts);
+
+        }
     }
 }

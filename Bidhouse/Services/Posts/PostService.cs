@@ -108,5 +108,41 @@ namespace Bidhouse.Services.Posts
 
             return result;
         }
+
+        public async Task<ICollection<PostListViewModel>> GetPosts()
+        {
+            var posts = await this.db.Posts
+                 .Include(x => x.Creator)
+                 .Select(x => new PostListViewModel
+                 {
+                     Id = x.Id,
+                     Name = x.Name,
+                     CreatedOn = x.CreatedOn,
+                     Price = x.Price,
+                     UserId = x.CreatorId,
+                     UserName = x.Creator.UserName,
+                     UserImageUrl = x.Creator.ImageUrl
+                 }
+                ).ToListAsync();
+
+            return posts;
+        }
+
+        public async Task<ICollection<PostListViewModel>> GetPostsById(string id)
+        {
+            var posts = await this.db.Posts
+                 .Include(x => x.Creator)
+                 .Where(x => x.CreatorId == id)
+                 .Select(x => new PostListViewModel
+                 {
+                     Id = x.Id,
+                     Name = x.Name,
+                     CreatedOn = x.CreatedOn,
+                     Price = x.Price
+                 }
+                ).ToListAsync();
+
+            return posts;
+        }
     }
 }

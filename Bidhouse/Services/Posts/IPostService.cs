@@ -11,7 +11,8 @@ namespace Bidhouse.Services.Posts
         public Task<PostDetailViewModel> GetPost(string id);
         public Task<string> CreatePost(CreatePostInputModel input, string id);
         public Task<bool> DeletePost(string id);
-
+        public Task<ICollection<PostListViewModel>> GetPosts();
+        public Task<ICollection<PostListViewModel>> GetPostsById(string id);
         public Task<bool> IsClosed(string id);
 
     }

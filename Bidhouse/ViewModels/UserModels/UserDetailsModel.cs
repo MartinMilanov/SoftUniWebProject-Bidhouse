@@ -1,4 +1,5 @@
 ﻿using Bidhouse.Models;
+using Bidhouse.ViewModels.PostModels;
 using Bidhouse.ViewModels.ReviewModels;
 using System;
 using System.Collections.Generic;
@@ -19,6 +20,6 @@ namespace Bidhouse.ViewModels.UserModels
         public ICollection<UserBidsViewModel> BidsSent { get; set; }
         public ICollection<UserBidsViewModel> BidsReceived { get; set; }
         public ICollection<ReviewViewModel> ReviewsGotten { get; set; }
-        public ICollection<UserPostDetailViewModel> Posts { get; set; }
+        public ICollection<PostListViewModel> Posts { get; set; }
     }
 }

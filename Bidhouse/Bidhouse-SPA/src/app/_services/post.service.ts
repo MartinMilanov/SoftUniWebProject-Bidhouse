@@ -18,6 +18,18 @@ export class PostService {
     })
   }
 
+  getPostsById(id:string){
+    return this.http.get(this.baseUrl+"getPostsById",{
+      params:{
+        id : id
+      }
+    });
+  }
+
+  getPosts(){
+    return this.http.get(this.baseUrl+"getPosts");
+  }
+
   createPost(input:CreatePostInputModel){
    return this.http.post(this.baseUrl,input);
   }

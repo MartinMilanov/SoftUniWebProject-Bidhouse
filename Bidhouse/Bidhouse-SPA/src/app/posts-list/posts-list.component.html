@@ -1,3 +1,36 @@
-<p style="margin-top: 60px;">
-  posts-list works!a  posts-list works!a  posts-list works!a  posts-list works!a  posts-list works!a  posts-list works!a  posts-list works!a  posts-list works!a  posts-list works!a  posts-list works!a  posts-list works!a  posts-list works!a  posts-list works!a  posts-list works!a  posts-list works!a  posts-list works!a  posts-list works!a  posts-list works!a  posts-list works!a  posts-list works!a  posts-list works!a  posts-list works!a  posts-list works!a  posts-list works!a  posts-list works!a  posts-list works!a  posts-list works!a  posts-list works!a  posts-list works!a  posts-list works!a  posts-list works!a  posts-list works!a  posts-list works!a  posts-list works!a  posts-list works!a  posts-list works!a  posts-list works!a  posts-list works!a  posts-list works!a  posts-list works!a
-</p>
+<div *ngIf = 'posts?.length > 0 && posts != null' class="container-fluid">
+  <div class="list-group user-posts">
+    <div class="row user-posts-title">
+      <h2>Your posts page.</h2>
+    </div>
+    <div class="row user-posts-semiTitle">
+      <h4>Here you can find everything you created</h4>
+    </div>
+    <a *ngFor="let post of posts" class="list-group-item list-group-item-action flex-column align-items-start ">
+      <div class="d-flex w-100 justify-content-between">
+        <a class="user-post-name" [routerLink]="['/post/',post.name,post.id]" ><h5  class="mb-1">{{ post?.name }}</h5></a>
+        <small>{{ post?.createdOn}}</small>
+      </div>
+      <div class="d-flex w-100 justify-content-between">
+        <p class="mb-1 user-post-budget">${{ post?.price }}</p>
+        
+        <i class="fa fa-times user-delete-post" aria-hidden="true"  (click)="openModal(template)"></i>
+      </div>
+      <ng-template #template>
+        <div class="modal-body text-center">
+          <p>Do you want to confirm?</p>
+          <button type="button" class="btn btn-default" (click)="confirm(post)" >Yes</button>
+          <button type="button" class="btn btn-primary" (click)="decline()" >No</button>
+        </div>
+      </ng-template>
+    </a>
+
+
+
+  </div>
+</div>
+
+
+<div *ngIf="posts?.length<=0 || posts == null" class="alert alert-info m-4 pt-3">
+  <h6>You haven't made any posts yet...</h6>
+</div> 

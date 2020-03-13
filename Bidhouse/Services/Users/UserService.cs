@@ -1,4 +1,5 @@
 ﻿using Bidhouse.Models;
+using Bidhouse.ViewModels.PostModels;
 using Bidhouse.ViewModels.ReviewModels;
 using Bidhouse.ViewModels.UserModels;
 using Microsoft.AspNetCore.Identity;
@@ -34,7 +35,6 @@ namespace Bidhouse.Services.Users
                 .Include(x => x.ReviewsGotten)
                 .ThenInclude(x => x.Reviewer)
                 .Include(x => x.ReviewsSent)
-                .Include(x => x.Posts)
                 .SingleAsync(x => x.Id == id);
 
             var user = new UserDetailsModel()
@@ -46,13 +46,6 @@ namespace Bidhouse.Services.Users
                 City = query.City,
                 ImageUrl = query.ImageUrl,
                 Rating = query.ReviewsGotten.Count == 0 ? 0 : query.ReviewsGotten.Sum(x => x.Rating) / query.ReviewsGotten.Count,
-                Posts = query.Posts.Count > 0 ? query.Posts.Select(x => new UserPostDetailViewModel
-                {
-                    Id = x.Id,
-                    Name = x.Name,
-                    Price = x.Price,
-                    CreatedOn = x.CreatedOn
-                }).ToList() : new List<UserPostDetailViewModel>(),
                 ReviewsGotten = query.ReviewsGotten.Count > 0 ? query.ReviewsGotten.Select(x => new ReviewViewModel
                 {
                     Id = x.Id,

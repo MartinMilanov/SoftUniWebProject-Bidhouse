@@ -141,7 +141,9 @@
       </tab>
 
       <tab heading="Posts">
-        <div *ngIf = 'user?.posts?.length > 0 && user?.posts != null' class="container-fluid">
+        <app-posts-list  [id]="user.id" ></app-posts-list>
+
+       <!-- <div *ngIf = 'user?.posts?.length > 0 && user?.posts != null' class="container-fluid">
           <div class="list-group user-posts">
             <div class="row user-posts-title">
               <h2>Your posts page.</h2>
@@ -175,7 +177,7 @@
 
         <div *ngIf="user?.posts.length<=0" class="alert alert-info m-4 pt-3">
           <h6>You haven't made any posts yet...</h6>
-        </div>
+        </div>  -->
       </tab>
       <tab heading="Reviews">
         <div class="container-fluid">

@@ -1,0 +1,46 @@
+.user-posts{
+    padding-top:30px;
+    
+}
+
+.user-delete-post{
+    font-size:25px;
+    padding-right:20px;
+    color:rgb(203, 40, 40)
+}
+.user-delete-post:hover{
+    text-shadow: 0 0 2px black;
+}
+
+.user-post-budget{
+    background-color: green;
+     border-radius: 4px; 
+     color:white;
+     padding:3px;
+}
+.user-posts-title{
+    padding-left:30px;
+}
+.user-posts-title h2{
+    font-size: 50px;
+    font-weight: bolder;
+}
+.user-posts-semiTitle{
+    padding-left:35px;
+    margin-bottom: 30px;
+}
+.user-posts-semiTitle h4{
+    font-size: 18px;
+    font-weight: bold;
+    color: rgba(32, 32, 32, 0.717)
+}
+
+.user-post-name:hover{
+    color: gray;
+}
+.user-post-name:link,
+.user-post-name:visited{
+    font-weight: bold;
+    color:rgb(22, 22, 22);
+    text-decoration: none;
+}
