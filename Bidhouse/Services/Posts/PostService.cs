@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace Bidhouse.Services.Posts
 {
-    public class PostService:IPostService
+    public class PostService : IPostService
     {
         private readonly ApplicationDbContext db;
 
@@ -25,9 +25,9 @@ namespace Bidhouse.Services.Posts
             var query = await this.db.Posts
                 .Include(x => x.Creator)
                 .ThenInclude(x => x.ReviewsGotten)
-                .Include(b=>b.Bids)
-                .ThenInclude(x=>x.Bidder)
-                .ThenInclude(x=>x.ReviewsGotten)
+                .Include(b => b.Bids)
+                .ThenInclude(x => x.Bidder)
+                .ThenInclude(x => x.ReviewsGotten)
                 .FirstOrDefaultAsync(x => x.Id == id);
 
 
@@ -42,7 +42,7 @@ namespace Bidhouse.Services.Posts
                 Creator = new UserListModel
                 {
                     Id = query.Creator.Id,
-                    Name = query.Creator.Username,
+                    Name = query.Creator.UserName,
                     ImageUrl = query.Creator.ImageUrl,
                     Rating = query.Creator.ReviewsGotten.Count > 0 ? query.Creator.ReviewsGotten.Sum(x => x.Rating) : 0
 
@@ -58,7 +58,7 @@ namespace Bidhouse.Services.Posts
                     Bidder = new UserListModel
                     {
                         Id = x.Bidder.Id,
-                        Name = x.Bidder.Username,
+                        Name = x.Bidder.UserName,
                         ImageUrl = x.Bidder.ImageUrl,
                         Rating = x.Bidder.ReviewsGotten.Count > 0 ? query.Creator.ReviewsGotten.Sum(x => x.Rating) : 0
                     }

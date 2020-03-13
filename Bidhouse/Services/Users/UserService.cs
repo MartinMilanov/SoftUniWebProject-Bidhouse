@@ -1,6 +1,7 @@
 ﻿using Bidhouse.Models;
 using Bidhouse.ViewModels.ReviewModels;
 using Bidhouse.ViewModels.UserModels;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -12,54 +13,58 @@ namespace Bidhouse.Services.Users
     public class UserService : IUserService
     {
         private readonly ApplicationDbContext db;
+        private readonly UserManager<User> userManager;
 
-        public UserService(ApplicationDbContext db)
+        public UserService(ApplicationDbContext db, UserManager<User> userManager)
         {
             this.db = db;
+            this.userManager = userManager;
         }
         public async Task<UserDetailsModel> GetUser(string id)
         {
-            var query = await this.db.Users
+
+
+            var query = await this.userManager.Users
                 .Include(x => x.BidsReceived)
-                .ThenInclude(x=>x.Bidder)
+                .ThenInclude(x => x.Bidder)
                 .Include(x => x.BidsReceived)
                 .ThenInclude(x => x.Post)
                 .Include(x => x.BidsSent)
-                .ThenInclude(x=>x.Post)
+                .ThenInclude(x => x.Post)
                 .Include(x => x.ReviewsGotten)
-                .ThenInclude(x=>x.Reviewer)
+                .ThenInclude(x => x.Reviewer)
                 .Include(x => x.ReviewsSent)
                 .Include(x => x.Posts)
-                .FirstOrDefaultAsync(x => x.Id == id);
+                .SingleAsync(x => x.Id == id);
 
             var user = new UserDetailsModel()
             {
                 Id = query.Id,
-                Username = query.Username,
+                Username = query.UserName,
                 WorkPosition = query.WorkPosition,
                 Description = query.Description,
                 City = query.City,
                 ImageUrl = query.ImageUrl,
-                Rating = query.ReviewsGotten.Count == 0 ? 0 : query.ReviewsGotten.Sum(x=>x.Rating)/query.ReviewsGotten.Count,
-                Posts = query.Posts.Select(x => new UserPostDetailViewModel
+                Rating = query.ReviewsGotten.Count == 0 ? 0 : query.ReviewsGotten.Sum(x => x.Rating) / query.ReviewsGotten.Count,
+                Posts = query.Posts.Count > 0 ? query.Posts.Select(x => new UserPostDetailViewModel
                 {
                     Id = x.Id,
                     Name = x.Name,
                     Price = x.Price,
                     CreatedOn = x.CreatedOn
-                }).ToList(),
-                ReviewsGotten = query.ReviewsGotten.Select(x=> new ReviewViewModel
+                }).ToList() : new List<UserPostDetailViewModel>(),
+                ReviewsGotten = query.ReviewsGotten.Count > 0 ? query.ReviewsGotten.Select(x => new ReviewViewModel
                 {
                     Id = x.Id,
                     Description = x.Description,
                     Rating = x.Rating,
                     ReviewerId = x.ReviewerId,
-                    ReviewerName = x.Reviewer.Username,
+                    ReviewerName = x.Reviewer.UserName,
                     ReviewerImg = x.Reviewer.ImageUrl
-                    
-                    
-                }).ToList(),
-                BidsReceived = query.BidsReceived.Select(x => new UserBidsViewModel
+
+
+                }).ToList() : new List<ReviewViewModel>(),
+                BidsReceived = query.BidsReceived.Count > 0 ? query.BidsReceived.Select(x => new UserBidsViewModel
                 {
                     Id = x.Id,
                     PostId = x.Post.Id,
@@ -68,10 +73,10 @@ namespace Bidhouse.Services.Users
                     Description = x.Description,
                     Price = x.Price,
                     BidderImage = x.Bidder.ImageUrl,
-                    BidderName = x.Bidder.Username
+                    BidderName = x.Bidder.UserName
 
-                }).ToList(),
-                BidsSent = query.BidsSent.Select(x=> new UserBidsViewModel
+                }).ToList() : new List<UserBidsViewModel>(),
+                BidsSent = query.BidsSent.Count > 0 ? query.BidsSent.Select(x => new UserBidsViewModel
                 {
                     Id = x.Id,
                     PostId = x.Post.Id,
@@ -79,7 +84,7 @@ namespace Bidhouse.Services.Users
                     Status = x.StatusOfBid.ToString(),
                     Price = x.Price
 
-                }).ToList()
+                }).ToList() : new List<UserBidsViewModel>()
             };
 
             return user;
@@ -87,11 +92,11 @@ namespace Bidhouse.Services.Users
 
         public async Task<ICollection<UserListModel>> GetUsers(GetUsersInputModel input)
         {
-            var query = await this.db.Users.Include(x => x.Posts).Include(x => x.ReviewsGotten).ToListAsync();
+            var query = await this.userManager.Users.Include(x => x.Posts).Include(x => x.ReviewsGotten).ToListAsync();
 
             if (input.SearchInput != null && input.SearchInput != "null")
             {
-                query = query.Where(x => x.Username.ToLower().Contains(input.SearchInput.ToLower())).ToList();
+                query = query.Where(x => x.UserName.ToLower().Contains(input.SearchInput.ToLower())).ToList();
                 if (query == null || query.Count <= 0)
                 {
                     return null;
@@ -102,7 +107,7 @@ namespace Bidhouse.Services.Users
             var users = query.Select(x => new UserListModel
             {
                 Id = x.Id,
-                Name = x.Username,
+                Name = x.UserName,
                 City = x.City,
                 ImageUrl = x.ImageUrl,
                 Rating = (x.ReviewsGotten.Count != 0) ? x.ReviewsGotten.Sum(r => r.Rating) / x.ReviewsGotten.Count : 0,
@@ -126,25 +131,26 @@ namespace Bidhouse.Services.Users
         }
 
 
-        public async Task<bool> UpdateUser(string id,UserUpdateModel input,string imageUrl)
+        public async Task<bool> UpdateUser(string id, UserUpdateModel input, string imageUrl)
         {
-            var user = await this.db.Users.FirstOrDefaultAsync(x => x.Id == id);
+            var user = await this.userManager.FindByIdAsync(id);
             user.WorkPosition = input.JobPosition;
             user.City = input.City;
             user.Description = input.Description;
             user.ImageUrl = imageUrl;
 
-           this.db.Users.Update(user);
-           await this.db.SaveChangesAsync();
+            await this.userManager.UpdateAsync(user);
+
+
 
             return true;
         }
 
-       
+
 
         public async Task<bool> UserExists(string id)
         {
-            var user = await this.db.Users.FirstOrDefaultAsync(x => x.Id == id);
+            var user = await this.userManager.FindByIdAsync(id);
             if (user == null)
             {
                 return false;

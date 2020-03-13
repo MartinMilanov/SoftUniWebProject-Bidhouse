@@ -1,5 +1,6 @@
 ﻿using Bidhouse.Models;
 using Bidhouse.ViewModels.AuthModels;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -13,55 +14,72 @@ namespace Bidhouse.Services
     public class AuthService : IAuthService
     {
         private readonly ApplicationDbContext db;
+        private readonly UserManager<User> userManager;
+        private readonly SignInManager<User> signInManager;
 
-        public AuthService(ApplicationDbContext db)
+        public AuthService(UserManager<User> userManager, SignInManager<User> signInManager, ApplicationDbContext db)
         {
             this.db = db;
+            this.userManager = userManager;
+            this.signInManager = signInManager;
         }
 
         public async Task<string> ChangePassword(string id, ChangePasswordInputModel input)
         {
-            var user = await this.db.Users.FirstOrDefaultAsync(x => x.Id == id);
+            var user = await this.userManager.FindByIdAsync(id);
             if (user == null)
             {
                 return null;
             }
-            user.Password = this.Hash(input.NewPassword);
-            this.db.Users.Update(user);
-            this.db.SaveChanges();
-            return user.Password;
+            await this.userManager.ChangePasswordAsync(user, input.CurrentPassword, input.NewPassword);
+            
+            return user.PasswordHash;
         }
 
         public async Task<User> Login(string username, string password)
         {
-            User user = await db.Users.FirstOrDefaultAsync(x => x.Username == username);
+            var user = await this.userManager.FindByNameAsync(username);
 
             if (user == null)
             {
                 return null;
             }
 
-            var passwordHash = this.Hash(password);
-            if (user.Password != passwordHash)
+            var result = await this.signInManager.CheckPasswordSignInAsync(user, password, false);
+
+            if (result.Succeeded)
             {
-                return null;
+
+                return user;
             }
 
-            return user;
+            return null;
         }
 
-        public async Task<User> Register(User user, string password)
+        public async Task<User> Register(RegisterInputModel input)
         {
-            var passwordHash = this.Hash(password);
-            user.Password = passwordHash;
-            await this.db.Users.AddAsync(user);
-            await this.db.SaveChangesAsync();
-            return user;
+
+            var user = new User()
+            {
+                UserName = input.Username,
+                WorkPosition = input.JobPosition,
+                City = input.City,
+                ImageUrl = "/images/default-user-photo.png"
+            };
+
+            var result = await this.userManager.CreateAsync(user, input.Password);
+
+            if (result.Succeeded)
+            {
+                return user;
+            }
+            return null;
+
         }
 
         public async Task<bool> UserExists(string username)
         {
-            if (await db.Users.AnyAsync(x=>x.Username == username))
+            if (await db.Users.AnyAsync(x => x.UserName == username))
             {
                 return true;
             }

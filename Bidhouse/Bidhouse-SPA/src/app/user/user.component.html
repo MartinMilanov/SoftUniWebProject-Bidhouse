@@ -264,36 +264,7 @@
   
           <tabset [justified]="true">
             <tab heading="Password Change">
-              <div class="card" style="margin-top:80px;margin-left:60px;margin-right:60px">
-                <div class="card-body text-center">
-                  
-                  <form #passwordChangeForm = "ngForm"  id="passwordChangeForm"  form="passwordChangeForm"
-                  (ngSubmit)="changePassword(passwordChangeForm)" class="password-change-form">
-
-                    <div class="form-group row" >
-                      <label class="col-sm-2 col-form-label">New Password</label>
-                      <div class="col-sm-10">
-                        <input  name="newPassword" required  type="password" class="form-control" placeholder="New Password"
-                          [(ngModel)]="model.newPassword" #newPassword = "ngModel">
-                      </div>
-                    </div>
-                    <div class="form-group row">
-                      <label for="inputPassword3" class="col-sm-2 col-form-label">Confirm Password</label>
-                      <div class="col-sm-10">
-                        <input name="confirmPassword" required type="password" class="form-control" id="inputPassword3" placeholder="Confirm Password"
-                        [(ngModel)]="model.confirmPassword" #confirmPassword = "ngModel">
-                      </div>
-                    </div>
-                
-              
-                    <div  class="form-row" style="justify-content: center;">
-
-                      <button type="submit" class="btn btn-info btn-circle btn-xl"><i class="fa fa-check"></i>
-                      </button>
-                    </div>
-                  </form>
-                </div>
-              </div>
+              <app-change-password [user]="user"></app-change-password>
 
             </tab>
             <tab heading="Information Change">

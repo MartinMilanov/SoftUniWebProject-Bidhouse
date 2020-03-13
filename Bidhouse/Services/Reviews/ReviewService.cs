@@ -58,7 +58,7 @@ namespace Bidhouse.Services.Reviews
 
                 ReviewerId = reviewer.Id,
                 ReviewerImg = reviewer.ImageUrl,
-                ReviewerName = reviewer.Username
+                ReviewerName = reviewer.UserName
 
             };
 

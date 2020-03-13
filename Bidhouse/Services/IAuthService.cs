@@ -11,7 +11,7 @@ namespace Bidhouse.Services
     {
         public Task<string> ChangePassword(string id,ChangePasswordInputModel input);
         public Task<User> Login(string username, string password);
-        public Task<User> Register(User user, string password);
+        public Task<User> Register(RegisterInputModel input);
         public Task<bool> UserExists(string username);
     }
 }
