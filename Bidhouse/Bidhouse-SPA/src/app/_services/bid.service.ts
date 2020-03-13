@@ -25,6 +25,10 @@ approveBid(bidId:string,postId:string){
    );
 }
 
+getBids(){
+  return this.http.get(this.baseUrl);
+}
+
 }
 
 

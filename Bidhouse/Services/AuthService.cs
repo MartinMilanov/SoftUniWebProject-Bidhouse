@@ -62,6 +62,7 @@ namespace Bidhouse.Services
             var user = new User()
             {
                 UserName = input.Username,
+                Email= input.Email,
                 WorkPosition = input.JobPosition,
                 City = input.City,
                 ImageUrl = "/images/default-user-photo.png"

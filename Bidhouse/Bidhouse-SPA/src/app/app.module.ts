@@ -32,6 +32,7 @@ import { PostService } from './_services/post.service';
 import { PostComponent } from './post/post.component';
 import { RateComponent } from './rate/rate.component';
 import { ChangePasswordComponent } from './change-password/change-password.component';
+import { BidListComponent } from './bid-list/bid-list.component';
 
 export function tokenGetter(){
    return localStorage.getItem('token');
@@ -52,7 +53,8 @@ export function tokenGetter(){
       CreatePostComponent,
       PostComponent,
       RateComponent,
-      ChangePasswordComponent
+      ChangePasswordComponent,
+      BidListComponent
    ],
    imports: [
       BrowserModule,

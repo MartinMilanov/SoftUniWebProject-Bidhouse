@@ -1,9 +1,9 @@
 <div *ngIf = 'posts?.length > 0 && posts != null' class="container-fluid">
   <div class="list-group user-posts">
-    <div class="row user-posts-title">
+    <div *ngIf="isGuestUser == false" class="row user-posts-title">
       <h2>Your posts page.</h2>
     </div>
-    <div class="row user-posts-semiTitle">
+    <div *ngIf="isGuestUser == false" class="row user-posts-semiTitle">
       <h4>Here you can find everything you created</h4>
     </div>
     <a *ngFor="let post of posts" class="list-group-item list-group-item-action flex-column align-items-start ">
@@ -14,9 +14,9 @@
       <div class="d-flex w-100 justify-content-between">
         <p class="mb-1 user-post-budget">${{ post?.price }}</p>
         
-        <i class="fa fa-times user-delete-post" aria-hidden="true"  (click)="openModal(template)"></i>
+        <i *ngIf="isGuestUser == false" class="fa fa-times user-delete-post" aria-hidden="true"  (click)="openModal(template)"></i>
       </div>
-      <ng-template #template>
+      <ng-template *ngIf="isGuestUser == false" #template>
         <div class="modal-body text-center">
           <p>Do you want to confirm?</p>
           <button type="button" class="btn btn-default" (click)="confirm(post)" >Yes</button>

@@ -26,12 +26,6 @@ namespace Bidhouse.Services.Users
 
 
             var query = await this.userManager.Users
-                .Include(x => x.BidsReceived)
-                .ThenInclude(x => x.Bidder)
-                .Include(x => x.BidsReceived)
-                .ThenInclude(x => x.Post)
-                .Include(x => x.BidsSent)
-                .ThenInclude(x => x.Post)
                 .Include(x => x.ReviewsGotten)
                 .ThenInclude(x => x.Reviewer)
                 .Include(x => x.ReviewsSent)
@@ -56,28 +50,7 @@ namespace Bidhouse.Services.Users
                     ReviewerImg = x.Reviewer.ImageUrl
 
 
-                }).ToList() : new List<ReviewViewModel>(),
-                BidsReceived = query.BidsReceived.Count > 0 ? query.BidsReceived.Select(x => new UserBidsViewModel
-                {
-                    Id = x.Id,
-                    PostId = x.Post.Id,
-                    PostName = x.Post.Name,
-                    Status = x.StatusOfBid.ToString(),
-                    Description = x.Description,
-                    Price = x.Price,
-                    BidderImage = x.Bidder.ImageUrl,
-                    BidderName = x.Bidder.UserName
-
-                }).ToList() : new List<UserBidsViewModel>(),
-                BidsSent = query.BidsSent.Count > 0 ? query.BidsSent.Select(x => new UserBidsViewModel
-                {
-                    Id = x.Id,
-                    PostId = x.Post.Id,
-                    PostName = x.Post.Name,
-                    Status = x.StatusOfBid.ToString(),
-                    Price = x.Price
-
-                }).ToList() : new List<UserBidsViewModel>()
+                }).ToList() : new List<ReviewViewModel>()
             };
 
             return user;

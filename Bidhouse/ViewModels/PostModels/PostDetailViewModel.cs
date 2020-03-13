@@ -17,7 +17,7 @@ namespace Bidhouse.ViewModels.PostModels
         public DateTime CreatedOn { get; set; }
         public UserListModel Creator { get; set; }
         public string Status { get; set; }
-        public ICollection<BidListViewModel> Bids { get; set; }
+        public ICollection<BidViewModel> Bids { get; set; }
 
     }
 }

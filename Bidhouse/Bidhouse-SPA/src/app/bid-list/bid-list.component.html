@@ -1,0 +1,83 @@
+<tabset [justified]="true">
+    <tab heading="Bids Received">
+      <div *ngIf="bids?.bidsReceived.length<=0" class="alert alert-info m-4 pt-3">
+        <h6>You have no received bids yet !</h6>
+      </div>
+
+      <div class="container-fluid">
+        <div style="margin-top:30px;" class="row" *ngIf="bids?.bidsReceived.length>0">
+
+          <div [routerLink]="['/post',bid.postName,bid.postId]"  *ngFor="let bid of bids?.bidsReceived" class="card mb-3 col-lg-4 col-sm-12" style="max-width: 540px;">
+            <div class="row no-gutters">
+              <div class="col-md-3 card-bid-img" [ngStyle]="{'background-image':'url('+bid?.bidder?.imageUrl+')'}">
+               
+              </div>
+              <div class="col-md-8 col-sm-11 col-lg-8">
+                <div class="card-body">
+                  <h5 class="card-title">
+                    <ul class="card-bid-titles">
+                      <li>
+                          {{ bid?.bidder.name | titlecase}}
+                      </li>
+                      <li class="card-bid-price">
+                          ${{ bid?.price}}
+                      </li>
+                    </ul>
+                  </h5>
+                  <p class="card-text">{{ bid?.description }}</p>
+                  <p class="card-text"><small class="text-muted">{{ bid?.postName}}</small></p>
+                </div>
+              </div>
+
+              <div [style.backgroundColor]="bid.status == 'Waiting' ? 'rgb(243, 223, 42)' : bid.status == 'Declined' ? 'red' : 'green' " class="col-md-1 col-sm-1 col-lg-1 card-bid-status">
+
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+
+      
+     </tab>
+    <tab heading="Bids Sent">
+      <div *ngIf="bids?.bidsSent.length<=0" class="alert alert-info m-4 pt-3">
+        <h6>You have no sent bids yet !</h6>
+      </div>
+
+      <div class="container-fluid">
+        <div style="margin-top:30px;" class="row">
+
+          <div [routerLink]="['/post',bid.postName,bid.postId]"  *ngFor="let bid of bids?.bidsSent" class="card mb-3 col-lg-4 col-sm-12" style="max-width: 540px;">
+            <div class="row no-gutters">
+              <div class="col-md-3 card-bid-img" [ngStyle]="{'background-image':'url('+bid?.bidder?.imageUrl+')'}">
+               
+              </div>
+              <div class="col-md-8 col-sm-11 col-lg-8">
+                <div class="card-body">
+                  <h5 class="card-title">
+                    <ul class="card-bid-titles">
+                      <li>
+                          {{ bid?.bidder.name | titlecase}}
+                      </li>
+                      <li class="card-bid-price">
+                          ${{ bid.price}}
+                      </li>
+                    </ul>
+                  </h5>
+                  <p class="card-text">{{ bid?.description }}</p>
+                  <p class="card-text"><small class="text-muted">{{ bid?.postName}}</small></p>
+                </div>
+              </div>
+
+              <div [style.backgroundColor]="bid.status == 'Waiting' ? 'rgb(243, 223, 42)' : bid.status == 'Declined' ? 'red' : 'green' " class="col-md-1 col-sm-1 col-lg-1 card-bid-status">
+
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </tab>
+  </tabset>

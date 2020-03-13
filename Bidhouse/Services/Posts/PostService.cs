@@ -47,7 +47,7 @@ namespace Bidhouse.Services.Posts
                     Rating = query.Creator.ReviewsGotten.Count > 0 ? query.Creator.ReviewsGotten.Sum(x => x.Rating) : 0
 
                 },
-                Bids = query.Bids.Count > 0 ? query.Bids.Select(x => new BidListViewModel
+                Bids = query.Bids.Count > 0 ? query.Bids.Select(x => new BidViewModel
                 {
                     Id = x.Id,
                     Description = x.Description,

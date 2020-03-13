@@ -1,0 +1,23 @@
+.card-bid-titles{
+  list-style: none;
+  padding:0px;
+  margin:0px;
+}
+.card-bid-titles li{
+  display: inline;
+  padding:0px;
+  margin:0px;
+}
+.card-bid-img{
+
+  background-size: cover;
+  background-position: center;
+}
+.card-bid-status{
+  background-color: rgb(243, 223, 42);
+}
+.card-bid-price{
+ float:right;
+ color: gray;
+ font-weight: bold;
+}

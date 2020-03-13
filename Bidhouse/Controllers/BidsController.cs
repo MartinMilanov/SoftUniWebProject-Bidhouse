@@ -75,5 +75,13 @@ namespace Bidhouse.Controllers
             
             return Ok();
         }
+
+        [HttpGet]
+        public async Task<ActionResult<BidListViewModel>> GetBids()
+        {
+            var bids = await this.bidService.GetBids(this.User.FindFirst(ClaimTypes.NameIdentifier).Value);
+
+            return Ok(bids);
+        }
     }
 }

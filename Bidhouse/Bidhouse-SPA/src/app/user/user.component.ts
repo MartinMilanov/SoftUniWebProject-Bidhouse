@@ -29,12 +29,11 @@ postsArray:any[];
     imageSource: new FormControl('')
   });
 
-  modalRef: BsModalRef;
   preview:string;
   model:any={};
 
   constructor(private userService:UserService,private authService:AuthService,private alertify:AlertifyService,
-    private router:Router,private modalService: BsModalService,private postService:PostService) { 
+    private router:Router,private postService:PostService) { 
   }
   
   
@@ -110,29 +109,6 @@ postsArray:any[];
    
   }
 
-
-  openModal(template: TemplateRef<any>) {
-    this.modalRef = this.modalService.show(template, {class: 'modal-sm'});
-  }
-  
-  confirm(post:any): void {
-    this.postsArray.splice(this.postsArray.indexOf(post),1);
-    this.postService.deletePost(post.id).subscribe(result=>{
-
-      this.alertify.success('You have deleted '+ post.name);
-      this.router.routeReuseStrategy.shouldReuseRoute = () => false;
-      this.router.onSameUrlNavigation = 'reload';
-      this.router.navigate(['/user']);
-    },error=>{
-      this.alertify.error("Something went wrong, please alert support !")
-    }
-    );
-    this.modalRef.hide();
-  }
- 
-  decline(): void {
-    this.modalRef.hide();
-  }
 
 
   selectTab(tabId: number) {

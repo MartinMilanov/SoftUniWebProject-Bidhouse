@@ -25,7 +25,7 @@ export class NavbarComponent implements OnInit {
   login(){
     this.authService.login(this.model).subscribe((response)=>{
       this.alertify.success("You have successfully logged in ! ")
-      this.router.navigate(['/posts']);
+      this.router.navigate(['/user']);
     },error=>{
       this.alertify.error("Cannot find username and password combination")
     });

@@ -10,8 +10,10 @@ import { AlertifyService } from '../_services/alertify.service';
   styleUrls: ['./posts-list.component.css']
 })
 export class PostsListComponent implements OnInit {
-  posts:any[];
+  
   @Input() id : any;
+  @Input() isGuestUser:boolean=false;
+  posts:any[];
   
   modalRef: BsModalRef;
   

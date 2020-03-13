@@ -9,7 +9,8 @@ namespace Bidhouse.Services.Bids
 {
     public interface IBidService
     {
-        public Task<BidListViewModel> PlaceBid(BidInputModel input,string bidderId);
+        public Task<BidListViewModel> GetBids(string id);
+        public Task<BidViewModel> PlaceBid(BidInputModel input,string bidderId);
 
         public Task<bool> HasBid(string postId,string bidderId);
 

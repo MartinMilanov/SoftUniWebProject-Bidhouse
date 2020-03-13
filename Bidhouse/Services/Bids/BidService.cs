@@ -17,7 +17,7 @@ namespace Bidhouse.Services.Bids
         {
             this.db = db;
         }
-
+        
         public async Task<bool> ApproveBid(string bidId, string postId)
         {
             var bid = await this.db.Bids.FirstOrDefaultAsync(x => x.Id == bidId);
@@ -53,6 +53,63 @@ namespace Bidhouse.Services.Bids
 
         }
 
+        public async Task<BidListViewModel> GetBids(string id)
+        {
+            var query = await this.db.Users
+                .Include(x => x.BidsReceived)
+                .ThenInclude(x => x.Post)
+                .Include(x=>x.BidsReceived)
+                .ThenInclude(x=>x.Bidder)
+                .Include(x=>x.BidsSent)
+                .ThenInclude(x => x.Post)
+                .Where(x => x.Id == id)
+                .FirstOrDefaultAsync();
+
+            var result = new BidListViewModel
+            {
+                BidsReceived = query.BidsReceived.Select(x => new BidViewModel
+                {
+                    Id = x.Id,
+                    Status = x.StatusOfBid.ToString(),
+                    Days = x.Days,
+                    Price = x.Price,
+                    Bidder = new UserListModel
+                    {
+                        Id = x.Bidder.Id,
+                        City = x.Bidder.City,
+                        ImageUrl = x.Bidder.ImageUrl,
+                        Name = x.Bidder.UserName,
+                        Rating = 0
+                    },
+                    CreatedOn = x.CreatedOn,
+                    PostId = x.PostId,
+                    PostName = x.Post.Name,
+                    Description = x.Description
+                }).ToList(),
+                BidsSent = query.BidsSent.Select(x => new BidViewModel
+                {
+                    Id = x.Id,
+                    Status = x.StatusOfBid.ToString(),
+                    Days = x.Days,
+                    Price = x.Price,
+                    Bidder = new UserListModel
+                    {
+                        Id = query.Id,
+                        City = query.City,
+                        ImageUrl = query.ImageUrl,
+                        Name = query.UserName,
+                        Rating = 0
+                    },
+                    CreatedOn = x.CreatedOn,
+                    PostId = x.PostId,
+                    PostName = x.Post.Name,
+                    Description = x.Description
+                }).ToList()
+            };
+
+            return result;
+        }
+
         public async Task<bool> HasBid(string postId, string bidderId)
         {
             var post = await this.db.Posts
@@ -65,7 +122,7 @@ namespace Bidhouse.Services.Bids
             return result;
         }
 
-        public async Task<BidListViewModel> PlaceBid(BidInputModel input, string bidderId)
+        public async Task<BidViewModel> PlaceBid(BidInputModel input, string bidderId)
         {
             var bid = new Bid()
             {
@@ -90,7 +147,7 @@ namespace Bidhouse.Services.Bids
             await this.db.SaveChangesAsync();
 
 
-            var result = new BidListViewModel()
+            var result = new BidViewModel()
             {
                 Id = bid.Id,
                 Description = bid.Description,
