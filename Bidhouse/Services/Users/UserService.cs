@@ -13,12 +13,10 @@ namespace Bidhouse.Services.Users
 {
     public class UserService : IUserService
     {
-        private readonly ApplicationDbContext db;
         private readonly UserManager<User> userManager;
 
-        public UserService(ApplicationDbContext db, UserManager<User> userManager)
+        public UserService(UserManager<User> userManager)
         {
-            this.db = db;
             this.userManager = userManager;
         }
         public async Task<UserDetailsModel> GetUser(string id)
@@ -73,6 +71,7 @@ namespace Bidhouse.Services.Users
             var users = query.Select(x => new UserListModel
             {
                 Id = x.Id,
+                Role = this.userManager.GetRolesAsync(x).Result.Any(y => y == "Admin") ? "Admin" : "User",
                 Name = x.UserName,
                 City = x.City,
                 ImageUrl = x.ImageUrl,

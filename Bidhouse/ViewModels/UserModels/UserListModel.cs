@@ -8,6 +8,7 @@ namespace Bidhouse.ViewModels.UserModels
     public class UserListModel
     {
         public string Id { get; set; }
+        public string Role { get; set; }
         public string Name { get; set; }
         public string City { get; set; }
         public string ImageUrl { get; set; }

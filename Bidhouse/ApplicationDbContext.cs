@@ -49,23 +49,28 @@ namespace Bidhouse
 
             modelBuilder.Entity<User>()
                 .HasMany(u => u.BidsSent)
-                .WithOne(b => b.Bidder).HasForeignKey(o => o.BidderId).OnDelete(DeleteBehavior.Restrict);
+                .WithOne(b => b.Bidder).HasForeignKey(o => o.BidderId)
+                .OnDelete(DeleteBehavior.NoAction);
 
             modelBuilder.Entity<User>()
                 .HasMany(u => u.BidsReceived)
-                .WithOne(o => o.Receiver).HasForeignKey(o => o.ReceiverId).OnDelete(DeleteBehavior.Restrict).IsRequired();
+                .WithOne(o => o.Receiver).HasForeignKey(o => o.ReceiverId)
+                .OnDelete(DeleteBehavior.NoAction).IsRequired();
 
-            modelBuilder.Entity<Review>()
-                .HasOne(r => r.Reviewer)
-                .WithMany(u => u.ReviewsSent)
-                .HasForeignKey(u=>u.ReviewerId)
-                .OnDelete(DeleteBehavior.Restrict);
+            modelBuilder.Entity<User>()
+                .HasMany(x => x.ReviewsGotten)
+                .WithOne(x => x.ReviewedUser)
+                .HasForeignKey(x => x.ReviewedUserId)
+                .OnDelete(DeleteBehavior.NoAction);
 
-            modelBuilder.Entity<Review>()
-                 .HasOne(r => r.ReviewedUser)
-                 .WithMany(u => u.ReviewsGotten)
-                 .HasForeignKey(u=>u.ReviewedUserId)
-                 .OnDelete(DeleteBehavior.Restrict);
+            modelBuilder.Entity<User>()
+            .HasMany(x => x.ReviewsSent)
+            .WithOne(x => x.Reviewer)
+            .HasForeignKey(x => x.ReviewerId)
+            .OnDelete(DeleteBehavior.NoAction);
+
+
+
 
         }
     }

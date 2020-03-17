@@ -16,7 +16,7 @@
         
         <i *ngIf="isGuestUser == false" class="fa fa-times user-delete-post" aria-hidden="true"  (click)="openModal(template)"></i>
       </div>
-      <ng-template *ngIf="isGuestUser == false" #template>
+      <ng-template #template>
         <div class="modal-body text-center">
           <p>Do you want to confirm?</p>
           <button type="button" class="btn btn-default" (click)="confirm(post)" >Yes</button>

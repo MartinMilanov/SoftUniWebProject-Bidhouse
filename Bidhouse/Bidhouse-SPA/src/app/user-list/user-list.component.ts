@@ -1,7 +1,9 @@
-import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef, Input } from '@angular/core';
 import { UserService } from '../_services/user.service';
 import { AlertifyService } from '../_services/alertify.service';
 import { GetUserQueryInput } from 'src/viewModels/GetUserQueryInput';
+import { AdminService } from '../_services/admin.service';
+import { AuthService } from '../_services/auth.service';
 
 @Component({
   selector: 'app-user-list',
@@ -9,7 +11,7 @@ import { GetUserQueryInput } from 'src/viewModels/GetUserQueryInput';
   styleUrls: ['./user-list.component.css']
 })
 export class UserListComponent implements OnInit {
- 
+  @Input() adminMode : boolean = false;
   query = new GetUserQueryInput(0,6,"");
   userList:any[];
   finished = false;
@@ -17,7 +19,8 @@ export class UserListComponent implements OnInit {
   searchActive = false;
   arrayToAdd;
 
-  constructor(private userService:UserService,private alertify:AlertifyService,private changeDetection: ChangeDetectorRef) { }
+  constructor(private userService:UserService,private alertify:AlertifyService,
+    private changeDetection: ChangeDetectorRef, private adminService:AdminService,public authService:AuthService) { }
 
 
 
@@ -65,7 +68,6 @@ export class UserListComponent implements OnInit {
         }
         else{
 
-         // this.arrayToAdd = result as Array<Object>;
           this.loader = false;
 
           this.userList = this.userList.concat(result as Array<Object>);
@@ -78,14 +80,22 @@ export class UserListComponent implements OnInit {
       })
 
     }
-    // .subscribe(result=>{
-      //   this.userList.concat(result as Array<Object>);
-      // },error=>{
-        //   this.alertify.error("error");
-        // });
-        // this.userList.concat(this.arrayToAdd);
-        // this.changeDetection.detectChanges();
     
   }
   
+  deleteUser(id:string){
+    this.adminService.deleteUser(id).subscribe(result=>{
+      this.alertify.success("You have successfully deleted the user ! ")
+      this.userList = this.userList.filter(x=>x.id != id);
+    })
+
+  }
+
+  makeAdmin(id:string){
+    this.adminService.makeAdmin(id).subscribe(result=>{
+      this.alertify.success("This user is now an admin !");
+    },error=>{
+      this.alertify.error(error);
+    })
+  }
 }

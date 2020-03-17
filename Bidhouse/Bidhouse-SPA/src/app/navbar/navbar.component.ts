@@ -26,6 +26,7 @@ export class NavbarComponent implements OnInit {
     this.authService.login(this.model).subscribe((response)=>{
       this.alertify.success("You have successfully logged in ! ")
       this.router.navigate(['/user']);
+      
     },error=>{
       this.alertify.error("Cannot find username and password combination")
     });
@@ -40,5 +41,9 @@ export class NavbarComponent implements OnInit {
   logout(){
     this.authService.logout();
     this.router.navigate(['/home']);
+  }
+
+  isAdmin(){
+    return this.authService.isAdmin();
   }
 }

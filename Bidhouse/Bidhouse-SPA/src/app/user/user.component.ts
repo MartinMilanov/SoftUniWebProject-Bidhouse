@@ -40,7 +40,6 @@ postsArray:any[];
   ngOnInit() {
    this.userService.getUser(this.authService.normalizedToken.nameid).subscribe((result)=>{
      this.user = result;
-     console.log(result)
      this.postsArray = this.user.posts as Array<any>;
      this.loader = false;
     })

@@ -7,6 +7,7 @@ import { UserListComponent } from './user-list/user-list.component';
 import { UserGuestComponent } from './user-guest/user-guest.component';
 import { CreatePostComponent } from './create-post/create-post.component';
 import { PostComponent } from './post/post.component';
+import { AdminComponent } from './admin/admin.component';
 
 export const appRoutes: Routes = [
    { path:'home',component:HomeComponent},
@@ -16,5 +17,6 @@ export const appRoutes: Routes = [
    { path:'user/create-post',component:CreatePostComponent,canActivate:[AuthGuard]},
    { path:'post/:name/:id',component: PostComponent,canActivate:[AuthGuard]},
    { path: 'search/users',component:UserListComponent,canActivate:[AuthGuard]},
+   { path: 'admin',component: AdminComponent, canActivate:[AuthGuard]},
    { path:'**',redirectTo:'home',pathMatch:'full'}
 ];

@@ -21,6 +21,7 @@ login(model:any){
       if(user){
         localStorage.setItem('token',user.token);
         this.normalizedToken = this.jwtHelper.decodeToken(user.token);
+        console.log(this.normalizedToken)
       }
     })
   )
@@ -44,5 +45,9 @@ changePassword(id:string,input:ChangePasswordInputModel){
   return this.http.put(this.baseUrl+id,input);
 }
 
+isAdmin(){
+  let result = this.normalizedToken.role == "Admin" ?true:false;
+  return result;
+}
 
 }

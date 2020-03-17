@@ -29,10 +29,14 @@ namespace Bidhouse.Services
             var user = await this.userManager.FindByIdAsync(id);
             if (user == null)
             {
-                return null;
+                return "User not found";
             }
-            await this.userManager.ChangePasswordAsync(user, input.CurrentPassword, input.NewPassword);
-            
+           var result =  await this.userManager.ChangePasswordAsync(user, input.CurrentPassword, input.NewPassword);
+
+            if (result.Succeeded == false)
+            {
+                return "Wrong password";
+            }
             return user.PasswordHash;
         }
 
@@ -45,10 +49,12 @@ namespace Bidhouse.Services
                 return null;
             }
 
+
             var result = await this.signInManager.CheckPasswordSignInAsync(user, password, false);
 
             if (result.Succeeded)
             {
+                
 
                 return user;
             }
@@ -69,6 +75,10 @@ namespace Bidhouse.Services
             };
 
             var result = await this.userManager.CreateAsync(user, input.Password);
+
+            var queryUser = await userManager.Users.FirstOrDefaultAsync(x => x.UserName == user.UserName);
+            await this.userManager.AddToRoleAsync(queryUser, "User");
+
 
             if (result.Succeeded)
             {

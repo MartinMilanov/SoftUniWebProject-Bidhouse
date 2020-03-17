@@ -62,10 +62,13 @@ namespace Bidhouse.Controllers
                 return Unauthorized();
             }
 
+            var roles = await this.userManager.GetRolesAsync(userReturned);
+
             var claims = new[]
             {
                 new Claim(ClaimTypes.NameIdentifier,userReturned.Id.ToString()),
-                new Claim(ClaimTypes.Name,userReturned.UserName)
+                new Claim(ClaimTypes.Name,userReturned.UserName),
+                new Claim(ClaimTypes.Role,roles.Contains("Admin") == true ? "Admin" : "User")
             };
 
             var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(configuration.GetSection("AppSettings:Token").Value));
@@ -104,9 +107,13 @@ namespace Bidhouse.Controllers
 
             var result = await this.authService.ChangePassword(id, input);
 
-            if (result == null)
+            if (result == "User not found")
             {
-                return NotFound();
+                return BadRequest(result);
+            }
+            if (result == "Wrong password")
+            {
+                return BadRequest(result);
             }
 
             return Ok();

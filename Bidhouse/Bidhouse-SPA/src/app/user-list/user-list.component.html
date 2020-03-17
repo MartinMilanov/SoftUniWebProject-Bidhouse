@@ -1,5 +1,5 @@
 <div style="margin-top: 70px;" class="container-fluid">
-  <div class="row title">
+  <div *ngIf = "adminMode == false" class="row title">
     <h2>Bidders</h2>
   </div>
   
@@ -11,20 +11,7 @@
     </form>
   </div>
   
-  <!-- <div class="row filter-tabs">
-  <div class="col-lg-3 col-md-3 col-sm-3 filter-tab">
-      <a class="filter-action" href=""> Sort by Rating</a>
-  </div>
-  <div class="col-lg-3 col-md-3 col-sm-3 filter-tab">
-    <a class="filter-action" href=""> Sort by Number of Posts</a>
-    </div>
-    <div class="col-lg-3 col-md-3 col-sm-3 filter-tab">
-      <a class="filter-action" href=""> Sort by Name</a>
-      </div>
-      <div class="col-lg-3 col-md-3 col-sm-3 filter-tab">
-        <a class="filter-action" href=""> Sort by City</a>
-        </div>
-  </div> -->
+ 
   <div *ngIf="query.SearchInput != null && query.SearchInput != ''" class="row">
     <h2 class="search-result-title">Search results for : "{{ query.SearchInput }}"</h2>
   </div>
@@ -36,12 +23,12 @@
   
   
     <div *ngFor='let user of userList'  class="row user-details">
-  <div class="col-1">
+  <div class="col-lg-1 col-sm-1">
     <div *ngIf="user?.imageUrl == null"  class="user-image-without-image"></div>
   
     <div *ngIf="user?.imageUrl != null" [ngStyle]="{'background-image':'url('+ user?.imageUrl +')'}" class="user-image-with-image"></div>
   </div>
-  <div class="col user-titles">
+  <div class="col-lg-3 col-sm-1 user-titles">
     <div class="row">
       <h4  [routerLink]="['/user',user?.name,user?.id]" >{{ user?.name | titlecase}}</h4>
     </div>
@@ -49,19 +36,26 @@
       <h6>{{ user?.city}}</h6>
     </div>
   </div>
-  <div class="col user-posts-count">
+  <div class="col-lg-3 col-sm-1 user-posts-count">
     <h5>{{ user?.numberOfPosts}} posts</h5>
   </div>
-  <div *ngIf="user?.rating != 0" class="col user-ratings ">
+  <div *ngIf="user?.rating != 0 && adminMode == false" class="col-lg-3 user-ratings ">
         <ul class="row">
           <li><i class="fa fa-star"></i></li>
           <li><h5>{{ user?.rating }}</h5></li>
         </ul>
   </div>
-  <div *ngIf="user?.rating == 0" class="col ">
+  <div *ngIf="user?.rating == 0 && adminMode == false" class="col-lg-3 col-sm-1">
     <h5 class="no-rating-text">No rating yet.</h5>
   </div>
   
+  <div *ngIf = "adminMode == true" style="padding-top:30px" class="col-lg-3">
+    <button [disabled]="user?.id == this.authService.normalizedToken.nameid ? true : false" (click)="deleteUser(user.id)" class="btn btn-danger">Delete user</button>
+  </div>
+  <div *ngIf = "adminMode == true" style="padding-top:30px" class="col-lg-3">
+    <button [disabled]="user?.role == 'Admin' ? true : false"  (click)="makeAdmin(user.id)" class="btn btn-warning">Make admin</button>
+  </div>
+
   </div> 
   
   <div *ngIf = 'loader == true' class="d-flex justify-content-center">

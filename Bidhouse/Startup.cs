@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using Bidhouse.Helpers;
 using Bidhouse.Models;
 using Bidhouse.Services;
+using Bidhouse.Services.Admin;
 using Bidhouse.Services.Bids;
 using Bidhouse.Services.Files;
 using Bidhouse.Services.Posts;
@@ -71,6 +72,7 @@ namespace Bidhouse
             services.AddScoped<IPostService, PostService>();
             services.AddScoped<IBidService, BidService>();
             services.AddScoped<IReviewService, ReviewService>();
+            services.AddScoped<IAdminService, AdminService>();
 
             services.AddCors(o => o.AddPolicy("MyPolicy", builder =>
             {
