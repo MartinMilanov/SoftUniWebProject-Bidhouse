@@ -91,6 +91,15 @@ namespace Bidhouse.Services.Posts
         public async Task<bool> DeletePost(string id)
         {
             var post = this.db.Posts.FirstOrDefault(x => x.Id == id);
+            var reports = await this.db.Reports
+                .Include(x => x.ReportedPost)
+                .Where(x => x.ReportedPostId == post.Id)
+                .ToListAsync();
+            foreach (var report in reports)
+            {
+                this.db.Reports.Remove(report);
+            }
+
             this.db.Posts.Remove(post);
             await this.db.SaveChangesAsync();
 

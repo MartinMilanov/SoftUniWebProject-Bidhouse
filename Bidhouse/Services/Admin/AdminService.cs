@@ -1,4 +1,5 @@
 ﻿using Bidhouse.Models;
+using Bidhouse.Services.Posts;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -12,11 +13,13 @@ namespace Bidhouse.Services.Admin
     {
         private readonly UserManager<User> userManager;
         private readonly ApplicationDbContext db;
+        private readonly IPostService postService;
 
-        public AdminService(UserManager<User> userManager,ApplicationDbContext db )
+        public AdminService(UserManager<User> userManager, ApplicationDbContext db, IPostService postService)
         {
             this.userManager = userManager;
             this.db = db;
+            this.postService = postService;
         }
         public async Task<string> DeleteUser(string id)
         {
@@ -27,34 +30,56 @@ namespace Bidhouse.Services.Admin
                 return "User not found";
             }
 
+            var posts = this.db.Posts
+                .Include(x => x.Creator)
+                .Include(x=>x.Reports)
+                .Where(x => x.CreatorId == user.Id);
+
+
+            foreach (var post in posts)
+            {
+                foreach (var report in post.Reports)
+                {
+                    this.db.Reports.Remove(report);
+                }
+                this.db.Posts.Remove(post);
+            }
+
             var reviews = this.db.Reviews
                 .Include(x => x.ReviewedUser)
                 .Include(x => x.Reviewer)
                 .Where(x => x.ReviewedUserId == user.Id || x.ReviewerId == user.Id);
 
-            var bids = this.db.Bids
-                .Include(x=>x.Bidder)
-                .Include(x=>x.Receiver)
-                .Where(x => x.BidderId == user.Id || x.ReceiverId == user.Id);
-            
-            var posts = this.db.Posts
-                .Include(x => x.Creator)
-                .Where(x => x.CreatorId == user.Id);
-
-            foreach (var post in posts)
+            foreach (var review in reviews)
             {
-                this.db.Posts.Remove(post);
+                this.db.Reviews.Remove(review);
             }
+
+            var bids = this.db.Bids
+                .Include(x => x.Bidder)
+                .Include(x => x.Receiver)
+                .Where(x => x.BidderId == user.Id || x.ReceiverId == user.Id);
+
+
 
             foreach (var bid in bids)
             {
                 this.db.Bids.Remove(bid);
             }
 
-            foreach (var review in reviews)
+
+            var reports = this.db.Reports
+                .Include(x => x.Reporter)
+                .Where(x => x.ReporterId == user.Id);
+
+
+            foreach (var report in reports)
             {
-                this.db.Reviews.Remove(review);
+                this.db.Reports.Remove(report);
             }
+
+
+
 
             await this.db.SaveChangesAsync();
 

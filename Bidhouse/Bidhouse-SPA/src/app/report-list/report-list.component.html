@@ -1,0 +1,78 @@
+<table class="table table-striped table-dark">
+    <thead>
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">Name</th>
+        <th scope="col">Report Type</th>
+        <th scope="col">Details</th>
+        <th scope="col">Delete</th>
+
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let report of reportsList">
+        <th scope="row">1</th>
+        <td>{{ report.reporterName }}</td>
+        <td>{{ report.reportType }}</td>
+        <td><button class="btn btn-warning" type="button" (click)='openReport(reportDetails,report.id)'>Details</button></td>
+        <td><button class="btn btn-danger" type="button" (click)='deleteReport(report.id)'>Delete</button></td>
+      </tr>
+    </tbody>
+  </table>
+
+
+<div bsModal #reportDetails="bs-modal" class="modal fade" tabindex="-1"
+     role="dialog" aria-labelledby="dialog-sizes-name1">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 id="dialog-sizes-name1" class="modal-title pull-left" *ngIf="reportResult != null" >Report #{{ reportResult.id}}</h4>
+        <button type="button" class="close pull-right" (click)="reportDetails.hide()" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div *ngIf="reportResult != null" class="modal-body">
+       
+        <div>
+          <h6 class="modal-rep-title">Report type</h6>
+          <p>{{ reportResult.reportType }}</p>
+          <hr>
+        </div>
+       
+        <div>
+          <h6 class="modal-rep-title">Report Description</h6>
+          <p>{{ reportResult.description }}</p>
+          <hr>
+        </div>
+       
+        <div>
+          <h6 class="modal-rep-title">Reported postId</h6>
+          <p>{{ reportResult.postId }}</p>
+          <h6 class="modal-rep-title">Reported postName</h6>
+          <h4>{{ reportResult.postName }}</h4>
+          <hr>
+        </div>
+       
+        <div>
+          <ul class="reporter-info">
+            <li>
+              <div [ngStyle]="{'background-image':'url('+reportResult.reporterImageUrl+')'}" class="reporter-image"></div>
+            </li>
+
+            <li>
+              
+                <div class="reporter-name">
+                    <h5>{{ reportResult.reporterName }}</h5>
+                </div>
+
+            </li>
+        </ul>
+        </div>
+        
+        <div>
+          <button type="submit"class="btn btn-danger btn-lg pull-right" (click)="deletePost(reportResult.postId,reportResult.id)">Delete post</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

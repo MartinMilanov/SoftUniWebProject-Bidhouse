@@ -48,7 +48,9 @@
                 </div>
               </div>
         </div>
-
+        <div class="col-12">
+            <app-report [postId]="postId" ></app-report>
+        </div>
         <div  *ngIf="post?.status == 'InSearch'" class="col-12 bid-form-col">
             <div  *ngIf="this.canBid == true" class="card bid-form">
                 <div class="card-title">

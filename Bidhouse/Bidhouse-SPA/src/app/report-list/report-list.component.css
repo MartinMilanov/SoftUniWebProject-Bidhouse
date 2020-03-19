@@ -1,0 +1,25 @@
+
+
+.reporter-image{
+    width:60px;
+    height:60px;
+    border-radius: 560px;
+    background-size: cover;
+    background-position: center;
+    margin-top:5px;
+    margin-right:10px;
+}
+.reporter-name h5{
+    margin-top:10px;
+}
+
+.reporter-info{
+    list-style: none;
+}
+.reporter-info li{
+    display:inline-block;
+    height:40px;
+}
+.modal-rep-title{
+    color:gray;
+}

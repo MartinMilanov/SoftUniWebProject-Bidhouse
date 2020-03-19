@@ -1,0 +1,44 @@
+<button class="btn btn-danger" (click)="openReportForm(reportFormTemplate)">Report post</button>
+
+<ng-template #reportFormTemplate>
+        <div class="modal-header">
+            <div class="modal-title pull-left">
+                <h4>Report post</h4>
+            </div>
+          <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div>
+              <form [formGroup]="reportForm"  (ngSubmit)="reportPost()"> 
+              
+              <div class="form-group">
+                <label for="modal-bid-title">What type of report are sending ?</label>
+                <select class="form-control" name="reportType" formControlName="reportType" id="exampleFormControlSelect1">
+                  <option value=1>Sexual Harrasment</option>
+                  <option value=2>Innapropriate</option>
+                  <option value=3>Racism</option>
+                  <option value=4>Violence</option>
+                  <option value=5>Crime</option>
+                </select>
+              </div>
+             
+              <div class="form-group">
+                <label for="modal-bid-title">Accompany your report with a description</label>
+                <textarea class="form-control" name="description"  required formControlName="description" id="exampleFormControlTextarea1" placeholder="This post has content I'm in and i want non of it!" rows="3"></textarea>
+              </div>
+              
+              <div class="form-group report-button">
+                  <button type="submit"class="btn btn-success btn-circle btn-lg pull-left"><i class="fa fa-check"></i>
+                  </button>
+              </div>
+            </form>
+          </div>
+          <hr>
+          
+         
+        
+        </div>
+
+  </ng-template>

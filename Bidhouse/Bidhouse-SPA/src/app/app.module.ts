@@ -34,6 +34,8 @@ import { RateComponent } from './rate/rate.component';
 import { ChangePasswordComponent } from './change-password/change-password.component';
 import { BidListComponent } from './bid-list/bid-list.component';
 import { AdminComponent } from './admin/admin.component';
+import { ReportComponent } from './report/report.component';
+import { ReportListComponent } from './report-list/report-list.component';
 
 export function tokenGetter(){
    return localStorage.getItem('token');
@@ -56,7 +58,9 @@ export function tokenGetter(){
       RateComponent,
       ChangePasswordComponent,
       BidListComponent,
-      AdminComponent
+      AdminComponent,
+      ReportComponent,
+      ReportListComponent
    ],
    imports: [
       BrowserModule,

@@ -72,8 +72,9 @@
       </tab>
       <tab heading="Reviews">
         <div class="container-fluid">
-
-          <p *ngIf="user?.reviewsGotten.length <=0"> No reviews</p>
+          <div style="margin-top:15px" *ngIf="user?.reviewsGotten.length <=0" class="alert alert-info">
+           No reviews
+          </div>
           <div *ngIf="user?.reviewsGotten.length>0" class="row" style="margin-top:20px;">
     
               <div  *ngFor='let review of user?.reviewsGotten' class="media text-muted pt-3 col-12"  style="width:50vw" >

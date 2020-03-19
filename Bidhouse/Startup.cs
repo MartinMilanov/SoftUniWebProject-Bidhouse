@@ -12,6 +12,7 @@ using Bidhouse.Services.Admin;
 using Bidhouse.Services.Bids;
 using Bidhouse.Services.Files;
 using Bidhouse.Services.Posts;
+using Bidhouse.Services.Reports;
 using Bidhouse.Services.Reviews;
 using Bidhouse.Services.Users;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -73,6 +74,8 @@ namespace Bidhouse
             services.AddScoped<IBidService, BidService>();
             services.AddScoped<IReviewService, ReviewService>();
             services.AddScoped<IAdminService, AdminService>();
+            services.AddScoped<IReportService, ReportService>();
+
 
             services.AddCors(o => o.AddPolicy("MyPolicy", builder =>
             {
@@ -93,7 +96,7 @@ namespace Bidhouse
                    // Suppress binding source attributes
                    options.SuppressInferBindingSourcesForParameters = true;
                    // Suppress automatic HTTP 400 errors
-                   options.SuppressModelStateInvalidFilter = true;
+                   options.SuppressModelStateInvalidFilter = false;
                    // Suppress problem details responses
                    options.SuppressMapClientErrors = true;          // ...
                });
