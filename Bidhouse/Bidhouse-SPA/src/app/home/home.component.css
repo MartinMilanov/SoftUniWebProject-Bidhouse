@@ -1,0 +1,16 @@
+.hero-container{
+    background-image:linear-gradient(rgba(0,0,0,0.6),rgba(0,0,0,0.6)),url('../../assets/images/jumbotron-photo.jfif');
+    background-position: center;
+    background-size: cover;
+    height:460px;
+    color:white;
+    
+}
+
+.hero-container h1{
+    font-weight: bold;
+}
+
+.create-offer{
+    color:white;
+}

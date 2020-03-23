@@ -1,18 +1,93 @@
-<div *ngIf="this.isOnHomePage == true" class="container" style="margin-top: 150px;">
-  <div style="text-align: center;">
-    <h1>Welcome to Bidhouse ! </h1>
-    <p class="lead">Looking for freelance service , or a platform to offer your own ? Hop on and register !</p>
-    <div class="text-center">
-      <button class="btn btn-success btn-lg" style="margin-right: 10px;" (click)="goToRegister()"> Register</button>
-      <button class="btn btn-info btn-lg">Read more</button>
+<!-- <div *ngIf="authService.loggedIn() == false" class="container">
+
+  <div *ngIf="this.isOnHomePage == true"  style="margin-top: 150px;">
+    <div style="text-align: center;">
+      <h1>Welcome to Bidhouse ! </h1>
+      <p class="lead">Looking for freelance service , or a platform to offer your own ? Hop on and register !</p>
+      <div class="text-center">
+        <button class="btn btn-success btn-lg" style="margin-right: 10px;" (click)="goToRegister()"> Register</button>
+        <button class="btn btn-info btn-lg">Read more</button>
+      </div>
+    </div>
+  </div>
+  
+  <div *ngIf="this.isOnHomePage == false"  style="margin-top: 150px;">
+    <div class="row justify-content-center">
+      <div class="col-4">
+        <app-register (declineRegister) = "declineRegisterHome($event)"></app-register>
+      </div>
+    </div>
+  </div>
+
+
+
+</div> -->
+
+<div class="jumbotron jumbotron-fluid hero-container" style="margin-top:50px;">
+
+  <div  *ngIf="authService.loggedIn()== true" class="container">
+      <h1 class="display-4">Need assistance for a project , or just looking for a job ?</h1>
+      <p class="lead">Bidhouse is a platform for both ! Find what you're looking for by posting an offer !</p>
+      <p class="lead">
+        <a style="margin-right:50px;" class="btn btn-warning btn-lg create-offer" href="#" role="button">Create an offer</a>
+        <a class="btn btn-light btn-lg" href="#" role="button">Learn more</a>
+      </p>
+    </div> 
+
+    
+  <div *ngIf="this.isOnHomePage == true && authService.loggedIn()==false"  style="margin-top: 40px;">
+    <div style="text-align: center;">
+      <h1>Welcome to Bidhouse ! </h1>
+      <p class="lead">Looking for freelance service , or a platform to offer your own ? Hop on and register !</p>
+      <div class="text-center">
+        <button class="btn btn-success btn-lg" style="margin-right: 10px;" (click)="goToRegister()"> Register</button>
+        <button class="btn btn-info btn-lg">Read more</button>
+      </div>
+    </div>
+  </div>
+  
+  <div *ngIf="this.isOnHomePage == false  && this.authService?.loggedIn()==false">
+    <div class="row justify-content-center">
+      <div class="col-4">
+        <app-register (declineRegister) = "declineRegisterHome($event)"></app-register>
+      </div>
     </div>
   </div>
 </div>
 
-<div *ngIf="this.isOnHomePage == false" class="container" style="margin-top: 150px;">
-  <div class="row justify-content-center">
-    <div class="col-4">
-      <app-register (declineRegister) = "declineRegisterHome($event)"></app-register>
+<div class="album py-5 bg-light">
+  <div class="container">
+
+    <div class="row">
+      <div class="col-md-4">
+        <div class="card mb-4 box-shadow">
+          <img class="card-img-top" src="../assets/images/tab-image-1.jfif" alt="Card image cap">
+          <div class="card-body">
+            <p class="card-text">Don't attend interviews , just bid for your next project and see what happens !</p>
+           
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="card mb-4 box-shadow">
+          <img class="card-img-top" src="../assets/images/tab-image-2.jfif" alt="Card image cap">
+          <div class="card-body">
+            <p class="card-text">Join the movement of easy employement and fast project browsing !</p>
+          
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="card mb-4 box-shadow">
+          <img class="card-img-top" src="../assets/images/tab-image-3.jfif" alt="Card image cap">
+          <div class="card-body">
+            <p class="card-text">Place your own terms! Share your ideas! Be creative! </p>
+        
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </div>
+
+

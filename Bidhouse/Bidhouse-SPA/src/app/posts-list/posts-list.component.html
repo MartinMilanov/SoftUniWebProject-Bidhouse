@@ -1,4 +1,4 @@
-<div *ngIf = 'id!=null' class="container-fluid" style="margin-top:90px;">
+<div *ngIf='id!=null' class="container-fluid" style="margin-top:50px;">
   <div  *ngIf = 'posts?.length > 0 && posts != null && id!=null' class="list-group user-posts">
     <div *ngIf="isGuestUser == false" class="row user-posts-title">
       <h2>Your posts page.</h2>
@@ -33,7 +33,7 @@
   </div>
 </div>
 
-<div class="container-fluid offers-container" style="margin-top:70px;">
+<div *ngIf='id==null' class="container-fluid offers-container" style="margin-top:70px;">
   <div class="row">
     
     <div class="col-lg-6 col-sm-12 offers"  
