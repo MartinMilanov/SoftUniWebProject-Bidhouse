@@ -31,12 +31,15 @@ namespace Bidhouse.Services.Posts
                 .FirstOrDefaultAsync(x => x.Id == id);
 
 
+
+
             var post = new PostDetailViewModel()
             {
                 Name = query.Name,
                 Description = query.Description,
                 Location = query.Location,
                 TimeDue = query.TimeDue,
+                Price = query.Price,
                 CreatedOn = query.CreatedOn,
                 Status = query.Status.ToString(),
                 Creator = new UserListModel
@@ -77,6 +80,7 @@ namespace Bidhouse.Services.Posts
                 Description = input.Description,
                 Location = input.Location != null ? input.Location : "",
                 TimeDue = input.Time,
+                Category = input.Category,
                 Price = input.Price,
                 Creator = this.db.Users.FirstOrDefault(x => x.Id == id),
                 CreatedOn = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day)
@@ -118,14 +122,22 @@ namespace Bidhouse.Services.Posts
             return result;
         }
 
-        public async Task<ICollection<PostListViewModel>> GetPosts()
+        public async Task<ICollection<PostListViewModel>> GetPosts(GetPostsInputModel input)
         {
-            var posts = await this.db.Posts
+            
+            if (String.IsNullOrEmpty(input.Category) && String.IsNullOrEmpty(input.SearchInput))
+            {
+                var result = await this.db.Posts
                  .Include(x => x.Creator)
+                 .Skip(input.SkipCount)
+                 .Take(input.TakeCount)
                  .Select(x => new PostListViewModel
                  {
                      Id = x.Id,
                      Name = x.Name,
+                     Description = x.Description,
+                     Category = x.Category.ToString(),
+                     Location = x.Location,
                      CreatedOn = x.CreatedOn,
                      Price = x.Price,
                      UserId = x.CreatorId,
@@ -134,7 +146,89 @@ namespace Bidhouse.Services.Posts
                  }
                 ).ToListAsync();
 
-            return posts;
+                return result;
+
+            }
+            
+            else if(String.IsNullOrEmpty(input.Category)==false && String.IsNullOrEmpty(input.SearchInput))
+            {
+
+            var result = await this.db.Posts
+                 .Include(x => x.Creator)
+                 .Where(x=>x.Category == (Category)(int.Parse(input.Category)))
+                 .Skip(input.SkipCount)
+                 .Take(input.TakeCount)
+                 .Select(x => new PostListViewModel
+                 {
+                     Id = x.Id,
+                     Name = x.Name,
+                     Description = x.Description,
+                     Category = x.Category.ToString(),
+                     Location = x.Location,
+                     CreatedOn = x.CreatedOn,
+                     Price = x.Price,
+                     UserId = x.CreatorId,
+                     UserName = x.Creator.UserName,
+                     UserImageUrl = x.Creator.ImageUrl
+                 }
+                ).ToListAsync();
+
+            return result;
+            }
+
+            else if (String.IsNullOrEmpty(input.Category) && String.IsNullOrEmpty(input.SearchInput) == false)
+            {
+
+                var result = await this.db.Posts
+                     .Include(x => x.Creator)
+                     .Where(x => x.Name.ToLower().Contains(input.SearchInput.ToLower()))
+                     .Skip(input.SkipCount)
+                     .Take(input.TakeCount)
+                     .Select(x => new PostListViewModel
+                     {
+                         Id = x.Id,
+                         Name = x.Name,
+                         Description = x.Description,
+                         Category = x.Category.ToString(),
+                         Location = x.Location,
+                         CreatedOn = x.CreatedOn,
+                         Price = x.Price,
+                         UserId = x.CreatorId,
+                         UserName = x.Creator.UserName,
+                         UserImageUrl = x.Creator.ImageUrl
+                     }
+                    ).ToListAsync();
+
+                return result;
+            }
+
+            else
+            {
+
+                var result = await this.db.Posts
+                     .Include(x => x.Creator)
+                     .Where(x => x.Name.ToLower().Contains(input.SearchInput.ToLower()))
+                     .Where(x=>x.Category == (Category)(int.Parse(input.Category)))
+                     .Skip(input.SkipCount)
+                     .Take(input.TakeCount)
+                     .Select(x => new PostListViewModel
+                     {
+                         Id = x.Id,
+                         Name = x.Name,
+                         Description = x.Description,
+                         Category = x.Category.ToString(),
+                         Location = x.Location,
+                         CreatedOn = x.CreatedOn,
+                         Price = x.Price,
+                         UserId = x.CreatorId,
+                         UserName = x.Creator.UserName,
+                         UserImageUrl = x.Creator.ImageUrl
+                     }
+                    ).ToListAsync();
+
+                return result;
+            }
+
         }
 
         public async Task<ICollection<PostListViewModel>> GetPostsById(string id)

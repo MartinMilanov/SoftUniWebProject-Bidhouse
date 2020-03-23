@@ -1,5 +1,5 @@
-<div *ngIf = 'posts?.length > 0 && posts != null' class="container-fluid">
-  <div class="list-group user-posts">
+<div *ngIf = 'id!=null' class="container-fluid" style="margin-top:90px;">
+  <div  *ngIf = 'posts?.length > 0 && posts != null && id!=null' class="list-group user-posts">
     <div *ngIf="isGuestUser == false" class="row user-posts-title">
       <h2>Your posts page.</h2>
     </div>
@@ -26,11 +26,134 @@
     </a>
 
 
+    <div *ngIf="posts?.length<=0 || posts == null" class="alert alert-info m-4 pt-3">
+      <h6>You haven't made any posts yet...</h6>
+    </div> 
 
   </div>
 </div>
 
+<div class="container-fluid offers-container" style="margin-top:70px;">
+  <div class="row">
+    
+    <div class="col-lg-6 col-sm-12 offers"  
+    infinite-scroll
+    [infiniteScrollDistance]="2"
+    [infiniteScrollUpDistance]="1.5"
+    [infiniteScrollThrottle]="100"
+    (scrolled)="onScroll()"
+    [scrollWindow]="false" >
+  
+    
+    <div *ngFor='let post of posts' [routerLink]="['/post',post.name,post.id]" class="card">
+      <div [style.background]='post.category == "Design" ? "linear-gradient(#dE685E, #EE786E)"
+       : post.category == "Tech" ? "rgb(48, 112, 181)" 
+       : post.category == "Lifestyle" ? "rgb(231, 178, 79)" 
+       : post.category == "Editing" ? "rgb(133, 75, 162)" 
+       : post.category == "Marketing" ? " rgb(133, 75, 162)" : "black" ' class="additional">
 
-<div *ngIf="posts?.length<=0 || posts == null" class="alert alert-info m-4 pt-3">
-  <h6>You haven't made any posts yet...</h6>
-</div> 
+        <div class="user-card">
+          <div class="level center">
+            {{ post.category }}
+          </div>
+          <div class="points center">
+            {{ post.createdOn | date}}
+          </div>
+          <div *ngIf="post.userImageUrl != null" [ngStyle]="{'background-image':'url('+ post.userImageUrl +')'}" class="user-image-with-image center"></div>
+        </div>
+        <div class="more-info">
+          <h2>{{ post.userName | titlecase }}</h2>
+          
+          <div class="coords" style="margin-top:20px">
+            <span>City/Country</span>
+            <span>{{ post.location }}</span>
+          </div>
+          <div class="coords" style="margin-top:20px">
+            
+            <span>Budget</span>
+            <span>${{ post.price }}</span>
+          </div>
+          <!-- <div class="stats">
+            <div>
+              <div class="title">Awards</div>
+              <i class="fa fa-trophy"></i>
+              <div class="value">2</div>
+            </div>
+            <div>
+              <div class="title">Matches</div>
+              <i class="fa fa-gamepad"></i>
+              <div class="value">27</div>
+            </div>
+            <div>
+              <div class="title">Pals</div>
+              <i class="fa fa-group"></i>
+              <div class="value">123</div>
+            </div>
+            <div>
+              <div class="title">Coffee</div>
+              <i class="fa fa-coffee"></i>
+              <div class="value infinity">∞</div>
+            </div>
+          </div> -->
+
+        </div>
+      </div>
+      <div class="general">
+        <h2>{{ post.name }}</h2>
+        <p>{{ post.description }}</p>
+        <span class="more">Mouse over the card for more info</span>
+      </div>
+    </div>
+  
+  
+   <div style="margin-top:100px;"></div>
+
+  </div>
+
+  <div class="col-lg-6 col-sm-12 offer-filters">
+    <div class="row">
+       <h1> Browse a bunch of new offers everyday !</h1>
+    </div>
+   
+    <form [formGroup]='filters' (ngSubmit)='filter()'>
+      <div class="form-row">
+        <div class="form-group col-md-12">
+          <label for="inputEmail4">Filter by category 👨‍⚕️</label>
+          <select name="category" formControlName="category"  class="form-control" id="exampleFormControlSelect1">
+            <option value="">None</option>
+            <option value=1>Software & Tech</option>
+            <option value=2>Design & Art</option>
+            <option value=3>Video editing</option>
+            <option value=4>Digital Marketing</option>
+            <option value=5>Lifestyke</option>
+          </select>
+        </div>
+      </div>
+   
+      <div class="form-row">
+       <div class="form-group col-12">
+         <input name="searchInput" formControlName="searchInput" class="form-control" type="text" placeholder="Type the name of the service you are looking for ... 🔍" aria-label="Type the name of the service you are looking for ...">
+
+       </div>
+      </div>
+      <div class="form-row justify-content-center" style="padding-top:20px">
+        <button type="submit"class="btn btn-success btn-circle btn-lg pull-left"><i class="fa fa-check"></i>
+        </button>
+
+      </div>
+    </form>
+  </div>
+
+   
+  <div
+  style="margin-top: 90px;"
+  infiniteScroll
+  [infiniteScrollDistance]="2"
+  [infiniteScrollThrottle]="50"
+  (scrolled)="onScroll()"
+  >
+  </div>
+</div>
+
+
+

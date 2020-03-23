@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace Bidhouse.Controllers
 {
-    [Authorize]
+    //[Authorize]
     [ApiController]
     [Route("api/[controller]")]
     public class PostsController : ControllerBase
@@ -54,9 +54,9 @@ namespace Bidhouse.Controllers
         }
 
         [HttpGet("getPosts")]
-        public async Task<ActionResult<ICollection<PostListViewModel>>> GetPosts()
+        public async Task<ActionResult<ICollection<PostListViewModel>>> GetPosts(GetPostsInputModel input)
         {
-            var posts = await this.postService.GetPosts();
+            var posts = await this.postService.GetPosts(input);
 
             return Ok(posts);
 

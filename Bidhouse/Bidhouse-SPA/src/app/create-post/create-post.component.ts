@@ -15,9 +15,11 @@ export class CreatePostComponent implements OnInit {
   form = new FormGroup({
     name: new FormControl(''),
     description: new FormControl(''),
+    category:new FormControl(''),
     location:new FormControl(''),
     time:new FormControl(''),
     price:new FormControl('')
+
   })
 
   constructor(private alertify:AlertifyService,private postService:PostService,private router:Router) { }
@@ -40,7 +42,7 @@ export class CreatePostComponent implements OnInit {
     }
     else{
 
-      let input = new CreatePostInputModel(this.form.value.name,this.form.value.description,this.form.value.location,this.form.value.time,this.form.value.price);
+      let input = new CreatePostInputModel(this.form.value.name,this.form.value.description,this.form.value.category,this.form.value.location,this.form.value.time,this.form.value.price);
       console.log(input);
       this.postService.createPost(input).subscribe(result=>{
         console.log(result);

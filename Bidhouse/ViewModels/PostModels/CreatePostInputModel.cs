@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Bidhouse.Models;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -18,6 +19,8 @@ namespace Bidhouse.ViewModels.PostModels
         public string Location { get; set; }
         [Required]
         public decimal Price { get; set; }
+        [Required]
+        public Category Category { get; set; }
         [Required]
         public DateTime Time { get; set; }
     }

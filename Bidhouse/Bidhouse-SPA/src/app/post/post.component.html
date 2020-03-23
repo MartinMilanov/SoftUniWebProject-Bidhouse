@@ -39,6 +39,12 @@
                         {{ post?.location }}
                     </p>
                     <hr>
+                    <div class="card-title post-description"> Budget </div>
+                    
+                    <p class="card-text">
+                        ${{ post?.price}}
+                    </p>
+                    <hr>
                     <div class="card-title post-description"> Should be finished by </div>
                     
                     <p class="card-text">
@@ -48,7 +54,7 @@
                 </div>
               </div>
         </div>
-        <div class="col-12">
+        <div class="col-12" style="margin-top:15px">
             <app-report [postId]="postId" ></app-report>
         </div>
         <div  *ngIf="post?.status == 'InSearch'" class="col-12 bid-form-col">
