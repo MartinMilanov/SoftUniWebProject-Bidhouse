@@ -38,9 +38,7 @@ export class RateComponent implements OnInit {
   writeReview(){
     this.rateService
     .reviewUser(this.reviewedId,this.form.value.description,this.form.value.rating).subscribe((result)=>{
-      console.log(result);
-      this.reviewSummary = this.reviewSummary.slice(0,2);
-      this.reviewSummary.push(result);
+      this.reviews.push(result);
       this.canReview = false;
     },error=>{
       console.log(error);
