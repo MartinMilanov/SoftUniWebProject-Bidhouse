@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { CreatePostInputModel } from 'src/viewModels/CreatePostInputModel';
+import { UpdatePostInputModel } from 'src/viewModels/UpdatePostInputModel';
 
 @Injectable({
   providedIn: 'root'
@@ -68,6 +69,10 @@ export class PostService {
      time:input.Time,
      price:input.Price
    });
+  }
+
+  updatePost(input:UpdatePostInputModel){
+    return this.http.put(this.baseUrl,input);
   }
 
   deletePost(id:string){

@@ -3,8 +3,17 @@
     background-color: #272727;
     color:beige;
 }
-.profile-image{
+.profile-column{
     padding:20px;
+}
+
+.profile-image{
+    margin-top:10px;
+    width:180px;
+    height:180px;
+    border-radius: 560px;
+    background-size: cover;
+    background-position: center;
 }
 .profile-titles{
     padding-top:40px;

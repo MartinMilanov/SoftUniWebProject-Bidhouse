@@ -4,13 +4,12 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
 
 namespace Bidhouse.Controllers
 {
-    //[Authorize]
+    [Authorize]
     [ApiController]
     [Route("api/[controller]")]
     public class PostsController : ControllerBase
@@ -43,6 +42,21 @@ namespace Bidhouse.Controllers
             var post = await this.postService.GetPost(id);
 
             return Ok(post);
+        }
+
+
+        public async Task<ActionResult<string>> UpdatePost([FromBody]PostUpdateInputModel input)
+        {
+            var currentUserId = this.User.FindFirst(ClaimTypes.NameIdentifier).Value;
+
+            var result = await this.postService.UpdatePost(input,currentUserId);
+
+            if (result == "Could not find post...")
+            {
+                return NotFound(new { result });
+            }
+
+            return Ok(new { result });
         }
 
         [HttpDelete]

@@ -40,7 +40,6 @@ export class PostComponent implements OnInit {
 
     this.postService.getPost(this.postId).subscribe(result=>{
       this.post = result;
-      
       this.isCreator = this.post.creator.id == userId ? true : false;
 
       if(this.post.bids != null){

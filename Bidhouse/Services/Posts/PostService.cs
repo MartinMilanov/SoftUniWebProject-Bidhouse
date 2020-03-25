@@ -247,5 +247,26 @@ namespace Bidhouse.Services.Posts
 
             return posts;
         }
+
+        public async Task<string> UpdatePost(PostUpdateInputModel input,string currentUserId)
+        {
+            var result = await this.db.Posts.AnyAsync(x => x.Id == input.PostId && x.CreatorId == currentUserId);
+
+            if (result == false)
+            {
+                return "Could not find post...";
+            }
+            var post = await this.db.Posts.FindAsync(input.PostId);
+
+            post.Description = input.Description;
+            post.Price = input.Price;
+            post.TimeDue = input.Date;
+            post.Location = input.Location;
+
+            this.db.Posts.Update(post);
+            await this.db.SaveChangesAsync();
+
+            return "Post updated successfully";
+        }
     }
 }

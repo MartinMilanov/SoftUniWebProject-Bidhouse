@@ -36,6 +36,7 @@ import { BidListComponent } from './bid-list/bid-list.component';
 import { AdminComponent } from './admin/admin.component';
 import { ReportComponent } from './report/report.component';
 import { ReportListComponent } from './report-list/report-list.component';
+import { UpdatePostComponent } from './update-post/update-post.component';
 
 export function tokenGetter(){
    return localStorage.getItem('token');
@@ -60,7 +61,8 @@ export function tokenGetter(){
       BidListComponent,
       AdminComponent,
       ReportComponent,
-      ReportListComponent
+      ReportListComponent,
+      UpdatePostComponent
    ],
    imports: [
       BrowserModule,

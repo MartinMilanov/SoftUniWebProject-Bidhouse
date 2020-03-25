@@ -8,6 +8,7 @@ export class BidInputModel {
     Description:any;
     PostId:any;
     ReceiverId:any;
+    
     constructor(days:any,price:any,description:any,postId:any,receiverId:any) {
         this.Days = days;
         this.Price = price;

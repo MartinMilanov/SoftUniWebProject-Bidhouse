@@ -1,187 +1,946 @@
-*{
-    box-sizing: border-box;
-}
-ul{
-    margin:0px;
-    padding:0px;
-}
-.titles{
-    padding-left:140px;
-    padding-top:30px;
-    padding-left:14%;
-}
-.titles h1{
-    font-size: 25px;
-    font-weight: bold;
-    color:rgb(32, 32, 32);
-}
-.user-details{
-    padding-left:15px;
-}
-.profile-image{
-    width:120px;
-    padding:0px;
-    padding-left:10px;
-    padding-top:10px;
-}
-.image{
-    width:40px;
-    height:40px;
-    border-radius: 560px;
-    background-size: cover;
-    background-position: center;
-    margin:0px;
-}
+@media only screen and (max-width: 600px) {
+    ul{
+        margin:0px;
+        padding:0px;
+    }
+    .titles{
+        padding-top:30px;
+        margin-right:0px;
+        padding-right:0px;
+        width:100%;
+    }
+    .card{
+        padding-right:0px;
+        margin-right:0px;
+    }
+    .titles h1{
+        font-size: 25px;
+        font-weight: bold;
+        color:rgb(32, 32, 32);
 
-.rating{
-    padding-top:10px;
-    list-style: none;
-   
-}
-.rating li{
-    margin-left:4px;
-    display: inline;
+    }
+    .user-details{
+        padding-left:15px;
+    }
+    .profile-image{
+        width:120px;
+        padding:0px;
+        padding-left:10px;
+        padding-top:10px;
+    }
+    .image{
+        width:40px;
+        height:40px;
+        border-radius: 560px;
+        background-size: cover;
+        background-position: center;
+        margin:0px;
+    }
     
-}
-.rating-points{
-    padding-top:9px;
-}
-
-
-.description{
-    margin-top:5px;
-    width: 50vw;
-}
-.star{
-    color:rgb(255, 200, 0);
-}
-
-.post-description{
-    color:gray;
-}
-.bid-form-col{
-    padding-top:30px;
-}
-
-.bid-form{
-    margin-top:10px;
-    width: 50vw;
-}
-
-.form{
-    padding:20px;
-}
-.bid-create-title{
-    font-size: 21px;
-    font-weight: bold;
-    color:rgb(32, 32, 32);
-    padding-left:20px;
-    padding-top:20px;
-}
-
-.bids-title h4{
-    padding-left:10px;
-    font-size: 21px;
-    font-weight: bold;
-    color:rgb(32, 32, 32);
-    padding-left:20px;
-    padding-top:20px;
-}
-
-.bid-list{
-    width:52vw;
-   
-}
-
-
-.bidder-image{
-    width:40px;
-    height:40px;
-    border-radius: 560px;
-    background-size: cover;
-    background-position: center;
-    margin:0px;
-}
-
-.bidder-rating{
-    padding-top:10px;
-    list-style: none;
-    padding-left:0px;
-}
-.bidder-rating li{
-    margin-left:4px;
-    display: inline-block;
+    .rating{
+        padding-top:10px;
+        list-style: none;
+       
+    }
+    .rating li{
+        margin-left:4px;
+        display: inline;
+        
+    }
+    .rating-points{
+        padding-top:9px;
+    }
     
-}
-
-.bidder-info-list{
-    list-style: none;
-}
-.bidder-info-list li{
-    display:inline-block;
-    height:40px;
-}
-.bidder-info-list li .bidder-image{
-    margin-top:15px;
-    margin-right:10px;
-}
-
-.bidder-date{
-    float:right;
-}
-
-.details{
-    list-style: none;
-}
-
-.days{
-    margin-top:20px;
-}
-
-.no-bids{
-    padding-top:20px;
-}
-.alert-message{
     
-    width:50vw;
+    .description{
+        margin-top:5px;
+        width:100%;
+        padding-right:0px;
+        margin-right:0px;
+    }
+    .star{
+        color:rgb(255, 200, 0);
+    }
+    
+    .post-description{
+        color:gray;
+    }
+    .bid-form-col{
+        padding-top:30px;
+    }
+    
+    .bid-form{
+        margin-top:10px;
+        width: 50vw;
+    }
+    
+    .form{
+        padding:20px;
+    }
+    .bid-create-title{
+        font-size: 21px;
+        font-weight: bold;
+        color:rgb(32, 32, 32);
+        padding-left:20px;
+        padding-top:20px;
+    }
+    
+    .bids-title h4{
+        padding-left:10px;
+        font-size: 21px;
+        font-weight: bold;
+        color:rgb(32, 32, 32);
+        padding-left:20px;
+        padding-top:20px;
+    }
+    
+    .bid-list{
+        width:100%;
+    }
+    
+    
+    .bidder-image{
+        width:40px;
+        height:40px;
+        border-radius: 560px;
+        background-size: cover;
+        background-position: center;
+        margin:0px;
+    }
+    
+    .bidder-rating{
+        padding-top:10px;
+        list-style: none;
+        padding-left:0px;
+    }
+    .bidder-rating li{
+        margin-left:4px;
+        display: inline-block;
+        
+    }
+    
+    .bidder-info-list{
+        list-style: none;
+    }
+    .bidder-info-list li{
+        display:inline-block;
+        height:40px;
+    }
+    .bidder-info-list li .bidder-image{
+        margin-top:15px;
+        margin-right:10px;
+    }
+    
+    .bidder-date{
+        float:right;
+    }
+    
+    .details{
+        list-style: none;
+    }
+    
+    .days{
+        margin-top:20px;
+    }
+    
+    .no-bids{
+        padding-top:20px;
+    }
+    .alert-message{
+        
+        width:50vw;
+    }
+    
+    .modal-bid-title{
+        color:gray;
+    }
+    
+    .btn-circle.btn-xl {
+        width: 100px;
+        height: 100px;
+        padding: 10px 16px;
+        border-radius: 35px;
+        font-size: 24px;
+        line-height: 1.33;
+    }
+    
+    .btn-circle {
+        width: 70px;
+        height: 70px;
+        padding: 6px 0px;
+        border-radius: 35px;
+        text-align: center;
+        font-size: 22px;
+        line-height: 1.42857;
+    }
+    
+    .approved{
+        color:green;
+    }
+    .not-approved{
+        visibility: hidden;
+    }
+    
+    .bid-winner{
+        width: 100%;
+        border-color: green;
+        background-color: rgba(0, 128, 0, 0.145);
+    }
+    
+    .winner-flag{
+        color:green;
+    }
 }
 
-.modal-bid-title{
-    color:gray;
+/* Small devices (portrait tablets and large phones, 600px and up) */
+@media only screen and (min-width: 600px) {
+    ul{
+        margin:0px;
+        padding:0px;
+    }
+    .titles{
+        padding-left:140px;
+        padding-top:30px;
+        padding-left:14%;
+    }
+    .titles h1{
+        font-size: 25px;
+        font-weight: bold;
+        color:rgb(32, 32, 32);
+    }
+    .user-details{
+        padding-left:15px;
+    }
+    .profile-image{
+        width:120px;
+        padding:0px;
+        padding-left:10px;
+        padding-top:10px;
+    }
+    .image{
+        width:40px;
+        height:40px;
+        border-radius: 560px;
+        background-size: cover;
+        background-position: center;
+        margin:0px;
+    }
+    
+    .rating{
+        padding-top:10px;
+        list-style: none;
+       
+    }
+    .rating li{
+        margin-left:4px;
+        display: inline;
+        
+    }
+    .rating-points{
+        padding-top:9px;
+    }
+    
+    
+    .description{
+        margin-top:5px;
+        width: 50vw;
+    }
+    .star{
+        color:rgb(255, 200, 0);
+    }
+    
+    .post-description{
+        color:gray;
+    }
+    .bid-form-col{
+        padding-top:30px;
+    }
+    
+    .bid-form{
+        margin-top:10px;
+        width: 50vw;
+    }
+    
+    .form{
+        padding:20px;
+    }
+    .bid-create-title{
+        font-size: 21px;
+        font-weight: bold;
+        color:rgb(32, 32, 32);
+        padding-left:20px;
+        padding-top:20px;
+    }
+    
+    .bids-title h4{
+        padding-left:10px;
+        font-size: 21px;
+        font-weight: bold;
+        color:rgb(32, 32, 32);
+        padding-left:20px;
+        padding-top:20px;
+    }
+    
+    .bid-list{
+        width:52vw;
+       
+    }
+    
+    
+    .bidder-image{
+        width:40px;
+        height:40px;
+        border-radius: 560px;
+        background-size: cover;
+        background-position: center;
+        margin:0px;
+    }
+    
+    .bidder-rating{
+        padding-top:10px;
+        list-style: none;
+        padding-left:0px;
+    }
+    .bidder-rating li{
+        margin-left:4px;
+        display: inline-block;
+        
+    }
+    
+    .bidder-info-list{
+        list-style: none;
+    }
+    .bidder-info-list li{
+        display:inline-block;
+        height:40px;
+    }
+    .bidder-info-list li .bidder-image{
+        margin-top:15px;
+        margin-right:10px;
+    }
+    
+    .bidder-date{
+        float:right;
+    }
+    
+    .details{
+        list-style: none;
+    }
+    
+    .days{
+        margin-top:20px;
+    }
+    
+    .no-bids{
+        padding-top:20px;
+    }
+    .alert-message{
+        
+        width:50vw;
+    }
+    
+    .modal-bid-title{
+        color:gray;
+    }
+    
+    .btn-circle.btn-xl {
+        width: 100px;
+        height: 100px;
+        padding: 10px 16px;
+        border-radius: 35px;
+        font-size: 24px;
+        line-height: 1.33;
+    }
+    
+    .btn-circle {
+        width: 70px;
+        height: 70px;
+        padding: 6px 0px;
+        border-radius: 35px;
+        text-align: center;
+        font-size: 22px;
+        line-height: 1.42857;
+    }
+    
+    .approved{
+        color:green;
+    }
+    .not-approved{
+        visibility: hidden;
+    }
+    
+    .bid-winner{
+        width: 50vw;
+        border-color: green;
+        background-color: rgba(0, 128, 0, 0.145);
+    }
+    
+    .winner-flag{
+        color:green;
+    }
 }
 
-.btn-circle.btn-xl {
-    width: 100px;
-    height: 100px;
-    padding: 10px 16px;
-    border-radius: 35px;
-    font-size: 24px;
-    line-height: 1.33;
+/* Medium devices (landscape tablets, 768px and up) */
+@media only screen and (min-width: 768px) {
+    ul{
+        margin:0px;
+        padding:0px;
+    }
+    .titles{
+        padding-left:140px;
+        padding-top:30px;
+        padding-left:14%;
+    }
+    .titles h1{
+        font-size: 25px;
+        font-weight: bold;
+        color:rgb(32, 32, 32);
+    }
+    .user-details{
+        padding-left:15px;
+    }
+    .profile-image{
+        width:120px;
+        padding:0px;
+        padding-left:10px;
+        padding-top:10px;
+    }
+    .image{
+        width:40px;
+        height:40px;
+        border-radius: 560px;
+        background-size: cover;
+        background-position: center;
+        margin:0px;
+    }
+    
+    .rating{
+        padding-top:10px;
+        list-style: none;
+       
+    }
+    .rating li{
+        margin-left:4px;
+        display: inline;
+        
+    }
+    .rating-points{
+        padding-top:9px;
+    }
+    
+    
+    .description{
+        margin-top:5px;
+        width: 50vw;
+    }
+    .star{
+        color:rgb(255, 200, 0);
+    }
+    
+    .post-description{
+        color:gray;
+    }
+    .bid-form-col{
+        padding-top:30px;
+    }
+    
+    .bid-form{
+        margin-top:10px;
+        width: 50vw;
+    }
+    
+    .form{
+        padding:20px;
+    }
+    .bid-create-title{
+        font-size: 21px;
+        font-weight: bold;
+        color:rgb(32, 32, 32);
+        padding-left:20px;
+        padding-top:20px;
+    }
+    
+    .bids-title h4{
+        padding-left:10px;
+        font-size: 21px;
+        font-weight: bold;
+        color:rgb(32, 32, 32);
+        padding-left:20px;
+        padding-top:20px;
+    }
+    
+    .bid-list{
+        width:52vw;
+       
+    }
+    
+    
+    .bidder-image{
+        width:40px;
+        height:40px;
+        border-radius: 560px;
+        background-size: cover;
+        background-position: center;
+        margin:0px;
+    }
+    
+    .bidder-rating{
+        padding-top:10px;
+        list-style: none;
+        padding-left:0px;
+    }
+    .bidder-rating li{
+        margin-left:4px;
+        display: inline-block;
+        
+    }
+    
+    .bidder-info-list{
+        list-style: none;
+    }
+    .bidder-info-list li{
+        display:inline-block;
+        height:40px;
+    }
+    .bidder-info-list li .bidder-image{
+        margin-top:15px;
+        margin-right:10px;
+    }
+    
+    .bidder-date{
+        float:right;
+    }
+    
+    .details{
+        list-style: none;
+    }
+    
+    .days{
+        margin-top:20px;
+    }
+    
+    .no-bids{
+        padding-top:20px;
+    }
+    .alert-message{
+        
+        width:50vw;
+    }
+    
+    .modal-bid-title{
+        color:gray;
+    }
+    
+    .btn-circle.btn-xl {
+        width: 100px;
+        height: 100px;
+        padding: 10px 16px;
+        border-radius: 35px;
+        font-size: 24px;
+        line-height: 1.33;
+    }
+    
+    .btn-circle {
+        width: 70px;
+        height: 70px;
+        padding: 6px 0px;
+        border-radius: 35px;
+        text-align: center;
+        font-size: 22px;
+        line-height: 1.42857;
+    }
+    
+    .approved{
+        color:green;
+    }
+    .not-approved{
+        visibility: hidden;
+    }
+    
+    .bid-winner{
+        width: 50vw;
+        border-color: green;
+        background-color: rgba(0, 128, 0, 0.145);
+    }
+    
+    .winner-flag{
+        color:green;
+    }
 }
 
-.btn-circle {
-    width: 70px;
-    height: 70px;
-    padding: 6px 0px;
-    border-radius: 35px;
-    text-align: center;
-    font-size: 22px;
-    line-height: 1.42857;
+/* Large devices (laptops/desktops, 992px and up) */
+@media only screen and (min-width: 992px) {
+    ul{
+        margin:0px;
+        padding:0px;
+    }
+    .titles{
+        padding-left:140px;
+        padding-top:30px;
+        padding-left:14%;
+    }
+    .titles h1{
+        font-size: 25px;
+        font-weight: bold;
+        color:rgb(32, 32, 32);
+    }
+    .user-details{
+        padding-left:15px;
+    }
+    .profile-image{
+        width:120px;
+        padding:0px;
+        padding-left:10px;
+        padding-top:10px;
+    }
+    .image{
+        width:40px;
+        height:40px;
+        border-radius: 560px;
+        background-size: cover;
+        background-position: center;
+        margin:0px;
+    }
+    
+    .rating{
+        padding-top:10px;
+        list-style: none;
+       
+    }
+    .rating li{
+        margin-left:4px;
+        display: inline;
+        
+    }
+    .rating-points{
+        padding-top:9px;
+    }
+    
+    
+    .description{
+        margin-top:5px;
+        width: 50vw;
+    }
+    .star{
+        color:rgb(255, 200, 0);
+    }
+    
+    .post-description{
+        color:gray;
+    }
+    .bid-form-col{
+        padding-top:30px;
+    }
+    
+    .bid-form{
+        margin-top:10px;
+        width: 50vw;
+    }
+    
+    .form{
+        padding:20px;
+    }
+    .bid-create-title{
+        font-size: 21px;
+        font-weight: bold;
+        color:rgb(32, 32, 32);
+        padding-left:20px;
+        padding-top:20px;
+    }
+    
+    .bids-title h4{
+        padding-left:10px;
+        font-size: 21px;
+        font-weight: bold;
+        color:rgb(32, 32, 32);
+        padding-left:20px;
+        padding-top:20px;
+    }
+    
+    .bid-list{
+        width:52vw;
+       
+    }
+    
+    
+    .bidder-image{
+        width:40px;
+        height:40px;
+        border-radius: 560px;
+        background-size: cover;
+        background-position: center;
+        margin:0px;
+    }
+    
+    .bidder-rating{
+        padding-top:10px;
+        list-style: none;
+        padding-left:0px;
+    }
+    .bidder-rating li{
+        margin-left:4px;
+        display: inline-block;
+        
+    }
+    
+    .bidder-info-list{
+        list-style: none;
+    }
+    .bidder-info-list li{
+        display:inline-block;
+        height:40px;
+    }
+    .bidder-info-list li .bidder-image{
+        margin-top:15px;
+        margin-right:10px;
+    }
+    
+    .bidder-date{
+        float:right;
+    }
+    
+    .details{
+        list-style: none;
+    }
+    
+    .days{
+        margin-top:20px;
+    }
+    
+    .no-bids{
+        padding-top:20px;
+    }
+    .alert-message{
+        
+        width:50vw;
+    }
+    
+    .modal-bid-title{
+        color:gray;
+    }
+    
+    .btn-circle.btn-xl {
+        width: 100px;
+        height: 100px;
+        padding: 10px 16px;
+        border-radius: 35px;
+        font-size: 24px;
+        line-height: 1.33;
+    }
+    
+    .btn-circle {
+        width: 70px;
+        height: 70px;
+        padding: 6px 0px;
+        border-radius: 35px;
+        text-align: center;
+        font-size: 22px;
+        line-height: 1.42857;
+    }
+    
+    .approved{
+        color:green;
+    }
+    .not-approved{
+        visibility: hidden;
+    }
+    
+    .bid-winner{
+        width: 50vw;
+        border-color: green;
+        background-color: rgba(0, 128, 0, 0.145);
+    }
+    
+    .winner-flag{
+        color:green;
+    }
 }
 
-.approved{
-    color:green;
-}
-.not-approved{
-    visibility: hidden;
+/* Extra large devices (large laptops and desktops, 1200px and up) */
+@media only screen and (min-width: 1200px) {
+    ul{
+        margin:0px;
+        padding:0px;
+    }
+    .titles{
+        padding-left:140px;
+        padding-top:30px;
+        padding-left:14%;
+    }
+    .titles h1{
+        font-size: 25px;
+        font-weight: bold;
+        color:rgb(32, 32, 32);
+    }
+    .user-details{
+        padding-left:15px;
+    }
+    .profile-image{
+        width:120px;
+        padding:0px;
+        padding-left:10px;
+        padding-top:10px;
+    }
+    .image{
+        width:40px;
+        height:40px;
+        border-radius: 560px;
+        background-size: cover;
+        background-position: center;
+        margin:0px;
+    }
+    
+    .rating{
+        padding-top:10px;
+        list-style: none;
+       
+    }
+    .rating li{
+        margin-left:4px;
+        display: inline;
+        
+    }
+    .rating-points{
+        padding-top:9px;
+    }
+    
+    
+    .description{
+        margin-top:5px;
+        width: 50vw;
+    }
+    .star{
+        color:rgb(255, 200, 0);
+    }
+    
+    .post-description{
+        color:gray;
+    }
+    .bid-form-col{
+        padding-top:30px;
+    }
+    
+    .bid-form{
+        margin-top:10px;
+        width: 50vw;
+    }
+    
+    .form{
+        padding:20px;
+    }
+    .bid-create-title{
+        font-size: 21px;
+        font-weight: bold;
+        color:rgb(32, 32, 32);
+        padding-left:20px;
+        padding-top:20px;
+    }
+    
+    .bids-title h4{
+        padding-left:10px;
+        font-size: 21px;
+        font-weight: bold;
+        color:rgb(32, 32, 32);
+        padding-left:20px;
+        padding-top:20px;
+    }
+    
+    .bid-list{
+        width:52vw;
+       
+    }
+    
+    
+    .bidder-image{
+        width:40px;
+        height:40px;
+        border-radius: 560px;
+        background-size: cover;
+        background-position: center;
+        margin:0px;
+    }
+    
+    .bidder-rating{
+        padding-top:10px;
+        list-style: none;
+        padding-left:0px;
+    }
+    .bidder-rating li{
+        margin-left:4px;
+        display: inline-block;
+        
+    }
+    
+    .bidder-info-list{
+        list-style: none;
+    }
+    .bidder-info-list li{
+        display:inline-block;
+        height:40px;
+    }
+    .bidder-info-list li .bidder-image{
+        margin-top:15px;
+        margin-right:10px;
+    }
+    
+    .bidder-date{
+        float:right;
+    }
+    
+    .details{
+        list-style: none;
+    }
+    
+    .days{
+        margin-top:20px;
+    }
+    
+    .no-bids{
+        padding-top:20px;
+    }
+    .alert-message{
+        
+        width:50vw;
+    }
+    
+    .modal-bid-title{
+        color:gray;
+    }
+    
+    .btn-circle.btn-xl {
+        width: 100px;
+        height: 100px;
+        padding: 10px 16px;
+        border-radius: 35px;
+        font-size: 24px;
+        line-height: 1.33;
+    }
+    
+    .btn-circle {
+        width: 70px;
+        height: 70px;
+        padding: 6px 0px;
+        border-radius: 35px;
+        text-align: center;
+        font-size: 22px;
+        line-height: 1.42857;
+    }
+    
+    .approved{
+        color:green;
+    }
+    .not-approved{
+        visibility: hidden;
+    }
+    
+    .bid-winner{
+        width: 50vw;
+        border-color: green;
+        background-color: rgba(0, 128, 0, 0.145);
+    }
+    
+    .winner-flag{
+        color:green;
+    }
 }
 
-.bid-winner{
-    width: 50vw;
-    border-color: green;
-    background-color: rgba(0, 128, 0, 0.145);
-}
-
-.winner-flag{
-    color:green;
-}

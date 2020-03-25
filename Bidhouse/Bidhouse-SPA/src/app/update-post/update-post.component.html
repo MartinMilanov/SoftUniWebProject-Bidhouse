@@ -1,0 +1,51 @@
+<button class="btn btn-secondary" (click)='openUpdateForm(reportFormTemplate)'>Edit post</button>
+
+<ng-template #reportFormTemplate>
+    <div class="modal-header">
+        <div class="modal-title pull-left">
+            <h4>Update post</h4>
+        </div>
+      <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      <div>
+        <form [formGroup]="updateForm"  (ngSubmit)="updatePost()"> 
+            
+            <div class="form-group">
+                <label for="modal-bid-title">Add a description</label>
+                <textarea class="form-control" name="description"  required formControlName="description" id="exampleFormControlTextarea1" placeholder="This post has content I'm in and i want non of it!" rows="3"></textarea>
+              </div>
+
+              <div class="form-group">
+                <label for="modal-bid-title">Add a location</label>
+                  <input type="text" class="form-control" name="location" formControlName="location">
+              </div>  
+
+            <div class="form-group">
+              <label for="modal-bid-title">Add a budget</label>
+                <input type="number" class="form-control" name="price" formControlName="price">
+            </div>  
+
+            <div class="form-group">
+              <label for="modal-bid-title">Add a due date</label>
+              <input type="date" class="form-control" name="date" formControlName="date">
+            </div>
+           
+            
+            
+            <div class="form-group update-button">
+                <button type="submit"class="btn btn-success btn-circle btn-lg pull-left"><i class="fa fa-check"></i>
+                </button>
+            </div>
+
+          </form>
+      </div>
+      <hr>
+      
+     
+    
+    </div>
+
+</ng-template>

@@ -5,24 +5,33 @@
       <tab heading="My Profile">
         <div class="container-fluid">
           <div class="row profile-top">
-            <div class="col-md-2 profile-image"  >
-              <div [ngStyle]="{'background-image':'url('+user?.imageUrl+')'}" style="width:180px;height:180px;border-radius: 560px;background-size: cover;background-position: center;"></div>
+            
+            <div class="col-6 col-sm-6 col-lg-2 profile-image" >
+              <div class="profile-image" [ngStyle]="{'background-image':'url('+user?.imageUrl+')'}"></div>
             </div>
-            <div class="col-md-8 profile-titles">
-              <h1>{{ user?.username | titlecase}}</h1>
-              <h5>{{ user?.workPosition }}</h5>
-              <h6>{{ user?.city }}</h6>
-            </div>
-            <div class="col-md-2 profile-ratings">
+
+            <div class="col-6 col-sm-6 col-lg-8 profile-titles">
               <div class="row">
-                <div class="col-md-2"><i class="fa fa-star rating-star"></i></div>
-                <div class="col-md-10">
-                  <h2 class="rating-points">{{ user.rating }}</h2>
-                </div>
+
+                <h1>{{ user?.username | titlecase}}</h1>
+              </div>
+              <div class="row">
+                
+                <h5>{{ user?.workPosition }}</h5>
+              </div>
+              <div class="row">
+
+                <h6>{{ user?.city }}</h6>
+              </div>
+
+              <div class="row">
+                <h5 >Rating : {{ user.rating }}</h5>
               </div>
             </div>
+
           </div>
 
+          
           <div class="row">
             <div class="card  profile-descripion" style="width:500px">
                 <h4 class="card-title description-title">Description</h4>
@@ -60,7 +69,6 @@
             </div>
           </div>
         </div>
-      
       </tab>
       
       <tab heading="Bids">
