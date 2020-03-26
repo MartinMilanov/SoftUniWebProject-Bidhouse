@@ -58,12 +58,20 @@ namespace Bidhouse.Services.Admin
             var bids = this.db.Bids
                 .Include(x => x.Bidder)
                 .Include(x => x.Receiver)
+                .Include(x=>x.Post)
                 .Where(x => x.BidderId == user.Id || x.ReceiverId == user.Id);
 
 
 
             foreach (var bid in bids)
             {
+                if (bid.StatusOfBid == Status.Approved)
+                {
+                    var updatedPost = bid.Post;
+                    updatedPost.Status = Status.InSearch;
+
+                    this.db.Posts.Update(updatedPost);
+                }
                 this.db.Bids.Remove(bid);
             }
 
