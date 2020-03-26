@@ -8,18 +8,18 @@ namespace Bidhouse.ViewModels.AuthModels
 {
     public class RegisterInputModel
     {
-        [Required]
+        [Required(ErrorMessage = "Please provide a username")]
         public string Username { get; set; }
-        [Required]
+        [Required(ErrorMessage = "Please provide a password")]
         [StringLength(25, MinimumLength = 4, ErrorMessage = "Password must be between 4 and 8 characters")]
         public string Password { get; set; }
-        [Required]
+        [Required(ErrorMessage = "Please provide an email")]
         public string Email { get; set; }
-        [StringLength(25,MinimumLength =1,ErrorMessage ="City name should be between 1 and 25 chracters")]
-        [Required]
+        [StringLength(50,MinimumLength =1,ErrorMessage ="City name should be between 1 and 50 chracters")]
+        [Required(ErrorMessage = "Please provide a city of inhabitance")]
         public string City { get; set; }
-        [Required]
-        [StringLength(15, MinimumLength = 1, ErrorMessage = "Job name should be between 1 and 15 chracters")]
+        [Required(ErrorMessage = "Please provide a job position")]
+        [StringLength(100, MinimumLength = 1, ErrorMessage = "Job name should be between 1 and 100 chracters")]
         public string JobPosition { get; set; }
 
 

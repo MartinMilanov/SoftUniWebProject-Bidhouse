@@ -58,10 +58,7 @@ namespace Bidhouse.Controllers
         [HttpPost("approveBid")]
         public async Task<ActionResult> ApproveBid([FromBody]BidApproveInputModel input)
         {
-            if (String.IsNullOrEmpty(input.BidId) || String.IsNullOrEmpty(input.PostId))
-            {
-                return BadRequest("The id of the bid cannot be null or empty.");
-            }
+            
             if (await postService.IsClosed(input.PostId))
             {
                 return BadRequest("The post is closed and cannot be bid on");

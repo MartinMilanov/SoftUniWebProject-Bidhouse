@@ -47,7 +47,11 @@ export class UpdatePostComponent implements OnInit {
         this.router.navigate([currentUrl]);
     });
      },error=>{
-       console.log(error);
+      let messages = error.split("\n");
+      messages = messages.filter(x=>x.length>1)
+      messages.forEach(message => {
+        this.alertify.error(message);
+      });
      })
   }
 }

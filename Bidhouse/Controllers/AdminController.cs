@@ -23,6 +23,10 @@ namespace Bidhouse.Controllers
         [HttpDelete]
         public async Task<ActionResult<string>> DeleteUser(string id)
         {
+            if (String.IsNullOrWhiteSpace(id))
+            {
+                return BadRequest("Please provide the user's id");
+            }
             var result = await this.adminService.DeleteUser(id);
             if (result == "User not found" )
             {
@@ -38,7 +42,11 @@ namespace Bidhouse.Controllers
         [HttpPut("{id}")]
         public async Task<ActionResult<string>> MakeAdmin(string id)
         {
-           var result = await  this.adminService.MakeAdmin(id);
+            if (String.IsNullOrWhiteSpace(id))
+            {
+                return BadRequest("Please provide the user's id");
+            }
+            var result = await  this.adminService.MakeAdmin(id);
             if (result == "User not found")
             {
                 return BadRequest(result);

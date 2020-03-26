@@ -8,12 +8,13 @@ namespace Bidhouse.ViewModels.ReviewModels
 {
     public class ReviewInputModel
     {
-        [Required]
+        [Required(ErrorMessage = "Please provide the reviewed user's id")]
         public string ReviewedUserId { get; set; }
-        [Required]
-        [Range(1,6)]
+        [Required(ErrorMessage = "Please add a rating to your review")]
+        [Range(1,6,ErrorMessage = "The review rating can't be 0 or greater than 6")]
         public int Rating { get; set; }
-        [Required]
+        [Required(ErrorMessage = "Please add a description to your review")]
+        [MaxLength(270,ErrorMessage = "Review description cannot be longer than 270 characters")]
         public string Description { get; set; }
     }
 }

@@ -39,6 +39,10 @@ namespace Bidhouse.Controllers
         [HttpGet]
         public async Task<ActionResult<PostDetailViewModel>> GetPost(string id)
         {
+            if (String.IsNullOrWhiteSpace(id))
+            {
+                return BadRequest("Please provide the post's id");
+            }
             var post = await this.postService.GetPost(id);
 
             return Ok(post);
@@ -62,6 +66,10 @@ namespace Bidhouse.Controllers
         [HttpDelete]
         public async Task<ActionResult> DeletePost(string id)
         {
+            if (String.IsNullOrWhiteSpace(id))
+            {
+                return BadRequest("Please provide the post's id");
+            }
             await this.postService.DeletePost(id);
 
             return Ok();
@@ -78,9 +86,9 @@ namespace Bidhouse.Controllers
         [HttpGet("getPostsById")]
         public async Task<ActionResult<ICollection<PostListViewModel>>> GetPostsById(string id)
         {
-            if (String.IsNullOrEmpty(id))
+            if (String.IsNullOrWhiteSpace(id))
             {
-                return BadRequest("You should specify an id !");
+                return BadRequest("Please provide the post's id");
             }
             var posts = await this.postService.GetPostsById(id);
 

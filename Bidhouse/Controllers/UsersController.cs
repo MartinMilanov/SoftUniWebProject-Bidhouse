@@ -38,6 +38,11 @@ namespace Bidhouse.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<UserDetailsModel>> GetUser(string id)
         {
+            if (String.IsNullOrWhiteSpace(id))
+            {
+                return BadRequest("Please provide the user's id");
+            }
+
             var user = await this.userService.GetUser(id);
             if (user == null)
             {

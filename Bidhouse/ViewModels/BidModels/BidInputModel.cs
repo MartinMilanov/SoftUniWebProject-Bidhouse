@@ -14,6 +14,7 @@ namespace Bidhouse.ViewModels.BidModels
         [Required]
         public int Days { get; set; }
         [Required]
+        [Range(0,5000000000,ErrorMessage = "Your budget cannot be 0")]
         public decimal Price { get; set; }
         [Required]
         public string PostId   { get; set; }

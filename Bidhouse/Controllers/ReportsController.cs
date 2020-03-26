@@ -42,9 +42,9 @@ namespace Bidhouse.Controllers
         [Authorize(Roles ="Admin")]
         public async Task<ActionResult<string>> DeleteReport(string id)
         {
-            if (String.IsNullOrEmpty(id))
+            if (String.IsNullOrWhiteSpace(id))
             {
-                return BadRequest("Enter an id");
+                return BadRequest("Please provide the report's id");
             }
 
             var result = await this.reportService.DeleteReport(id);

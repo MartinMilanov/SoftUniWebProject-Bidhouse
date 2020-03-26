@@ -99,7 +99,7 @@
             </div>
         </div>
         
-        <div  *ngIf="post?.status == 'Closed'" class="col-12">
+        <div  style="margin-bottom: 100px;" *ngIf="post?.status == 'Closed'" class="col-12">
            
             <h5 style="padding-top:20px;font-weight: bold;"><i class="fa fa-flag winner-flag"></i>    Bid Winner </h5>
                 <a class="bid-winner list-group-item list-group-item-action flex-column align-items-start">
@@ -157,7 +157,7 @@
           
         </div>
 
-        <div  *ngIf="post?.bids != null && post?.status == 'InSearch'" class="col-12">
+        <div  style="margin-bottom: 100px;" *ngIf="post?.bids != null && post?.status == 'InSearch'" class="col-12">
             <div class="row bids-title">
                 <h4>Bids Stack</h4>
             </div>
@@ -267,7 +267,7 @@
             </div>
         </div>
 
-        <div *ngIf="post?.bids == null "class="col-12 no-bids">
+        <div style="margin-bottom: 100px;" *ngIf="post?.bids == null "class="col-12 no-bids">
             <div class="alert alert-info alert-message"> No bids yet...</div>
         </div>
     </div>

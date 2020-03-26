@@ -52,12 +52,11 @@ export class PostComponent implements OnInit {
         
       }
     }
-    else{
-      if(this.isCreator == false){
-       
-        this.canBid = true;
+      else{
+        if(this.isCreator == false){
+            this.canBid = true;
+        }
       }
-    }
 
     })
     

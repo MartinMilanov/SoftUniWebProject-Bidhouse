@@ -9,11 +9,11 @@ namespace Bidhouse.ViewModels.ReportModels
 {
     public class ReportInputModel
     {
-        [Required]
+        [Required(ErrorMessage = "Please provide the post's id")]
         public string PostId { get; set; }
         [Required(ErrorMessage = "Please fill out your description")]
         public string Description { get; set; }
-        [Required]
+        [Required(ErrorMessage = "Please choose a report type")]
         public ReportType ReportType { get; set; }
 
     }
