@@ -31,8 +31,6 @@ namespace Bidhouse.Services.Posts
                 .FirstOrDefaultAsync(x => x.Id == id);
 
 
-
-
             var post = new PostDetailViewModel()
             {
                 Name = query.Name,
@@ -42,15 +40,15 @@ namespace Bidhouse.Services.Posts
                 Price = query.Price,
                 CreatedOn = query.CreatedOn,
                 Status = query.Status.ToString(),
-                Creator = new UserListModel
+                Creator = query.Creator != null ? new UserListModel
                 {
                     Id = query.Creator.Id,
                     Name = query.Creator.UserName,
                     ImageUrl = query.Creator.ImageUrl,
                     Rating = query.Creator.ReviewsGotten.Count > 0 ? query.Creator.ReviewsGotten.Sum(x => x.Rating) : 0
 
-                },
-                Bids = query.Bids.Count > 0 ? query.Bids.Select(x => new BidViewModel
+                }:null,
+                Bids = query.Bids.Count > 0 || query.Bids != null ? query.Bids.Select(x => new BidViewModel
                 {
                     Id = x.Id,
                     Description = x.Description,
