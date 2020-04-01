@@ -15,7 +15,8 @@ namespace Bidhouse.Tests
         public IPostService postService { get; set; }
         public PostServiceTests()
         {
-            this.context = DbContextFactory.CreateDbContext();
+            var services = new ServiceFactory();
+            this.context = services.Context;
             this.postService = new PostService(context);
         }
         [Fact]

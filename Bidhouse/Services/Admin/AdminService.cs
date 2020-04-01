@@ -44,7 +44,7 @@ namespace Bidhouse.Services.Admin
                 }
                 this.db.Posts.Remove(post);
             }
-
+          
             var reviews = this.db.Reviews
                 .Include(x => x.ReviewedUser)
                 .Include(x => x.Reviewer)
