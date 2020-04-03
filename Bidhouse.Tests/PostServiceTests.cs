@@ -11,40 +11,48 @@ namespace Bidhouse.Tests
 {
     public class PostServiceTests
     {
-        public ApplicationDbContext context { get; set; }
+        public ServiceFactory services { get; set; }
         public IPostService postService { get; set; }
+
+        public User userDummy { get;set; }
+        public CreatePostInputModel createPostModelDummy { get; set; }
         public PostServiceTests()
         {
-            var services = new ServiceFactory();
-            this.context = services.Context;
-            this.postService = new PostService(context);
+            this.services = new ServiceFactory();
+            this.postService = new PostService(this.services.Context);
+
+            this.userDummy = new User()
+            {
+                UserName = "Test"
+            };
+
+
+
+            this.createPostModelDummy = new CreatePostInputModel()
+            {
+                Name = "Test",
+                Description = "Test Description",
+                Price = 2300
+            };
         }
         [Fact]
         public async Task ShouldCreatePost()
         {
-            var post = new Post()
-            {
-                Name = "TestPost"
-            };
-            await this.context.Posts.AddAsync(post);
-            await this.context.SaveChangesAsync();
+            this.services.UserManager.CreateAsync(userDummy, "123456778").Wait();
 
-            var result = await this.context.Posts.AnyAsync(x => x.Id == post.Id);
+            var result = await this.postService.CreatePost(createPostModelDummy, userDummy.Id);
 
-            Assert.True(result);
+            Assert.NotNull(result);
         }
 
         [Fact]
         public async Task ShouldGetPost()
         {
-            var post = new Post()
-            {
-                Name = "TestPost"
-            };
-            await this.context.Posts.AddAsync(post);
-            await this.context.SaveChangesAsync();
+            this.services.UserManager.CreateAsync(userDummy, "123456778").Wait();
 
-            var result = await this.postService.GetPost(post.Id);
+            var postId = await this.postService.CreatePost(createPostModelDummy, userDummy.Id);
+
+            var result = await this.postService.GetPost(postId);
 
             Assert.NotNull(result);
         }
@@ -52,27 +60,19 @@ namespace Bidhouse.Tests
         [Fact]
         public async Task ShouldUpdatePost()
         {
-            var post = new Post()
-            {
-                Name = "TestPost",
-                Description = "This is my description",
-                CreatorId = "1"
-            };
+            this.services.UserManager.CreateAsync(userDummy, "123456778").Wait();
 
-            var oldDescription = post.Description;
-
-            await this.context.Posts.AddAsync(post);
-            await this.context.SaveChangesAsync();
+            var postId = await this.postService.CreatePost(createPostModelDummy, userDummy.Id);
 
             var input = new PostUpdateInputModel()
             {
-                PostId = post.Id,
+                PostId = postId,
                 Description = "New Description"
             };
 
             await this.postService.UpdatePost(input,"1");
 
-            var isUpdated = post.Description != oldDescription ? true : false;
+            var isUpdated = createPostModelDummy.Description != input.Description ? true : false;
             
 
             Assert.True(isUpdated);
@@ -81,16 +81,15 @@ namespace Bidhouse.Tests
         [Fact]
         public async Task ShouldDeletePost()
         {
-            var post = new Post()
-            {
-                Name = "TestPost"
-            };
-            await this.context.Posts.AddAsync(post);
-            await this.context.SaveChangesAsync();
+            this.services.UserManager.CreateAsync(userDummy, "123456778").Wait();
 
-            var result = await this.postService.DeletePost(post.Id);
+            var postId = await this.postService.CreatePost(createPostModelDummy, userDummy.Id);
+
+            var result = await this.postService.DeletePost(postId);
+            var secondResult = await this.services.Context.Posts.AnyAsync(x => x.Id == postId);
 
             Assert.True(result);
+            Assert.False(secondResult);
         }
 
     }
