@@ -59,6 +59,7 @@ namespace Bidhouse
                 options.Password.RequireLowercase = false;
                 options.Password.RequireNonAlphanumeric = false;
             });
+
             builder = new IdentityBuilder(builder.UserType, typeof(Role), builder.Services);
 
             builder.AddEntityFrameworkStores<ApplicationDbContext>();
@@ -80,11 +81,9 @@ namespace Bidhouse
             services.AddCors(o => o.AddPolicy("MyPolicy", builder =>
             {
                 builder
-
                     .AllowAnyOrigin()
                     .AllowAnyMethod()
                     .AllowAnyHeader();
-
             }
             ));
 

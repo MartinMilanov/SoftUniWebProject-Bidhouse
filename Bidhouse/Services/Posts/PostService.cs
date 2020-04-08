@@ -97,6 +97,7 @@ namespace Bidhouse.Services.Posts
                 .Include(x => x.ReportedPost)
                 .Where(x => x.ReportedPostId == post.Id)
                 .ToListAsync();
+
             foreach (var report in reports)
             {
                 this.db.Reports.Remove(report);

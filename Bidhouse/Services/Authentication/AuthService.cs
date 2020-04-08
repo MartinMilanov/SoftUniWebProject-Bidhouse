@@ -84,6 +84,7 @@ namespace Bidhouse.Services
             {
                 return user;
             }
+
             return null;
 
         }

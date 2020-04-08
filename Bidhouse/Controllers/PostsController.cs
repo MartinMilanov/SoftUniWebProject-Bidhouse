@@ -24,14 +24,19 @@ namespace Bidhouse.Controllers
         [HttpPost]
         public async Task<ActionResult<string>> CreatePost([FromBody]CreatePostInputModel input)
         {
-            if (!this.ModelState.IsValid)
-            {
-                return BadRequest("Wrong values");
-            }
+            //if (!this.ModelState.IsValid)
+            //{
+            //    return BadRequest("Wrong values");
+            //}
 
 
             var id = this.User.FindFirst(ClaimTypes.NameIdentifier).Value;
             var result = await this.postService.CreatePost(input, id);
+
+            if (String.IsNullOrEmpty(result))
+            {
+                return BadRequest("Could not create post");
+            }
 
             return this.StatusCode(201);
         }
