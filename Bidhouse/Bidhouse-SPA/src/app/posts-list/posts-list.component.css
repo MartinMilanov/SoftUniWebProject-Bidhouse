@@ -30,7 +30,7 @@
     margin-bottom: 30px;
 }
 .user-posts-semiTitle h4{
-    font-size: 18px;
+    font-size: 40px;
     font-weight: bold;
     color: rgba(32, 32, 32, 0.717)
 }
@@ -224,11 +224,6 @@ html, body {
     font-size: 0.9em;
   }
   
-  
-  
-
-
-
   .offers{
       
   height: 100vh; 

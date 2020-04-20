@@ -30,7 +30,8 @@
     font-weight: 700;
 }
 .profile-descripion{
-    height:700px;
+    height:400px;
+    width:500px;
     box-shadow: gray 5px;
 }
 .description-title{

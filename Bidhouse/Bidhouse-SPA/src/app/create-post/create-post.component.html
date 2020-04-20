@@ -4,13 +4,13 @@
  
             <div class="row">
                 
-                <h1 class="title">What service are you looking for ?</h1>
+                <h1 class="title">🔨 What service are you looking for ? </h1>
             </div>
             <form [formGroup]="form" (ngSubmit)="createPost()" style="margin-top:10px;align-items: center;justify-content: center;" >
                
                 <div class="form-row" style="justify-content: center;">
                   <div class="form-group col-md-6">
-                    <label for="Name">Give a short name of your needs</label>
+                    <label for="Name">🗣️ Give a short name of your needs</label>
                     <input maxlength="70" formControlName="name" name="Name" type="text" class="form-control"
                      placeholder="I need a mechanic that can fix my fridge !" >
                   </div>
@@ -18,7 +18,7 @@
                
                 <div class="form-row" style="justify-content: center;">
                     <div class="form-group col-md-6">
-                      <label for="Description">Give a detailed description of what you need</label>
+                      <label for="Description">✍️ Give a detailed description of what you need</label>
                       <textarea maxlength="270" formControlName="description" name="Description" type="text" class="form-control"
                        placeholder="My fridge is broken and can't start , but the lighting is working and it makes weird sounds. Plus if you can fix the wheels it will be splendid"></textarea>
                     </div>
@@ -26,35 +26,35 @@
                   <div class="form-row" style="justify-content: center;">
                   
                     <div class="form-group col-md-6">
-                      <label for="inputEmail4">Choose your category 👨‍⚕️</label>
-                      <select class="form-control" name="category" formControlName="category" id="exampleFormControlSelect1">
+                      <label for="inputEmail4">👨‍⚕️ Choose your category</label>
+                      <select placeholder="Lifestyle" class="form-control" name="category" formControlName="category" id="exampleFormControlSelect1">
                         <option value=1>Software & Tech</option>
                         <option value=2>Design & Art</option>
                         <option value=3>Video editing</option>
                         <option value=4>Digital Marketing</option>
-                        <option value=5>Lifestyle</option>
+                        <option value=5 selected>Lifestyle</option>
                       </select>
                     </div>
                   </div>
                   
                 <div class="form-row" style="justify-content: center;">
                   <div class="form-group col-md-6">
-                    <label for="Location">What is your location *optional</label>
-                    <input formControlName="location" name="Location" type="text" class="form-control" placeholder="Palo Alto / USA">
+                    <label for="Location">📌 What is your location</label>
+                    <input formControlName="location" name="Location" type="text" class="form-control" placeholder="Sofia/Bulgaria">
                   </div>
                 </div>
          
                 <div class="form-row" style="justify-content: center;">
                   <div class="form-group col-md-6">
-                    <label for="Price">What's the most you would pay for this service ?</label>
-                    <input formControlName="price" name="Price" type="number" class="form-control" placeholder="80">
+                    <label for="Price">💲 What's the most you would pay for this service ?</label>
+                    <input formControlName="price" name="Price" type="number" class="form-control" placeholder="$80">
                   </div>
                 </div>
                
                 
                 <div class="form-row" style="justify-content: center;">
                   <div class="form-group col-md-6">
-                    <label for="Time">How many days should the service take ? </label>
+                    <label for="Time">🕒 How many days should the service take ?</label>
                     <input formControlName="time" name="Time" type="date" class="form-control" placeholder="6">
                   </div>
                 </div>

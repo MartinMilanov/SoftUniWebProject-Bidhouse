@@ -37,6 +37,8 @@ import { AdminComponent } from './admin/admin.component';
 import { ReportComponent } from './report/report.component';
 import { ReportListComponent } from './report-list/report-list.component';
 import { UpdatePostComponent } from './update-post/update-post.component';
+import { TermsComponent } from './terms/terms.component';
+import { PrivacyComponent } from './privacy/privacy.component';
 
 export function tokenGetter(){
    return localStorage.getItem('token');
@@ -62,7 +64,9 @@ export function tokenGetter(){
       AdminComponent,
       ReportComponent,
       ReportListComponent,
-      UpdatePostComponent
+      UpdatePostComponent,
+      TermsComponent,
+      PrivacyComponent
    ],
    imports: [
       BrowserModule,

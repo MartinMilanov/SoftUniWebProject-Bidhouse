@@ -92,14 +92,12 @@ export class PostsListComponent implements OnInit {
         }
         if ((result as Array<any>).length <= 0 ) {
           this.finished = true;
-          console.log("finished");
         }
         else{
 
           this.loader = false;
 
           this.posts = this.posts.concat(result as Array<any>);
-          console.log(this.posts);
           this.finished = false;
         }
       },error=>{

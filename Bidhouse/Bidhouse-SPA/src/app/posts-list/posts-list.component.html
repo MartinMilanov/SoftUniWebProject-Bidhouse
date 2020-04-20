@@ -1,11 +1,16 @@
-<div *ngIf='id!=null' class="container-fluid" style="margin-top:50px;">
+
+<!-- This is for user profiles -->
+<div *ngIf='id != null ' class="container-fluid" style="margin-top:50px;">
+  
+  <div *ngIf="isGuestUser == true" class="row user-posts-title">
+    <h2>Posts page</h2>
+  </div>
+
+  <div *ngIf="isGuestUser == false" class="row user-posts-semiTitle">
+    <h4>Here you can find everything you created</h4>
+  </div>
+
   <div  *ngIf = 'posts?.length > 0 && posts != null && id!=null' class="list-group user-posts">
-    <div *ngIf="isGuestUser == false" class="row user-posts-title">
-      <h2>Your posts page.</h2>
-    </div>
-    <div *ngIf="isGuestUser == false" class="row user-posts-semiTitle">
-      <h4>Here you can find everything you created</h4>
-    </div>
     <a *ngFor="let post of posts" class="list-group-item list-group-item-action flex-column align-items-start ">
       <div class="d-flex w-100 justify-content-between">
         <a class="user-post-name" [routerLink]="['/post/',post.name,post.id]" ><h5  class="mb-1">{{ post?.name }}</h5></a>
@@ -24,15 +29,15 @@
         </div>
       </ng-template>
     </a>
-
-
-    <div *ngIf="posts?.length<=0 || posts == null" class="alert alert-info m-4 pt-3">
-      <h6>You haven't made any posts yet...</h6>
-    </div> 
-
   </div>
+
+      <div *ngIf="posts?.length == 0" class="alert alert-info m-4 pt-3">
+        <h6>There aren't any posts yet...</h6>
+      </div> 
+      
 </div>
 
+<!-- This is for FindOffer -->
 <div *ngIf='id==null' class="container-fluid offers-container" style="margin-top:70px;">
   <div class="row">
     
@@ -73,6 +78,10 @@
             <span>Budget</span>
             <span>${{ post.price }}</span>
           </div>
+          <div class="coords" style="margin-top:20px">
+            
+            <p>Click the card to read more...</p>
+          </div>
           <!-- <div class="stats">
             <div>
               <div class="title">Awards</div>
@@ -101,11 +110,13 @@
       <div class="general">
         <h2>{{ post.name }}</h2>
         <p style="height:65px;overflow:hidden;">{{ post.description }}</p>
-        <p>Click the card to read more...</p>
         <span class="more">Mouse over the card for more info</span>
       </div>
     </div>
-  
+    
+    <div *ngIf='posts?.length == 0' class="alert alert-info" style="margin-top:30px">
+        We couldn't find any posts
+    </div>
   
    <div style="margin-top:100px;"></div>
 
@@ -113,7 +124,7 @@
 
   <div class="col-lg-6 col-sm-12 offer-filters">
     <div class="row">
-       <h1> Browse a bunch of new offers everyday !</h1>
+       <h1> Browse a bunch of new offers everyday ! 🛠️</h1>
     </div>
    
     <form [formGroup]='filters' (ngSubmit)='filter()'>
@@ -126,7 +137,7 @@
             <option value=2>Design & Art</option>
             <option value=3>Video editing</option>
             <option value=4>Digital Marketing</option>
-            <option value=5>Lifestyke</option>
+            <option value=5>Lifestyle</option>
           </select>
         </div>
       </div>

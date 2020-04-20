@@ -28,7 +28,7 @@ export class UserListComponent implements OnInit {
     this.loader = true;
     this.userService.getUsers(this.query).subscribe(result=>{
       
-      this.userList = result as Array<Object>
+      this.userList = result as Array<Object>;
       this.loader = false;
     },error=>{
       this.finished = true;
@@ -67,11 +67,9 @@ export class UserListComponent implements OnInit {
           this.loader = false;
         }
         else{
-
           this.loader = false;
 
           this.userList = this.userList.concat(result as Array<Object>);
-          console.log(this.userList);
           this.finished = false;
         }
       },error=>{
@@ -93,6 +91,7 @@ export class UserListComponent implements OnInit {
 
   makeAdmin(id:string){
     this.adminService.makeAdmin(id).subscribe(result=>{
+      this.userList.find(x=>x.id == id).role = "Admin";
       this.alertify.success("This user is now an admin !");
     },error=>{
       this.alertify.error(error);

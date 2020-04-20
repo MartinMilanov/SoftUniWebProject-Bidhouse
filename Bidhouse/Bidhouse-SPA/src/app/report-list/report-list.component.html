@@ -2,17 +2,17 @@
     <thead>
       <tr>
         <th scope="col">#</th>
-        <th scope="col">Name</th>
+        <th scope="col">Reporter Name</th>
         <th scope="col">Report Type</th>
         <th scope="col">Details</th>
         <th scope="col">Delete</th>
 
       </tr>
     </thead>
-    <tbody>
+    <tbody *ngIf="reportsList != undefined">
       <tr *ngFor="let report of reportsList">
         <th scope="row">1</th>
-        <td>{{ report.reporterName }}</td>
+        <td>{{ report.reporterName | titlecase}}</td>
         <td>{{ report.reportType }}</td>
         <td><button class="btn btn-warning" type="button" (click)='openReport(reportDetails,report.id)'>Details</button></td>
         <td><button class="btn btn-danger" type="button" (click)='deleteReport(report.id)'>Delete</button></td>

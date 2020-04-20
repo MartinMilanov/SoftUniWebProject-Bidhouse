@@ -29,7 +29,6 @@ export class UserGuestComponent implements OnInit {
       
       this.userService.getUser(id).subscribe(result=>{
         this.user = result;
-        console.log(result);
       },error=>{
         console.log('Something went wrong');
       })

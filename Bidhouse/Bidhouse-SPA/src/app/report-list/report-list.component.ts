@@ -3,6 +3,7 @@ import { ReportService } from '../_services/report.service';
 import { BsModalService, BsModalRef } from 'ngx-bootstrap';
 import { PostService } from '../_services/post.service';
 import { AlertifyService } from '../_services/alertify.service';
+import { element } from 'protractor';
 
 @Component({
   selector: 'app-report-list',
@@ -10,7 +11,7 @@ import { AlertifyService } from '../_services/alertify.service';
   styleUrls: ['./report-list.component.css']
 })
 export class ReportListComponent implements OnInit {
-  reportsList:any[];
+  reportsList:any[] = new Array<Object>();
   modalRef: BsModalRef;
   reportResult;
 
@@ -31,16 +32,24 @@ export class ReportListComponent implements OnInit {
 
   }
 
+  
   deletePost(id:string,reportId:string){
+    function removeFromList(element,index,array){
+     return (element.id != reportId)
+   };
     this.postService.deletePost(id).subscribe(result=>{
-      this.reportsList = this.reportsList.filter(x=>x.id == reportId);
+      this.reportsList = this.reportsList.filter(removeFromList);
+      this.modalRef.hide();
       this.alertify.success("You have successfully removed this post !")
     })
   }
 
-  deleteReport(id:string){
-    this.reportService.deleteReport(id).subscribe(result=>{
-      this.reportsList = this.reportsList.filter(x=>x.id == id);
+  deleteReport(reportId:string){
+    function removeFromList(element,index,array){
+      return (element.id != reportId)
+    };
+    this.reportService.deleteReport(reportId).subscribe(result=>{
+      this.reportsList = this.reportsList.filter(removeFromList);
       this.alertify.success("You have successfully deleted this report ");
     })
   }
