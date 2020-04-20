@@ -110,9 +110,6 @@ namespace Bidhouse.Services.Users
 
             return true;
         }
-
-
-
         public async Task<bool> UserExists(string id)
         {
             var user = await this.userManager.FindByIdAsync(id);
@@ -121,6 +118,13 @@ namespace Bidhouse.Services.Users
                 return false;
             }
             return true;
+        }
+
+        public async Task<string> GetUserImageUrl(string id)
+        {
+            var user = await this.userManager.FindByIdAsync(id);
+
+            return user.ImageUrl;
         }
     }
 }

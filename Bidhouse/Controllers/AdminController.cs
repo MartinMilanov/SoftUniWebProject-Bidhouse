@@ -1,4 +1,6 @@
 ﻿using Bidhouse.Services.Admin;
+using Bidhouse.Services.Files;
+using Bidhouse.Services.Users;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -14,10 +16,14 @@ namespace Bidhouse.Controllers
     public class AdminController:ControllerBase
     {
         private readonly IAdminService adminService;
+        private readonly IFileService fileService;
+        private readonly IUserService userService;
 
-        public AdminController(IAdminService adminService)
+        public AdminController(IAdminService adminService, IFileService fileService, IUserService userService)
         {
             this.adminService = adminService;
+            this.fileService = fileService;
+            this.userService = userService;
         }
 
         [HttpDelete]
@@ -27,6 +33,7 @@ namespace Bidhouse.Controllers
             {
                 return BadRequest("Please provide the user's id");
             }
+            var userImageUrl = await this.userService.GetUserImageUrl(id);
             var result = await this.adminService.DeleteUser(id);
             if (result == "User not found" )
             {
@@ -36,6 +43,7 @@ namespace Bidhouse.Controllers
             {
                 return BadRequest(result);
             }
+            this.fileService.RemoveImage(userImageUrl);
 
             return Ok(new { result });
         }

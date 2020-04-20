@@ -68,7 +68,8 @@ namespace Bidhouse.Controllers
                 return Unauthorized();
             }
             var files = Request.Form.Files;
-            var filePath = await this.fileService.UploadFile(files);
+            var previousImageUrl = await this.userService.GetUserImageUrl(id);
+            var filePath = await this.fileService.UploadFile(files,previousImageUrl);
 
             var result = await this.userService.UpdateUser(id,input,filePath);
             if (result == false)
@@ -77,8 +78,6 @@ namespace Bidhouse.Controllers
             }
 
             return Ok();
-
-
         }
     }
 }

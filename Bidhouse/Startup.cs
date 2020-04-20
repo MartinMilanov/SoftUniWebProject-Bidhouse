@@ -48,8 +48,6 @@ namespace Bidhouse
                 options.UseSqlServer(
                     Configuration.GetConnectionString("DefaultConnection")));
 
-
-
             IdentityBuilder builder = services.AddIdentityCore<User>(options =>
             {
                 options.Password.RequireDigit = false;
@@ -61,6 +59,17 @@ namespace Bidhouse
             });
 
             builder = new IdentityBuilder(builder.UserType, typeof(Role), builder.Services);
+
+            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+               .AddJwtBearer(opt => opt.TokenValidationParameters = new TokenValidationParameters
+               {
+                   ValidateIssuerSigningKey = true,
+                   IssuerSigningKey = new SymmetricSecurityKey(Encoding.ASCII
+                   .GetBytes(Configuration.GetSection("AppSettings:Token").Value)),
+                   ValidateIssuer = false,
+                   ValidateAudience = false
+
+               });
 
             builder.AddEntityFrameworkStores<ApplicationDbContext>();
             builder.AddRoleValidator<RoleValidator<Role>>();
@@ -100,17 +109,7 @@ namespace Bidhouse
                    options.SuppressMapClientErrors = true;          // ...
                });
 
-
-            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
-                .AddJwtBearer(opt => opt.TokenValidationParameters = new TokenValidationParameters
-                {
-                    ValidateIssuerSigningKey = true,
-                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.ASCII
-                    .GetBytes(Configuration.GetSection("AppSettings:Token").Value)),
-                    ValidateIssuer = false,
-                    ValidateAudience = false
-
-                });
+           //
 
             services.AddSpaStaticFiles(configuration =>
             {

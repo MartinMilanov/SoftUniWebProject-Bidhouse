@@ -31,7 +31,7 @@ namespace Bidhouse.Services
             {
                 return "User not found";
             }
-           var result =  await this.userManager.ChangePasswordAsync(user, input.CurrentPassword, input.NewPassword);
+            var result = await this.userManager.ChangePasswordAsync(user, input.CurrentPassword, input.NewPassword);
 
             if (result.Succeeded == false)
             {
@@ -54,8 +54,6 @@ namespace Bidhouse.Services
 
             if (result.Succeeded)
             {
-                
-
                 return user;
             }
 
@@ -68,7 +66,7 @@ namespace Bidhouse.Services
             var user = new User()
             {
                 UserName = input.Username,
-                Email= input.Email,
+                Email = input.Email,
                 WorkPosition = input.JobPosition,
                 City = input.City,
                 ImageUrl = "/images/default-user-photo.png"

@@ -9,6 +9,7 @@ namespace Bidhouse.Services.Files
 {
     public interface IFileService
     {
-        public Task<string> UploadFile(IFormFileCollection files);
+        public Task<string> UploadFile(IFormFileCollection files, string previousImageUrl);
+        public bool RemoveImage(string imageUrl);
     }
 }

@@ -27,7 +27,6 @@ namespace Bidhouse.Tests.Factories
 
             );
 
-
             IdentityBuilder builder = services.AddIdentityCore<User>(options =>
             {
                 options.Password.RequireDigit = false;
@@ -46,8 +45,11 @@ namespace Bidhouse.Tests.Factories
     
             var context = new DefaultHttpContext();
             context.Features.Set<IHttpAuthenticationFeature>(new HttpAuthenticationFeature());
+
             services.AddSingleton<IHttpContextAccessor>(h => new HttpContextAccessor { HttpContext = context });
+
             var serviceProvider = services.BuildServiceProvider();
+
             this.Context = serviceProvider.GetRequiredService<ApplicationDbContext>();
             this.UserManager = serviceProvider.GetRequiredService<UserManager<User>>();
             this.RoleManager = serviceProvider.GetRequiredService<RoleManager<Role>>();
