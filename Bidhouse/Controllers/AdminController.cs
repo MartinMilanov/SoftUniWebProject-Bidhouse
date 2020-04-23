@@ -29,6 +29,7 @@ namespace Bidhouse.Controllers
         [HttpDelete]
         public async Task<ActionResult<string>> DeleteUser(string id)
         {
+            
             if (String.IsNullOrWhiteSpace(id))
             {
                 return BadRequest("Please provide the user's id");

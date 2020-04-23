@@ -21,7 +21,6 @@ login(model:any){
       if(user){
         localStorage.setItem('token',user.token);
         this.normalizedToken = this.jwtHelper.decodeToken(user.token);
-        console.log(this.normalizedToken)
       }
     })
   )

@@ -62,6 +62,43 @@ namespace Bidhouse.Controllers
                 return Unauthorized();
             }
 
+            var token = await this.WriteJwt(userReturned);
+
+            return Ok(new
+            {
+               token = token
+            });
+        }
+
+        [HttpPut("{id}")]
+        public async Task<ActionResult<string>> ChangePassword(string id, [FromBody]ChangePasswordInputModel input)
+        {
+            if (id != this.User.FindFirst(ClaimTypes.NameIdentifier).Value)
+            {
+                return Unauthorized();
+            }
+            if (input.NewPassword != input.ConfirmPassword)
+            {
+                return BadRequest("Passwords must match");
+            }
+
+            var result = await this.authService.ChangePassword(id, input);
+
+            if (result == "User not found")
+            {
+                return BadRequest(result);
+            }
+            if (result == "Wrong password")
+            {
+                return BadRequest(result);
+            }
+
+            return Ok();
+        }
+
+
+        private async Task<string> WriteJwt(User userReturned)
+        {
             var roles = await this.userManager.GetRolesAsync(userReturned);
 
             var claims = new[]
@@ -86,39 +123,7 @@ namespace Bidhouse.Controllers
 
             var token = tokenHandler.CreateToken(tokenDescriptor);
 
-            return Ok(new
-            {
-                token = tokenHandler.WriteToken(token)
-            });
+            return tokenHandler.WriteToken(token);
         }
-
-        [HttpPut("{id}")]
-        public async Task<ActionResult<string>> ChangePassword(string id, [FromBody]ChangePasswordInputModel input)
-        {
-            if (id != this.User.FindFirst(ClaimTypes.NameIdentifier).Value)
-            {
-                return Unauthorized();
-            }
-            if (input.NewPassword != input.ConfirmPassword)
-            {
-                return BadRequest("Passwords must match");
-            }
-
-
-            var result = await this.authService.ChangePassword(id, input);
-
-            if (result == "User not found")
-            {
-                return BadRequest(result);
-            }
-            if (result == "Wrong password")
-            {
-                return BadRequest(result);
-            }
-
-            return Ok();
-        }
-
-
     }
 }

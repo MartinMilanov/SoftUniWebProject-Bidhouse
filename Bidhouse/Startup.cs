@@ -68,7 +68,6 @@ namespace Bidhouse
                    .GetBytes(Configuration.GetSection("AppSettings:Token").Value)),
                    ValidateIssuer = false,
                    ValidateAudience = false
-
                });
 
             builder.AddEntityFrameworkStores<ApplicationDbContext>();
@@ -106,16 +105,13 @@ namespace Bidhouse
                    // Suppress automatic HTTP 400 errors
                    options.SuppressModelStateInvalidFilter = false;
                    // Suppress problem details responses
-                   options.SuppressMapClientErrors = true;          // ...
+                   options.SuppressMapClientErrors = true;
                });
-
-           //
 
             services.AddSpaStaticFiles(configuration =>
             {
                 configuration.RootPath = "Bidhouse-SPA/dist";
             });
-
 
         }
 
@@ -149,7 +145,6 @@ namespace Bidhouse
             app.UseCors("MyPolicy");
             app.UseStaticFiles();
 
-
             app.UseAuthentication();
             app.UseHttpsRedirection();
 
@@ -164,7 +159,6 @@ namespace Bidhouse
             });
             app.UseSpa(spa =>
             {
-
                 spa.Options.SourcePath = "Bidhouse-SPA";
 
                 if (env.IsDevelopment())
