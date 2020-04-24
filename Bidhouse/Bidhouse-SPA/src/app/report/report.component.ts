@@ -25,6 +25,14 @@ export class ReportComponent implements OnInit {
   }
 
   reportPost(){
+    let reportFormValues = this.reportForm.value;
+    if(reportFormValues.reportType == ""){
+      this.alertify.error("You should choose a report type");
+    }
+    else if(reportFormValues.description == ""){
+      this.alertify.error("You should choose a description");
+    }
+    else{
      this.reportService.reportPost(this.postId,this.reportForm.value.description,this.reportForm.value.reportType)
     .subscribe(result=>{
      this.alertify.success("Your report has been sent !")
@@ -32,6 +40,7 @@ export class ReportComponent implements OnInit {
      },error=>{
        this.alertify.error(error);
      })
+    }
   }
   openReportForm(reportFormTemplate:any){
     this.modalRef = this.modalService.show(reportFormTemplate);

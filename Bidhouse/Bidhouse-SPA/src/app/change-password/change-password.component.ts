@@ -20,22 +20,19 @@ export class ChangePasswordComponent implements OnInit {
   }
 
   changePassword(obj:any){
-    if(this.model.newPassword != this.model.confirmPassword){
-      this.alertify.error("Passwords must match ! ");
-      
-    }
-    if(this.model.newPassword.length < 8 || this.model.newPassword.length > 20)
-    {
-      this.alertify.error("Password must be longer than 4 and shorter than 8");
-    }
-    else{
+    
       let credentials = new ChangePasswordInputModel(this.model.currentPassword,this.model.confirmPassword,this.model.newPassword)
       this.authService.changePassword(this.user.id,credentials).subscribe((result)=>{
         this.alertify.success("You have changed your password !");
        
       },error=>{
-        console.log(error);
+        let messages = error.split("\n");
+        messages = messages.filter(x=>x != "");
+
+        messages.forEach(message => {
+          this.alertify.error(message);
+        });
       });
     }
-  }
 }
+

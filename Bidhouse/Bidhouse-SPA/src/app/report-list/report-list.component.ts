@@ -33,13 +33,13 @@ export class ReportListComponent implements OnInit {
   }
 
   
-  deletePost(id:string,reportId:string){
+  deletePost(id:string,reportId:string,reportDetails:any){
     function removeFromList(element,index,array){
      return (element.id != reportId)
    };
     this.postService.deletePost(id).subscribe(result=>{
       this.reportsList = this.reportsList.filter(removeFromList);
-      this.modalRef.hide();
+      reportDetails.hide();
       this.alertify.success("You have successfully removed this post !")
     })
   }

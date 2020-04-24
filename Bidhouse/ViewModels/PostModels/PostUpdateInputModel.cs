@@ -18,6 +18,7 @@ namespace Bidhouse.ViewModels.PostModels
         public string Location { get; set; }
         [Required(ErrorMessage = "Please specify a price ! ")]
         public decimal Price { get; set; }
+
         [Required(ErrorMessage = "Please specify expected date !")]
         public DateTime Date { get; set; }
 

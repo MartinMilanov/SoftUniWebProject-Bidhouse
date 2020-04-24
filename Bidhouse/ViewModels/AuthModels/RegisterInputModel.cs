@@ -11,7 +11,7 @@ namespace Bidhouse.ViewModels.AuthModels
         [Required(ErrorMessage = "Please provide a username")]
         public string Username { get; set; }
         [Required(ErrorMessage = "Please provide a password")]
-        [StringLength(25, MinimumLength = 4, ErrorMessage = "Password must be between 4 and 8 characters")]
+        [StringLength(25, MinimumLength = 4, ErrorMessage = "Password must be between 4 and 25 characters")]
         public string Password { get; set; }
         [Required(ErrorMessage = "Please provide an email")]
         public string Email { get; set; }

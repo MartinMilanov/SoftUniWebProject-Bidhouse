@@ -35,23 +35,43 @@ export class UpdatePostComponent implements OnInit {
   }
 
   updatePost(){
+    let validationErrorCount = 0;
     let formValue = this.updateForm.value;
-    var input = new UpdatePostInputModel(this.postId,formValue.description,formValue.price,formValue.location,formValue.date);
+      if(formValue.date == ""){
+        validationErrorCount++;
+        this.alertify.error("You must fill out your date !")
+      }
+      if(formValue.description == ""){
+        validationErrorCount++;
+        this.alertify.error("You must fill out your description !")
+      }
+      if(formValue.price == ""){
+        validationErrorCount++;
+        this.alertify.error("You must fill out your budget !")
+      }
+      if(formValue.location == ""){
+        validationErrorCount++;
+        this.alertify.error("You must fill out your location !")
+      }
+      if(validationErrorCount == 0){
+        var input = new UpdatePostInputModel(this.postId,formValue.description,formValue.price,formValue.location,formValue.date);
+        
+         this.postService.updatePost(input).subscribe(result=>{
+           this.alertify.success("You have successfully updated your post !")
+           let currentUrl = this.router.url;
     
-     this.postService.updatePost(input).subscribe(result=>{
-       this.alertify.success("You have successfully updated your post !")
-       let currentUrl = this.router.url;
+           this.modalRef.hide();
+           this.router.navigateByUrl('/', {skipLocationChange: true}).then(() => {
+            this.router.navigate([currentUrl]);
+        });
+         },error=>{
+          let messages = error.split("\n");
+          messages = messages.filter(x=>x.length>1)
+          messages.forEach(message => {
+            this.alertify.error(message);
+          });
+         })
 
-       this.modalRef.hide();
-       this.router.navigateByUrl('/', {skipLocationChange: true}).then(() => {
-        this.router.navigate([currentUrl]);
-    });
-     },error=>{
-      let messages = error.split("\n");
-      messages = messages.filter(x=>x.length>1)
-      messages.forEach(message => {
-        this.alertify.error(message);
-      });
-     })
+      }
   }
 }
