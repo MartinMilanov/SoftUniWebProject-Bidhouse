@@ -87,14 +87,19 @@ postsArray:any[];
   }
 
   updateDetails(){
+      
+
       let input = new UserUpdateModel(this.myForm.get('jobPosition').value,this.myForm.get('city').value,this.myForm.get('description').value);
       const formData = new FormData();
-      formData.append('file',this.myForm.get('imageSource').value,this.myForm.get('imageSource').value.name);
+      if(this.myForm.get('imageSource').value != null && this.myForm.get('imageSource').value != ""){
+        formData.append('file',this.myForm.get('imageSource').value,this.myForm.get('imageSource').value.name);
+      }
       formData.append("JobPosition",input.JobPosition);
       formData.append("City",input.City);
       formData.append("Description",input.Description);
 
-        this.userService.updateUser(this.user.id,input,formData).subscribe((result)=>{
+
+      this.userService.updateUser(this.user.id,input,formData).subscribe((result)=>{
         this.alertify.success("You've successfully updated your profile !");
         this.router.routeReuseStrategy.shouldReuseRoute = () => false;
         this.router.onSameUrlNavigation = 'reload';

@@ -20,21 +20,21 @@ namespace Bidhouse.Controllers
     [Authorize]
     [Route("api/[controller]")]
     [ApiController]
-    public class UsersController:ControllerBase
+    public class UsersController : ControllerBase
     {
         private readonly IUserService userService;
         private readonly IAuthService authService;
         private readonly IFileService fileService;
         private readonly UserManager<User> userManager;
 
-        public UsersController(IUserService userService,IAuthService authService,IFileService fileService,UserManager<User> userManager)
+        public UsersController(IUserService userService, IAuthService authService, IFileService fileService, UserManager<User> userManager)
         {
             this.userService = userService;
             this.authService = authService;
             this.fileService = fileService;
             this.userManager = userManager;
         }
-      
+
         [HttpGet("{id}")]
         public async Task<ActionResult<UserDetailsModel>> GetUser(string id)
         {
@@ -55,23 +55,31 @@ namespace Bidhouse.Controllers
         public async Task<ActionResult<ICollection<UserListModel>>> GetUsers(GetUsersInputModel input)
         {
             var users = await this.userService.GetUsers(input);
-           
+
 
             return Ok(users);
         }
 
         [HttpPost("{id}")]
-        public async Task<ActionResult> UpdateUser(string id,[FromForm]UserUpdateModel input)
+        public async Task<ActionResult> UpdateUser(string id, [FromForm]UserUpdateModel input)
         {
+            var result = true;
             if (id != this.User.FindFirst(ClaimTypes.NameIdentifier).Value)
             {
                 return Unauthorized();
             }
             var files = Request.Form.Files;
-            var previousImageUrl = await this.userService.GetUserImageUrl(id);
-            var filePath = await this.fileService.UploadFile(files,previousImageUrl);
+            if (files.Count > 0)
+            {
+                var previousImageUrl = await this.userService.GetUserImageUrl(id);
+                var filePath = await this.fileService.UploadFile(files, previousImageUrl);
+                result = await this.userService.UpdateUser(id, input, filePath);
+            }
+            else
+            {
+                result = await this.userService.UpdateUser(id, input, "");
+            }
 
-            var result = await this.userService.UpdateUser(id,input,filePath);
             if (result == false)
             {
                 return BadRequest("Could not update user!");

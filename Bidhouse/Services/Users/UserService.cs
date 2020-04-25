@@ -99,10 +99,22 @@ namespace Bidhouse.Services.Users
         public async Task<bool> UpdateUser(string id, UserUpdateModel input, string imageUrl)
         {
             var user = await this.userManager.FindByIdAsync(id);
-            user.WorkPosition = input.JobPosition;
-            user.City = input.City;
-            user.Description = input.Description;
-            user.ImageUrl = imageUrl;
+            if (!String.IsNullOrEmpty(input.JobPosition))
+            {
+                user.WorkPosition = input.JobPosition;
+            }
+            if (!String.IsNullOrEmpty(input.City))
+            {
+                user.City = input.City;
+            }
+            if (!String.IsNullOrEmpty(input.Description))
+            {
+                user.Description = input.Description;
+            }
+            if (!String.IsNullOrEmpty(imageUrl))
+            {
+                user.ImageUrl = imageUrl;
+            }
 
             await this.userManager.UpdateAsync(user);
 
