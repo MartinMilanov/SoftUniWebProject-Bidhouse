@@ -45,7 +45,6 @@ export class CreatePostComponent implements OnInit {
       let input = new CreatePostInputModel(this.form.value.name,this.form.value.description,this.form.value.category,this.form.value.location,this.form.value.time,this.form.value.price);
       console.log(input);
       this.postService.createPost(input).subscribe(result=>{
-        console.log(result);
         this.alertify.success("Congratulations, you have successfully created your post !");
         this.router.routeReuseStrategy.shouldReuseRoute = () => false;
         this.router.onSameUrlNavigation = 'reload';

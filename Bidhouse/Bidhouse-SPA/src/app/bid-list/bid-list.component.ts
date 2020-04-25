@@ -15,7 +15,6 @@ export class BidListComponent implements OnInit {
     this.bidService.getBids().subscribe(result=>{
       this.bids = result as Array<any>;
     },error=>{
-      console.log(error);
     })
   }
 

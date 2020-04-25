@@ -216,6 +216,10 @@ html, body {
     padding: 1rem;
     padding-top: 0;
   }
+
+  .general h2{
+    font-size: 28px;
+  }
   
   .card .general .more {
     position: absolute;

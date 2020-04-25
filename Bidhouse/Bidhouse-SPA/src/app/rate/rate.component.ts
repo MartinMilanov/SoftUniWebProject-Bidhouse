@@ -41,7 +41,6 @@ export class RateComponent implements OnInit {
       this.reviews.push(result);
       this.canReview = false;
     },error=>{
-      console.log(error);
     })
   }
 }
